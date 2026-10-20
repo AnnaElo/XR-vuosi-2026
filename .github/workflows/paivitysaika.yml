@@ -1,0 +1,47 @@
+# Päivittää index.html:n "updated"-kentän (sivun "Viimeksi päivitetty") sen päivän mukaan,
+# jolloin index.html:ää viimeksi muutettiin. Ajetaan aina, kun main-haaraan pushataan muutos index.html:ään.
+name: Päivitysaika
+
+on:
+  push:
+    branches: [main]
+    paths: [index.html]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: paivitysaika
+  cancel-in-progress: false
+
+jobs:
+  paivita:
+    # Oma aikaleimacommit ei käynnistä työnkulkua uudelleen (GITHUB_TOKEN), tämä on lisävarmistus.
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Aseta päivämäärä viimeisimmästä index.html-muutoksesta
+        env:
+          TZ: Europe/Helsinki
+        run: |
+          D=$(git log -1 --format=%cd --date=format-local:%Y-%m-%d -- index.html)
+          echo "Päivämäärä: $D"
+          sed -i -E "s/^\"updated\": \"[0-9]{4}-[0-9]{2}-[0-9]{2}\"/\"updated\": \"$D\"/" index.html
+          grep -q "^\"updated\": \"$D\"" index.html || { echo "updated-kenttää ei löytynyt index.html:stä"; exit 1; }
+          echo "D=$D" >> "$GITHUB_ENV"
+
+      - name: Tallenna muutos
+        run: |
+          if git diff --quiet index.html; then
+            echo "Aikaleima on jo ajan tasalla."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Päivitä aikaleima $D"
+          git push

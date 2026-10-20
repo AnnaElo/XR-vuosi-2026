@@ -47,7 +47,7 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-btn:hover { border-color: var(--muted); }
 .xr-btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 .xr-filterline.on { color: var(--fg); font-weight: 600; }
-:is(.xr-btn, .xr-theme, .xr-dot, a):focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+:is(.xr-btn, .xr-theme, .xr-dot, a, summary):focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
 
 .xr-themes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 0.9rem; }
 .xr-theme { font: inherit; color: inherit; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 0.6rem; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; transition: opacity 0.2s; }
@@ -64,7 +64,11 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-chart svg, .xr-stripsvg svg { display: block; }
 .xr-tiles { display: grid; gap: 0.9rem; }
 .xr-tile { display: flex; flex-direction: column; gap: 0.2rem; padding-bottom: 0.9rem; border-bottom: 1px solid var(--line); }
-.xr-tile:last-child { border-bottom: 0; padding-bottom: 0; }
+.xr-tile:last-of-type { border-bottom: 0; padding-bottom: 0; }
+.xr-more { border-top: 1px solid var(--line); padding-top: 0.9rem; }
+.xr-more summary { cursor: pointer; font-size: 0.8125rem; font-weight: 600; width: fit-content; }
+.xr-more .xr-legend { margin: 0.6rem 0; }
+.xr-pricestrip { padding: 0.6rem; }
 .xr-tile-val { font-family: var(--serif); font-size: 2.1rem; line-height: 1.1; font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 0.4rem; }
 .xr-tile-val small { font-family: var(--sans); font-size: 0.95rem; color: var(--muted); }
 
@@ -76,6 +80,7 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; color: var(--muted); font-size: 0.8125rem; }
 .xr-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
 .xr-ring { width: 0.7rem; height: 0.7rem; border-radius: 50%; border: 2px solid var(--muted); }
+.xr-diamond { width: 0.55rem; height: 0.55rem; background: var(--muted); transform: rotate(45deg); }
 .xr-full { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--muted); }
 
 .xr-tablewrap { container-type: inline-size; }
@@ -87,8 +92,9 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-table td:nth-child(2) { width: 11rem; color: var(--muted); font-size: 0.8125rem; }
 .xr-table td:nth-child(3) { font-weight: 600; min-width: 14rem; }
 .xr-table td:nth-child(4) { color: var(--muted); min-width: 14rem; }
-.xr-table td:nth-child(5) { color: var(--muted); font-size: 0.8125rem; width: 11rem; }
 .xr-table tr.eu td:nth-child(3)::after { content: "Eurooppa"; display: inline-block; margin-left: 0.5rem; padding: 0 0.4rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.7rem; font-weight: 400; color: var(--muted); vertical-align: 0.1em; }
+.xr-src { display: inline-block; padding: 0 0.45rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.7rem; line-height: 1.5; color: var(--muted); text-decoration: none; white-space: nowrap; vertical-align: 0.1em; }
+a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
 .xr-table tr.q-first td { border-top: 2px solid var(--line); }
 .xr-table tr.t-laitteet { --dot: var(--c-laitteet); }
 .xr-table tr.t-alustat { --dot: var(--c-alustat); }
@@ -96,15 +102,14 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-table tr.t-saantely { --dot: var(--c-saantely); }
 .xr-table tr.t-ala { --dot: var(--c-ala); }
 @container (max-width: 680px) {
-  .xr-table th:nth-child(2), .xr-table td:nth-child(2), .xr-table th:nth-child(5), .xr-table td:nth-child(5) { display: none; }
+  .xr-table th:nth-child(2), .xr-table td:nth-child(2) { display: none; }
   .xr-table td:nth-child(1) { width: 6.5rem; }
   .xr-table td:nth-child(3), .xr-table td:nth-child(4) { min-width: 0; }
 }
 .xr-notes { display: flex; flex-direction: column; gap: 1.5rem; }
 .xr-notes ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8125rem; line-height: 1.5; color: var(--muted); }
-.xr-notes a { color: var(--fg); text-underline-offset: 2px; }
-.xr-notes ul#xr-sources { display: block; columns: 15rem; column-gap: 2rem; }
-.xr-notes ul#xr-sources li { break-inside: avoid; margin-bottom: 0.4rem; }
+.xr-notes a, .xr-table a, .xr-tile a { color: inherit; text-underline-offset: 2px; }
+.xr-table tr.hl td { background: color-mix(in srgb, var(--dot, var(--accent)) 14%, transparent); }
 .xr-notes h3 { margin-bottom: 0.6rem; }
 .xr-foot { color: var(--muted); font-size: 0.8125rem; border-top: 1px solid var(--line); padding-top: 1rem; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -158,26 +163,44 @@ h3 { font-size: 0.95rem; font-weight: 600; }
     <div class="xr-cards">
       <div class="xr-card">
         <h3>Meta Reality Labs, mrd dollaria</h3>
-        <p class="xr-note">Tappio vuosina 2024 ja 2025 sekä vuoden 2025 liikevaihto.</p>
+        <p class="xr-note" data-src="s01">Tappio vuosina 2024 ja 2025 sekä vuoden 2025 liikevaihto.</p>
         <div class="xr-chart" id="xr-chart-meta"></div>
       </div>
       <div class="xr-card">
         <h3>Laitetoimitusten vuosimuutos</h3>
-        <p class="xr-note">Toinen neljännes 2026, Counterpoint Research.</p>
+        <p class="xr-note" data-src="s21">Toinen neljännes 2026, Counterpoint Research.</p>
         <div class="xr-chart" id="xr-chart-market"></div>
       </div>
       <div class="xr-card">
         <div class="xr-tiles">
           <div class="xr-tile">
             <span class="xr-note">AR- ja älylasien hinnat</span>
-            <span class="xr-tile-val"><span>247–1&nbsp;900</span><small>euroa</small></span>
-            <span class="xr-note">Suosituimpia malleja: Ray-Ban Meta (Gen 1) alk. 247 €, Ray-Ban Meta Gen 2 alk. 419 €, Oakley Meta Vanguard alk. 549 €, Ray-Ban Display alk. 899 € (Ranska, Italia, Saksa) ja Snap Specs noin 1&nbsp;900 € (2&nbsp;195 $ muunnettuna).</span>
+            <span class="xr-tile-val"><span data-range="ar">—</span><small>euroa</small></span>
+            <span class="xr-note">Suosituimpia malleja: <span data-prices="ar"></span>.</span>
           </div>
           <div class="xr-tile">
             <span class="xr-note">VR- ja mixed reality -lasien hinnat</span>
-            <span class="xr-tile-val"><span>320–3&nbsp;700</span><small>euroa</small></span>
-            <span class="xr-note">Keskeisiä malleja: Meta Quest 3S noin 320 € (128 Gt), Quest 3 noin 550 €, Samsung Galaxy XR noin 1&nbsp;960 € (1&nbsp;699 £ Isossa-Britanniassa) ja Apple Vision Pro (M5) 3&nbsp;699 €. Hinnat ovat arvioita ja muuttuvat kampanjoiden mukaan.</span>
+            <span class="xr-tile-val"><span data-range="vr">—</span><small>euroa</small></span>
+            <span class="xr-note">Keskeisiä malleja: <span data-prices="vr"></span>. Hinnat ovat arvioita ja muuttuvat kampanjoiden mukaan.</span>
           </div>
+          <div class="xr-tile">
+            <span class="xr-note">Eurooppalaiset valmistajat</span>
+            <span class="xr-tile-val"><span data-range="eu">—</span><small>euroa</small></span>
+            <span class="xr-note">Pääosin ammattikäyttöön: <span data-prices="eu"></span>. Varjo on suomalainen ja Somnium tšekkiläinen. Hinnat ovat valmistajien listahintoja (Varjo 11/2023, Somnium 1/2025), ja ajantasaiset hinnat kannattaa tarkistaa valmistajalta.</span>
+          </div>
+          <details class="xr-more" id="xr-price-more">
+            <summary>Näytä hinnat kuvaajana</summary>
+            <div class="xr-legend">
+              <span><i class="xr-full"></i>Hinta</span>
+              <span><i class="xr-ring"></i>Arvio (noin)</span>
+              <span><i class="xr-diamond"></i>Eurooppalainen valmistaja</span>
+              <span>Hinta-akseli on logaritminen.</span>
+            </div>
+            <div class="xr-strip xr-pricestrip" id="xr-price">
+              <div class="xr-stripsvg" id="xr-price-svg"></div>
+              <div class="xr-tip" id="xr-price-tip" hidden></div>
+            </div>
+          </details>
         </div>
       </div>
     </div>
@@ -185,7 +208,7 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 
   <section class="xr-sec" aria-labelledby="xr-h-timeline">
     <div class="xr-sechead">
-      <h2 id="xr-h-timeline">Aikajana tammikuusta lokakuuhun</h2>
+      <h2 id="xr-h-timeline">Aikajana</h2>
       <div class="xr-controls">
         <button type="button" class="xr-btn" id="xr-eu" aria-pressed="false">Vain Eurooppa-yhteys</button>
         <button type="button" class="xr-btn" id="xr-reset">Näytä kaikki</button>
@@ -206,7 +229,7 @@ h3 { font-size: 0.95rem; font-weight: 600; }
     <h2 id="xr-h-events">Kaikki tapahtumat</h2>
     <div class="xr-tablewrap">
       <table class="xr-table" id="xr-table">
-        <thead><tr><th>Ajankohta</th><th>Aihe</th><th>Tapahtuma</th><th>Lisätieto</th><th>Lähde</th></tr></thead>
+        <thead><tr><th>Ajankohta</th><th>Aihe</th><th>Tapahtuma</th><th>Lisätieto</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -217,31 +240,193 @@ h3 { font-size: 0.95rem; font-weight: 600; }
     <div>
       <h3 id="xr-h-notes">Huomioita</h3>
       <ul>
-        <li>Taulukon ajankohdat ovat neljänneksiä (Q1–Q4), ja ne perustuvat uutisten ja artikkelien julkaisuajankohtiin. Q4 on käynnissä, eikä sille ole vielä tapahtumia. Hinnat ovat euroina ja suuntaa-antavia.</li>
+        <li>Taulukon ajankohdat ovat neljänneksiä (Q1–Q4), ja ne perustuvat uutisten ja artikkelien julkaisuajankohtiin.<span id="xr-qnote"></span> Hinnat ovat euroina ja suuntaa-antavia.</li>
         <li>Reality Labsin irtisanomisten laajuus vaihtelee lähteestä riippuen.</li>
         <li>Connectin VR Glasses ja vuotanut Phoenix saattavat olla sama hanke, mutta Meta ei vahvistanut sitä.</li>
       </ul>
     </div>
-    <div>
-      <h3>Lähteet</h3>
-      <ul id="xr-sources"></ul>
-    </div>
   </section>
 
-  <p class="xr-foot">Viimeksi päivitetty: 16.10.2026. Anna Eloranta (Oulun ammattikorkeakoulu) on koonnut aineiston julkisista XR-uutiskirjeistä sekä lähteistä.</p>
+  <p class="xr-foot">Viimeksi päivitetty: <span id="xr-updated">—</span>. Anna Eloranta (Oulun ammattikorkeakoulu) on koonnut aineiston julkisista XR-uutiskirjeistä sekä lähteistä.</p>
 </main>
 
-<script type="application/json" id="xr-data">{"events": [{"id": "e26", "ord": 1, "q": 1, "when": "Q1 2026", "sort": "2026-01-07", "theme": "laitteet", "theme_label": "Laitteet", "europe": true, "title": "Metan Ray-Ban Display -lasien kansainvälinen lanseeraus keskeytettiin", "detail": "Meta keskeytti lanseerauksen Isossa-Britanniassa, Ranskassa, Italiassa ja Kanadassa suuren kysynnän ja rajallisten varastojen vuoksi.", "source": "Road to VR, Ray-Ban Display"}, {"id": "e02", "ord": 2, "q": 1, "when": "Q1 2026", "sort": "2026-01-09", "theme": "laitteet", "theme_label": "Laitteet", "europe": false, "title": "CES 2026: kevyitä AR- ja tekoälylaseja", "detail": "Avegant ja Vuzix esittelivät kevyen binokulaarisen AR-referenssimallin. Rokidin näytötön AI-lasimalli painaa 38,5 g.", "source": "Immersive Wire, uutiskirjearkisto", "date": "2026-01-15", "precision": "month", "tl_when": "Tammikuu"}, {"id": "e01", "ord": 3, "q": 1, "when": "Q1 2026", "sort": "2026-01-12", "theme": "alustat", "theme_label": "Alustat ja talous", "europe": false, "title": "2025 todettiin laihaksi XR-vuodeksi", "detail": "Immersive Wire: vuosi jäi sirpaleiseksi ilman selvää kasvun vetäjää. Samsungin Project Moohan ja Vision Pron halvempi malli olivat harvoja isoja aiheita.", "source": "Immersive Wire, tammikuu", "date": "2026-01-15", "precision": "month", "tl_when": "Tammikuu"}, {"id": "e03", "ord": 4, "q": 1, "when": "Q1 2026", "sort": "2026-01-16", "theme": "laitteet", "theme_label": "Laitteet", "europe": false, "title": "XREAL ja ASUS ROG julkistivat R1 AR -pelilasit", "detail": "Lasien päivitysnopeus on 240 Hz.", "source": "Auganix, uutislista", "date": "2026-01-16", "precision": "day", "tl_when": "16.1."}, {"id": "e04", "ord": 5, "q": 1, "when": "Q1 2026", "sort": "2026-01-21", "theme": "laitteet", "theme_label": "Laitteet", "europe": true, "title": "Distance esitteli AR-näytön puolustusajoneuvoille", "detail": "Field Operator HUD on kenttäkokeiltu Isossa-Britanniassa ja Suomessa. Nato-maiden kokeilukäyttö oli tarkoitus aloittaa ensimmäisen neljänneksen loppuun mennessä.", "source": "Auganix, Distance", "date": "2026-01-21", "precision": "day", "tl_when": "21.1."}, {"id": "e27", "ord": 6, "q": 1, "when": "Q1 2026", "sort": "2026-01-26", "theme": "sisalto", "theme_label": "Sisältö ja palvelut", "europe": false, "title": "Paikkasidonnainen VR kasvoi, vaikka DNA VR sulki toimipisteensä", "detail": "Sandbox VR avasi toimipisteen Houstonissa helmikuussa. DNA VR sulki kaikki toimipisteensä vuonna 2025. Markkina-arviot vaihtelevat 5,9–7 mrd dollarin välillä.", "source": "Immersive Wire 26.1."}, {"id": "e28", "ord": 7, "q": 1, "when": "Q1 2026", "sort": "2026-01-26", "theme": "ala", "theme_label": "Terveys, puolustus, teollisuus", "europe": true, "title": "Iso-Britannian hallitus rahoitti VR-koulutusta lääketuotannossa", "detail": "Resilience-ohjelma investoi 4,3 milj. puntaa VR-koulutukseen, jolla paikataan lääketuotannon osaajapulaa seuraavan vuosikymmenen aikana.", "source": "Immersive Wire 26.1."}, {"id": "e05", "ord": 8, "q": 1, "when": "Q1 2026", "sort": "2026-01-27", "theme": "alustat", "theme_label": "Alustat ja talous", "europe": false, "title": "Meta leikkaa Reality Labsia ja lopettaa Horizon Workroomsin", "detail": "Painopiste siirtyy kuluttajatuotteisiin ja tekoälylaitteisiin. Huom.: Immersive Wire kertoo yli tuhannesta tehtävästä, Auganix raportoi jopa 1 500 henkilöstä.", "source": "Immersive Wire, Reality Labs", "date": "2026-01-27", "precision": "day", "tl_when": "27.1."}, {"id": "e06", "ord": 9, "q": 1, "when": "Q1 2026", "sort": "2026-02-10", "theme": "alustat", "theme_label": "Alustat ja talous", "europe": false, "title": "Reality Labs teki 19,1 mrd dollarin tappion vuonna 2025", "detail": "Liikevaihto oli 2,2 mrd dollaria. Zuckerberg ennakoi samanlaisia tappioita vuodelle 2026.", "source": "Immersive Wire, uutiskirjearkisto", "date": "2026-02-15", "precision": "month", "tl_when": "Helmikuu"}, {"id": "e07", "ord": 10, "q": 1, "when": "Q1 2026", "sort": "2026-02-12", "theme": "laitteet", "theme_label": "Laitteet", "europe": false, "title": "Metan kevyen VR-laitteen Phoenix-renderöinnit vuotivat", "detail": "Laskentateho olisi erillisessä yksikössä (puck). Julkaisua odotettiin vuoden 2027 alkupuoliskolle.", "source": "Immersive Wire, Phoenix", "date": "2026-02-15", "precision": "month", "tl_when": "Helmikuu"}, {"id": "e08", "ord": 11, "q": 1, "when": "Q1 2026", "sort": "2026-02-14", "theme": "alustat", "theme_label": "Alustat ja talous", "europe": false, "title": "Snap erotti AR-lasinsa omaksi yhtiökseen", "detail": "Tavoitteena oli selkeämpi fokus, oma brändi ja ulkopuolinen rahoitus ennen kuluttajajulkaisua.", "source": "Immersive Wire, Snap", "date": "2026-02-15", "precision": "month", "tl_when": "Helmikuu"}, {"id": "e09", "ord": 12, "q": 1, "when": "Q1 2026", "sort": "2026-02-18", "theme": "sisalto", "theme_label": "Sisältö ja palvelut", "europe": true, "title": "Louvre ja Snap julkaisivat AR-kokemuksen", "detail": "Ilmainen puhelinsovellus vie kuuden vähemmän tunnetun teoksen taakse digitaalisten rekonstruktioiden ja animaatioiden avulla.", "source": "Immersive Wire 23.2.", "date": "2026-02-18", "precision": "day", "tl_when": "18.2."}, {"id": "e10", "ord": 13, "q": 1, "when": "Q1 2026", "sort": "2026-02-20", "theme": "alustat", "theme_label": "Alustat ja talous", "europe": false, "title": "Meta siirtää Horizon Worldsin pääosin mobiiliin", "detail": "Alusta erotetaan Quest-VR-ekosysteemistä Reality Labsin tappioiden ja irtisanomisten jälkeen.", "source": "Immersive Wire 23.2.", "date": "2026-02-20", "precision": "day", "tl_when": "20.2."}, {"id": "e11", "ord": 14, "q": 1, "when": "Q1 2026", "sort": "2026-03-09", "theme": "ala", "theme_label": "Terveys, puolustus, teollisuus", "europe": false, "title": "Yhdysvaltain ilmavoimat käyttää HoloLensia rahdin lastaukseen", "detail": "Laitteet kierrätettiin uuteen käyttöön, kun ne menettivät sopimuksen Andurilille.", "source": "Immersive Wire 9.3.", "date": "2026-03-09", "precision": "day", "tl_when": "9.3."}, {"id": "e12", "ord": 15, "q": 1, "when": "Q1 2026", "sort": "2026-03-09", "theme": "ala", "theme_label": "Terveys, puolustus, teollisuus", "europe": true, "title": "Varjo julkaisi avaimet käteen -XR-koulutusratkaisun", "detail": "Integrated XR Systems sisältää suojatut XR-4-headsetit ja tietokoneet eristettyihin ja arkaluonteisiin ympäristöihin.", "source": "Immersive Wire 9.3.", "date": "2026-03-09", "precision": "day", "tl_when": "9.3."}, {"id": "e13", "ord": 16, "q": 1, "when": "Q1 2026", "sort": "2026-03-17", "theme": "ala", "theme_label": "Terveys, puolustus, teollisuus", "europe": true, "title": "ESA järjesti XR-konferenssin Troisdorfissa", "detail": "Euroopan avaruusjärjestön XR-konferenssi pidettiin Euroopan astronauttikeskuksessa Saksassa.", "source": "ESA XR", "date": "2026-03-17", "precision": "day", "tl_when": "17.–18.3."}, {"id": "e14", "ord": 17, "q": 1, "when": "Q1 2026", "sort": "2026-03-20", "theme": "saantely", "theme_label": "Sääntely ja yksityisyys", "europe": true, "title": "Britannian ICO kirjoitti Metalle älylasien kuvamateriaalista", "detail": "Tietosuojaviranomainen kirjoitti, kun arkaluonteisen kuvamateriaalin käsittelystä oli uutisoitu. Se edellytti käyttäjille hallintaa ja läpinäkyvyyttä.", "source": "UC Today 5.8.", "date": "2026-03-20", "precision": "month", "tl_when": "Maaliskuu"}, {"id": "e33", "ord": 18, "q": 2, "when": "Q2 2026", "sort": "2026-04-06", "theme": "alustat", "theme_label": "Alustat ja talous", "europe": false, "title": "Rec Room sulkeutuu", "detail": "Virtuaaliset sosiaaliset hubit ovat ahdingossa. Roblox on poikkeus, koska luojat kantavat sisältökustannukset.", "source": "Immersive Wire 6.4."}, {"id": "e41", "ord": 19, "q": 2, "when": "Q2 2026", "sort": "2026-04-06", "theme": "ala", "theme_label": "Terveys, puolustus, teollisuus", "europe": true, "title": "Chelsea and Westminster -sairaala otti AR:n käyttöön endometrioosikonsultaatioissa", "detail": "Medical iSight -yrityksen AR-järjestelmä näyttää potilaille tarkat 3D-mallit endometrioosista ennen leikkauskonsultaatiota.", "source": "Immersive Wire 6.4."}, {"id": "e42", "ord": 20, "q": 2, "when": "Q2 2026", "sort": "2026-04-06", "theme": "ala", "theme_label": "Terveys, puolustus, teollisuus", "europe": true, "title": "Varjo toimittaa XR-4 Secure Edition -headsettejä Ukrainan asevoimille", "detail": "Fynd Realityn Ukrainan asevoimille toteuttamassa etäkoulutusohjelmassa harjoitellaan sotilasajoneuvojen käyttöä, kun fyysisiä laitteita on vähän.", "source": "Immersive Wire 6.4."}, {"id": "e15", "ord": 21, "q": 2, "when": "Q2 2026", "sort": "2026-05-15", "theme": "saantely", "theme_label": "Sääntely ja yksityisyys", "europe": true, "title": "Ranskan CNIL varoitti jatkuvan valvonnan normalisoitumisesta", "detail": "Viranomaisen mukaan älylasit voivat merkittävästi lisätä riskiä, että jatkuva kuvaaminen alkaa tuntua tavalliselta.", "source": "UC Today 5.8.", "date": "2026-05-15", "precision": "month", "tl_when": "Toukokuu"}, {"id": "e16", "ord": 22, "q": 2, "when": "Q2 2026", "sort": "2026-06-17", "theme": "laitteet", "theme_label": "Laitteet", "europe": true, "title": "Snap esitteli Specs-AR-lasit AWE:ssä", "detail": "Hinta on 2 195 dollaria. Toimitukset alkavat syksyllä Yhdysvalloissa, Isossa-Britanniassa ja Ranskassa. Lasit ovat itsenäiset ilman puckia.", "source": "TechSpot, Snap Specs", "date": "2026-06-17", "precision": "day", "tl_when": "17.6."}, {"id": "e17", "ord": 23, "q": 3, "when": "Q3 2026", "sort": "2026-07-20", "theme": "laitteet", "theme_label": "Laitteet", "europe": false, "title": "Bosworth vahvisti Metan kehittävän useita uusia VR-headsettejä", "detail": "Lisää laiteuutisia odotettiin Meta Connectissa syyskuun lopussa.", "source": "Immersive Wire 20.7.", "date": "2026-07-15", "precision": "month", "tl_when": "Heinäkuu"}, {"id": "e38", "ord": 24, "q": 3, "when": "Q3 2026", "sort": "2026-07-20", "theme": "alustat", "theme_label": "Alustat ja talous", "europe": false, "title": "Khronos ehdotti glTF:ään interaktiivisuuslaajennusta", "detail": "KHR_interactivity mahdollistaa siirrettävät käyttäytymisgraafit ilman alustakohtaista koodia.", "source": "Immersive Wire 20.7."}, {"id": "e40", "ord": 25, "q": 3, "when": "Q3 2026", "sort": "2026-07-20", "theme": "ala", "theme_label": "Terveys, puolustus, teollisuus", "europe": true, "title": "Oxfordin tutkimus: VR-terapia vähensi nuorten neulapelkoa", "detail": "Vaiheen II satunnaistettu kontrolloitu tutkimus: automatisoitu VR-terapia vähensi 12–15-vuotiaiden neulapelkoa, ja vaikutus säilyi kuuden viikon kohdalla. Tutkimus julkaistiin Lancetissa.", "source": "Immersive Wire 20.7."}, {"id": "e45", "ord": 26, "q": 3, "when": "Q3 2026", "sort": "2026-07-22", "theme": "sisalto", "theme_label": "Sisältö ja palvelut", "europe": false, "title": "A.R. Rahman julkaisi spatiaalisen sovelluksen Vision Prolle", "detail": "ARR Immersive App sisältää kathak-tanssiesityksiä ja uudelleenleikatun Le Musk -VR-elokuvan.", "source": "Immersive Wire 20.7."}, {"id": "e18", "ord": 27, "q": 3, "when": "Q3 2026", "sort": "2026-08-05", "theme": "saantely", "theme_label": "Sääntely ja yksityisyys", "europe": true, "title": "Hampurin tietosuojavaltuutettu: älylasikielto voi olla mahdollinen", "detail": "Viranomaisen testeissä LED-tallennusvalo oli vaikea nähdä päivänvalossa. EU-laajuisia kieltoehdotuksia ei ollut ilmoitettu.", "source": "UC Today 5.8.", "date": "2026-08-05", "precision": "day", "tl_when": "5.8."}, {"id": "e37", "ord": 28, "q": 3, "when": "Q3 2026", "sort": "2026-08-10", "theme": "alustat", "theme_label": "Alustat ja talous", "europe": false, "title": "W4 Games keräsi 18 milj. dollarin Series B -rahoituksen", "detail": "Kierrosta veti Tencent. Godot-moottorin kehittäjä laajentaa OpenXR- ja Android XR -tukea.", "source": "Auganix, W4 Games"}, {"id": "e31", "ord": 29, "q": 3, "when": "Q3 2026", "sort": "2026-08-17", "theme": "saantely", "theme_label": "Sääntely ja yksityisyys", "europe": true, "title": "Älylasikiellot leviävät brittiläisissä tiloissa", "detail": "Kielto on mm. tuomioistuimissa (HMCTS), Wetherspoons-pubeissa, ATG Theatresissa ja Soho Housessa.", "source": "Immersive Wire 17.8."}, {"id": "e39", "ord": 30, "q": 3, "when": "Q3 2026", "sort": "2026-08-17", "theme": "sisalto", "theme_label": "Sisältö ja palvelut", "europe": false, "title": "Apple lähettää MLB-otteluita Vision Prolle immersiivisenä", "detail": "Apple näyttää tällä kaudella neljä perjantain baseball-ottelua Apple Immersive -muodossa Vision Prolla.", "source": "Immersive Wire 17.8."}, {"id": "e32", "ord": 31, "q": 3, "when": "Q3 2026", "sort": "2026-08-18", "theme": "saantely", "theme_label": "Sääntely ja yksityisyys", "europe": false, "title": "ICE kielsi Meta-älylasit työpaikalla", "detail": "Virasto käsittelee ne luvattomina kehokameroina olemassa olevan politiikan nojalla.", "source": "VR.org, ICE"}, {"id": "e30", "ord": 32, "q": 3, "when": "Q3 2026", "sort": "2026-08-24", "theme": "saantely", "theme_label": "Sääntely ja yksityisyys", "europe": true, "title": "Britannian elokuvateatterit harkitsevat älylasikieltoa", "detail": "Kieltoa punnitaan salakuvaamisen riskin ja lasien esteettömyyshyötyjen välillä. Valvonta olisi vaikeaa.", "source": "Immersive Wire 24.8."}, {"id": "e34", "ord": 33, "q": 3, "when": "Q3 2026", "sort": "2026-08-26", "theme": "laitteet", "theme_label": "Laitteet", "europe": false, "title": "Pico peruutti julkistuksensa ja siirsi Space Pron loppuvuoteen", "detail": "Vision Pro -kilpailijan julkaisu siirtyi neljännelle neljännekselle, ja syyskuun julkistustilaisuus peruttiin. Syynä mainittiin ohjelmistopäivityksen tarve.", "source": "VR.org, Pico Space Pro"}, {"id": "e29", "ord": 34, "q": 3, "when": "Q3 2026", "sort": "2026-08-31", "theme": "saantely", "theme_label": "Sääntely ja yksityisyys", "europe": false, "title": "Meta pysäyttää tallennuksen, jos LED-valo peitetään", "detail": "Päivitys estää kuvaamisen, jos merkkivalo on peitetty. Meta käynnisti myös tietoisuuskampanjan siitä, milloin lasit kuvaavat.", "source": "Immersive Wire 31.8."}, {"id": "e19", "ord": 35, "q": 3, "when": "Q3 2026", "sort": "2026-09-01", "theme": "laitteet", "theme_label": "Laitteet", "europe": false, "title": "Lumus lisensoi ohuet aaltojohteensa Quantalle", "detail": "Lisenssi koskee seuraavan sukupolven ohuita AR-lasien aaltojohteita.", "source": "VR.org", "date": "2026-09-01", "precision": "day", "tl_when": "1.9."}, {"id": "e20", "ord": 36, "q": 3, "when": "Q3 2026", "sort": "2026-09-08", "theme": "alustat", "theme_label": "Alustat ja talous", "europe": false, "title": "Counterpoint: VR-headsetit laskivat, AR-laitteet kasvoivat", "detail": "Toisen neljänneksen toimitukset: VR −18 % ja AR +138 % vuodentakaisesta. Yritys- ja robotiikkaostajat pitivät kysynnän yllä.", "source": "VR.org", "date": "2026-09-08", "precision": "day", "tl_when": "8.9."}, {"id": "e21", "ord": 37, "q": 3, "when": "Q3 2026", "sort": "2026-09-09", "theme": "laitteet", "theme_label": "Laitteet", "europe": false, "title": "Lumus nimesi Crystal-Optechin kolmanneksi valmistajakseen", "detail": "Kyse on geometrisista aaltojohteista AR-laseihin.", "source": "VR.org", "date": "2026-09-09", "precision": "day", "tl_when": "9.9."}, {"id": "e35", "ord": 38, "q": 3, "when": "Q3 2026", "sort": "2026-09-10", "theme": "laitteet", "theme_label": "Laitteet", "europe": true, "title": "FORVIA HELLA sijoitti Distance Technologiesiin", "detail": "HELLA Venturesin sijoitus liittyy suomalaisen Distancen kanssa tehtyyn kehityskumppanuuteen peilittömästä 3D-AR-tuulilasinäytöstä autoihin.", "source": "Auganix, FORVIA HELLA"}, {"id": "e22", "ord": 39, "q": 3, "when": "Q3 2026", "sort": "2026-09-15", "theme": "laitteet", "theme_label": "Laitteet", "europe": false, "title": "Metan Phoenix-hanke löytyi Horizon OS:n päivityksestä", "detail": "Firmwaresta paljastui kapea headset, jonka laskenta on ulkoisessa puck-yksikössä.", "source": "Immersive Wire, Phoenix-vihje", "date": "2026-09-15", "precision": "month", "tl_when": "Syyskuu"}, {"id": "e23", "ord": 40, "q": 3, "when": "Q3 2026", "sort": "2026-09-15", "theme": "ala", "theme_label": "Terveys, puolustus, teollisuus", "europe": true, "title": "NHS Supply Chain avasi simulaatiohankinnan XR-erällä", "detail": "Puitesopimuksen immersiivisen teknologian erä on arviolta 40 milj. puntaa. Ajoitus on likimääräinen.", "source": "Auganix, NHS", "date": "2026-09-15", "precision": "month", "tl_when": "Syyskuu"}, {"id": "e24", "ord": 41, "q": 3, "when": "Q3 2026", "sort": "2026-09-23", "theme": "laitteet", "theme_label": "Laitteet", "europe": false, "title": "Meta Connect: VR Glasses, Ray-Ban Meta Gen 3 ja Muse-tekoäly", "detail": "VR Glasses painaa noin 100 g. Meta tavoittelee yli sataa AI-lasityyliä vuoden loppuun mennessä. Huom.: Phoenixia ei mainittu nimellä, eikä yhteyttä vuotaneeseen Phoenixiin ole vahvistettu.", "source": "Meta Connect 2026", "date": "2026-09-23", "precision": "day", "tl_when": "23.–24.9."}, {"id": "e25", "ord": 42, "q": 3, "when": "Q3 2026", "sort": "2026-09-23", "theme": "laitteet", "theme_label": "Laitteet", "europe": true, "title": "Ray-Ban Display laajenee Isoon-Britanniaan, Ranskaan, Italiaan ja Saksaan", "detail": "Verkkotilaukset laajenevat myös Kanadaan. Ajankohtia ei ilmoitettu.", "source": "Meta Connect 2026", "date": "2026-09-23", "precision": "day", "tl_when": "23.–24.9."}], "figures": [{"key": "rl_loss_2024", "label": "Reality Labsin tappio 2024", "value": 17.7, "unit": "mrd $", "source": "Immersive Wire, uutiskirjearkisto"}, {"key": "rl_loss_2025", "label": "Reality Labsin tappio 2025", "value": 19.1, "unit": "mrd $", "source": "Immersive Wire, uutiskirjearkisto"}, {"key": "rl_sales_2025", "label": "Reality Labsin liikevaihto 2025", "value": 2.2, "unit": "mrd $", "source": "Immersive Wire, uutiskirjearkisto"}, {"key": "vr_q2", "label": "VR-headsetit, toimitusten vuosimuutos, Q2 2026", "value": -18, "unit": "%", "source": "VR.org"}, {"key": "ar_q2", "label": "AR-laitteet, toimitusten vuosimuutos, Q2 2026", "value": 138, "unit": "%", "source": "VR.org"}, {"key": "specs_price", "label": "Snap Specsin hinta", "value": 2195, "unit": "$", "source": "TechSpot, Snap Specs"}, {"key": "nhs_lot", "label": "NHS Supply Chainin immersiivisen teknologian erä", "value": 40, "unit": "milj. £", "source": "Auganix, NHS"}], "sources": [{"id": "s01", "name": "Immersive Wire, uutiskirjearkisto", "url": "https://www.immersivewire.com/t/newsletters"}, {"id": "s02", "name": "Immersive Wire, tammikuu", "url": "https://www.immersivewire.com/p/2025-felt-like-a-meagre-year-for-immersive-tech"}, {"id": "s03", "name": "Immersive Wire, Reality Labs", "url": "https://www.immersivewire.com/p/meta-cuts-more-than-1-000-roles-from-reality-labs"}, {"id": "s04", "name": "Immersive Wire 26.1.", "url": "https://www.immersivewire.com/p/location-based-vr-remains-a-potential-growth-area"}, {"id": "s05", "name": "Immersive Wire, Snap", "url": "https://www.immersivewire.com/p/snap-spun-off-its-ar-glasses-into-a-separate-business"}, {"id": "s06", "name": "Immersive Wire, Phoenix", "url": "https://www.immersivewire.com/p/report-meta-is-developing-a-lightweight-vr-headset-codenamed-phoenix-expected-h1-2027"}, {"id": "s07", "name": "Immersive Wire 23.2.", "url": "https://www.immersivewire.com/p/the-louvre-slaps-a-snap-experience-into-the-massive-museum"}, {"id": "s08", "name": "Immersive Wire 9.3.", "url": "https://www.immersivewire.com/p/the-us-air-force-is-using-hololens-to-load-cargo"}, {"id": "s09", "name": "Immersive Wire, Phoenix-vihje", "url": "https://www.immersivewire.com/p/meta-s-project-phoenix-surfaces-before-connect"}, {"id": "s10", "name": "Immersive Wire 20.7.", "url": "https://www.immersivewire.com/p/meta-cto-andrew-bosworth-has-confirmed-the-company-is-developing-multiple-next-generation-vr-headset"}, {"id": "s11", "name": "Immersive Wire 31.8.", "url": "https://www.immersivewire.com/p/meta-issues-update-and-begins-marketing-campaign-on-privacy-and-smart-glasses"}, {"id": "s12", "name": "Immersive Wire 24.8.", "url": "https://www.immersivewire.com/p/uk-cinemas-consider-a-ban-on-smart-glasses"}, {"id": "s13", "name": "Immersive Wire 17.8.", "url": "https://www.immersivewire.com/p/the-list-of-places-banning-smart-glasses-grows-longer"}, {"id": "s14", "name": "Immersive Wire 6.4.", "url": "https://www.immersivewire.com/p/rec-room-is-closing-raising-doubts-on-virtual-hubs"}, {"id": "s15", "name": "Auganix, uutislista", "url": "https://www.auganix.org/subscribe/"}, {"id": "s16", "name": "Auganix, Distance", "url": "https://www.auganix.org/ar-news-distance-ar-hud-goggles/"}, {"id": "s17", "name": "Auganix, NHS", "url": "https://www.auganix.org/xr-news-nhs-supply-chain-medical-simulation-framework/"}, {"id": "s18", "name": "UC Today 5.8.", "url": "https://www.uctoday.com/immersive-workplace-xr-tech/meta-glasses-privacy-scrutiny-europe/"}, {"id": "s19", "name": "Road to VR, Ray-Ban Display", "url": "https://roadtovr.com/meta-pauses-ray-ban-display-international-release/"}, {"id": "s20", "name": "TechSpot, Snap Specs", "url": "https://techspot.com/news/112795-snap-2195-specs-ar-glasses-post-smartphone-era.html"}, {"id": "s21", "name": "VR.org", "url": "https://vr.org/xr"}, {"id": "s22", "name": "Meta Connect 2026", "url": "https://about.fb.com/news/2026/09/the-biggest-news-from-connect-2026/"}, {"id": "s23", "name": "ESA XR", "url": "https://xr.esa.int/"}, {"id": "s24", "name": "VR.org, ICE", "url": "https://vr.org/articles/ice-meta-glasses-ban-body-worn-cameras-2026"}, {"id": "s25", "name": "VR.org, Pico Space Pro", "url": "https://vr.org/articles/pico-space-pro-delayed-q4-september-event-cancelled-2026"}, {"id": "s26", "name": "Auganix, FORVIA HELLA", "url": "https://www.auganix.org/?p=18757"}, {"id": "s27", "name": "Auganix, W4 Games", "url": "https://www.auganix.org/?p=18691"}, {"id": "s28", "name": "Road to VR, Ray-Ban Display Eurooppa", "url": "https://www.roadtovr.com/meta-ray-ban-display-int-launch-connect-2026/"}, {"id": "s29", "name": "Netzwelt, Metan älylasit", "url": "https://www.netzwelt.de/vr-brille/kaufberatung-meta-ray-ban-oakley-2026-so-unterscheiden-ki-brillen.html"}, {"id": "s30", "name": "Born City, Quest-hinnat", "url": "https://borncity.com/news/meta-quest-3-wird-teurer-preisschock-fuer-vr-fans/"}, {"id": "s31", "name": "Hifi.de, Vision Pro M5", "url": "https://hifi.de/news/apple-vision-pro-neue-macbooks-und-ipads-mit-mehr-power-dank-dem-m5-245828"}, {"id": "s32", "name": "Instalki, Galaxy XR", "url": "https://www.instalki.pl/news/hardware/samsung-galaxy-xr-debiut-w-europie/"}]}</script>
+<script type="application/json" id="xr-data">{
+"updated": "2026-10-16",
+"events": [
+  {"id": "e26", "date": "2026-01-07", "theme": "laitteet", "europe": true, "title": "Metan Ray-Ban Display -lasien kansainvälinen lanseeraus keskeytettiin", "detail": "Meta keskeytti lanseerauksen Isossa-Britanniassa, Ranskassa, Italiassa ja Kanadassa suuren kysynnän ja rajallisten varastojen vuoksi.", "src": "s19"},
+  {"id": "e02", "date": "2026-01", "theme": "laitteet", "europe": false, "title": "CES 2026: kevyitä AR- ja tekoälylaseja", "detail": "Avegant ja Vuzix esittelivät kevyen binokulaarisen AR-referenssimallin. Rokidin näytötön AI-lasimalli painaa 38,5 g.", "src": "s01"},
+  {"id": "e01", "date": "2026-01", "theme": "alustat", "europe": false, "title": "2025 todettiin laihaksi XR-vuodeksi", "detail": "Immersive Wire: vuosi jäi sirpaleiseksi ilman selvää kasvun vetäjää. Samsungin Project Moohan ja Vision Pron halvempi malli olivat harvoja isoja aiheita.", "src": "s02"},
+  {"id": "e03", "date": "2026-01-16", "theme": "laitteet", "europe": false, "title": "XREAL ja ASUS ROG julkistivat R1 AR -pelilasit", "detail": "Lasien päivitysnopeus on 240 Hz.", "src": "s15"},
+  {"id": "e04", "date": "2026-01-21", "theme": "laitteet", "europe": true, "title": "Distance esitteli AR-näytön puolustusajoneuvoille", "detail": "Field Operator HUD on kenttäkokeiltu Isossa-Britanniassa ja Suomessa. Nato-maiden kokeilukäyttö oli tarkoitus aloittaa ensimmäisen neljänneksen loppuun mennessä.", "src": "s16"},
+  {"id": "e27", "date": "2026-01-26", "theme": "sisalto", "europe": false, "title": "Paikkasidonnainen VR kasvoi, vaikka DNA VR sulki toimipisteensä", "detail": "Sandbox VR avasi toimipisteen Houstonissa helmikuussa. DNA VR sulki kaikki toimipisteensä vuonna 2025. Markkina-arviot vaihtelevat 5,9–7 mrd dollarin välillä.", "src": "s04"},
+  {"id": "e28", "date": "2026-01-26", "theme": "ala", "europe": true, "title": "Iso-Britannian hallitus rahoitti VR-koulutusta lääketuotannossa", "detail": "Resilience-ohjelma investoi 4,3 milj. puntaa VR-koulutukseen, jolla paikataan lääketuotannon osaajapulaa seuraavan vuosikymmenen aikana.", "src": "s04"},
+  {"id": "e05", "date": "2026-01-27", "theme": "alustat", "europe": false, "title": "Meta leikkaa Reality Labsia ja lopettaa Horizon Workroomsin", "detail": "Painopiste siirtyy kuluttajatuotteisiin ja tekoälylaitteisiin. Huom.: Immersive Wire kertoo yli tuhannesta tehtävästä, Auganix raportoi jopa 1 500 henkilöstä.", "src": "s03"},
+  {"id": "e06", "date": "2026-02", "theme": "alustat", "europe": false, "title": "Reality Labs teki 19,1 mrd dollarin tappion vuonna 2025", "detail": "Liikevaihto oli 2,2 mrd dollaria. Zuckerberg ennakoi samanlaisia tappioita vuodelle 2026.", "src": "s01"},
+  {"id": "e07", "date": "2026-02", "theme": "laitteet", "europe": false, "title": "Metan kevyen VR-laitteen Phoenix-renderöinnit vuotivat", "detail": "Laskentateho olisi erillisessä yksikössä (puck). Julkaisua odotettiin vuoden 2027 alkupuoliskolle.", "src": "s06"},
+  {"id": "e08", "date": "2026-02", "theme": "alustat", "europe": false, "title": "Snap erotti AR-lasinsa omaksi yhtiökseen", "detail": "Tavoitteena oli selkeämpi fokus, oma brändi ja ulkopuolinen rahoitus ennen kuluttajajulkaisua.", "src": "s05"},
+  {"id": "e09", "date": "2026-02-18", "theme": "sisalto", "europe": true, "title": "Louvre ja Snap julkaisivat AR-kokemuksen", "detail": "Ilmainen puhelinsovellus vie kuuden vähemmän tunnetun teoksen taakse digitaalisten rekonstruktioiden ja animaatioiden avulla.", "src": "s07"},
+  {"id": "e10", "date": "2026-02-20", "theme": "alustat", "europe": false, "title": "Meta siirtää Horizon Worldsin pääosin mobiiliin", "detail": "Alusta erotetaan Quest-VR-ekosysteemistä Reality Labsin tappioiden ja irtisanomisten jälkeen.", "src": "s07"},
+  {"id": "e11", "date": "2026-03-09", "theme": "ala", "europe": false, "title": "Yhdysvaltain ilmavoimat käyttää HoloLensia rahdin lastaukseen", "detail": "Laitteet kierrätettiin uuteen käyttöön, kun ne menettivät sopimuksen Andurilille.", "src": "s08"},
+  {"id": "e12", "date": "2026-03-09", "theme": "ala", "europe": true, "title": "Varjo julkaisi avaimet käteen -XR-koulutusratkaisun", "detail": "Integrated XR Systems sisältää suojatut XR-4-headsetit ja tietokoneet eristettyihin ja arkaluonteisiin ympäristöihin.", "src": "s08"},
+  {"id": "e13", "date": "2026-03-17", "end": "2026-03-18", "theme": "ala", "europe": true, "title": "ESA järjesti XR-konferenssin Troisdorfissa", "detail": "Euroopan avaruusjärjestön XR-konferenssi pidettiin Euroopan astronauttikeskuksessa Saksassa.", "src": "s23"},
+  {"id": "e14", "date": "2026-03", "theme": "saantely", "europe": true, "title": "Britannian ICO kirjoitti Metalle älylasien kuvamateriaalista", "detail": "Tietosuojaviranomainen kirjoitti, kun arkaluonteisen kuvamateriaalin käsittelystä oli uutisoitu. Se edellytti käyttäjille hallintaa ja läpinäkyvyyttä.", "src": "s18"},
+  {"id": "e46", "date": "2026-03-19", "theme": "alustat", "europe": true, "title": "Ranskalainen Lynx asetettiin konkurssiin ennen R2-lasien julkaisua", "detail": "Nanterren kauppatuomioistuin muutti yhtiön saneerausmenettelyn konkurssiksi 4.3. Kesälle 2026 luvatun Lynx-R2:n julkaisu riippuu siitä, löytyykö hankkeelle ostaja. Googlen kerrotaan aiemmin perääntyneen Android XR -yhteistyöstä.", "src": ["s35", "s36"]},
+  {"id": "e33", "date": "2026-04-06", "theme": "alustat", "europe": false, "title": "Rec Room sulkeutuu", "detail": "Virtuaaliset sosiaaliset hubit ovat ahdingossa. Roblox on poikkeus, koska luojat kantavat sisältökustannukset.", "src": "s14"},
+  {"id": "e41", "date": "2026-04-06", "theme": "ala", "europe": true, "title": "Chelsea and Westminster -sairaala otti AR:n käyttöön endometrioosikonsultaatioissa", "detail": "Medical iSight -yrityksen AR-järjestelmä näyttää potilaille tarkat 3D-mallit endometrioosista ennen leikkauskonsultaatiota.", "src": "s14"},
+  {"id": "e42", "date": "2026-04-06", "theme": "ala", "europe": true, "title": "Varjo toimittaa XR-4 Secure Edition -headsettejä Ukrainan asevoimille", "detail": "Fynd Realityn Ukrainan asevoimille toteuttamassa etäkoulutusohjelmassa harjoitellaan sotilasajoneuvojen käyttöä, kun fyysisiä laitteita on vähän.", "src": "s14"},
+  {"id": "e15", "date": "2026-05", "theme": "saantely", "europe": true, "title": "Ranskan CNIL varoitti jatkuvan valvonnan normalisoitumisesta", "detail": "Viranomaisen mukaan älylasit voivat merkittävästi lisätä riskiä, että jatkuva kuvaaminen alkaa tuntua tavalliselta.", "src": "s18"},
+  {"id": "e16", "date": "2026-06-17", "theme": "laitteet", "europe": true, "title": "Snap esitteli Specs-AR-lasit AWE:ssä", "detail": "Hinta on 2 195 dollaria. Toimitukset alkavat syksyllä Yhdysvalloissa, Isossa-Britanniassa ja Ranskassa. Lasit ovat itsenäiset ilman puckia.", "src": "s20"},
+  {"id": "e17", "date": "2026-07", "theme": "laitteet", "europe": false, "title": "Bosworth vahvisti Metan kehittävän useita uusia VR-headsettejä", "detail": "Lisää laiteuutisia odotettiin Meta Connectissa syyskuun lopussa.", "src": "s10"},
+  {"id": "e38", "date": "2026-07-20", "theme": "alustat", "europe": false, "title": "Khronos ehdotti glTF:ään interaktiivisuuslaajennusta", "detail": "KHR_interactivity mahdollistaa siirrettävät käyttäytymisgraafit ilman alustakohtaista koodia.", "src": "s10"},
+  {"id": "e40", "date": "2026-07-20", "theme": "ala", "europe": true, "title": "Oxfordin tutkimus: VR-terapia vähensi nuorten neulapelkoa", "detail": "Vaiheen II satunnaistettu kontrolloitu tutkimus: automatisoitu VR-terapia vähensi 12–15-vuotiaiden neulapelkoa, ja vaikutus säilyi kuuden viikon kohdalla. Tutkimus julkaistiin Lancetissa.", "src": "s10"},
+  {"id": "e45", "date": "2026-07-22", "theme": "sisalto", "europe": false, "title": "A.R. Rahman julkaisi spatiaalisen sovelluksen Vision Prolle", "detail": "ARR Immersive App sisältää kathak-tanssiesityksiä ja uudelleenleikatun Le Musk -VR-elokuvan.", "src": "s10"},
+  {"id": "e18", "date": "2026-08-05", "theme": "saantely", "europe": true, "title": "Hampurin tietosuojavaltuutettu: älylasikielto voi olla mahdollinen", "detail": "Viranomaisen testeissä LED-tallennusvalo oli vaikea nähdä päivänvalossa. EU-laajuisia kieltoehdotuksia ei ollut ilmoitettu.", "src": "s18"},
+  {"id": "e37", "date": "2026-08-10", "theme": "alustat", "europe": false, "title": "W4 Games keräsi 18 milj. dollarin Series B -rahoituksen", "detail": "Kierrosta veti Tencent. Godot-moottorin kehittäjä laajentaa OpenXR- ja Android XR -tukea.", "src": "s27"},
+  {"id": "e31", "date": "2026-08-17", "theme": "saantely", "europe": true, "title": "Älylasikiellot leviävät brittiläisissä tiloissa", "detail": "Kielto on mm. tuomioistuimissa (HMCTS), Wetherspoons-pubeissa, ATG Theatresissa ja Soho Housessa.", "src": "s13"},
+  {"id": "e39", "date": "2026-08-17", "theme": "sisalto", "europe": false, "title": "Apple lähettää MLB-otteluita Vision Prolle immersiivisenä", "detail": "Apple näyttää tällä kaudella neljä perjantain baseball-ottelua Apple Immersive -muodossa Vision Prolla.", "src": "s13"},
+  {"id": "e32", "date": "2026-08-18", "theme": "saantely", "europe": false, "title": "ICE kielsi Meta-älylasit työpaikalla", "detail": "Virasto käsittelee ne luvattomina kehokameroina olemassa olevan politiikan nojalla.", "src": "s24"},
+  {"id": "e30", "date": "2026-08-24", "theme": "saantely", "europe": true, "title": "Britannian elokuvateatterit harkitsevat älylasikieltoa", "detail": "Kieltoa punnitaan salakuvaamisen riskin ja lasien esteettömyyshyötyjen välillä. Valvonta olisi vaikeaa.", "src": "s12"},
+  {"id": "e34", "date": "2026-08-26", "theme": "laitteet", "europe": false, "title": "Pico peruutti julkistuksensa ja siirsi Space Pron loppuvuoteen", "detail": "Vision Pro -kilpailijan julkaisu siirtyi neljännelle neljännekselle, ja syyskuun julkistustilaisuus peruttiin. Syynä mainittiin ohjelmistopäivityksen tarve.", "src": "s25"},
+  {"id": "e29", "date": "2026-08-31", "theme": "saantely", "europe": false, "title": "Meta pysäyttää tallennuksen, jos LED-valo peitetään", "detail": "Päivitys estää kuvaamisen, jos merkkivalo on peitetty. Meta käynnisti myös tietoisuuskampanjan siitä, milloin lasit kuvaavat.", "src": "s11"},
+  {"id": "e19", "date": "2026-09-01", "theme": "laitteet", "europe": false, "title": "Lumus lisensoi ohuet aaltojohteensa Quantalle", "detail": "Lisenssi koskee seuraavan sukupolven ohuita AR-lasien aaltojohteita.", "src": "s21"},
+  {"id": "e20", "date": "2026-09-08", "theme": "alustat", "europe": false, "title": "Counterpoint: VR-headsetit laskivat, AR-laitteet kasvoivat", "detail": "Toisen neljänneksen toimitukset: VR −18 % ja AR +138 % vuodentakaisesta. Yritys- ja robotiikkaostajat pitivät kysynnän yllä.", "src": "s21"},
+  {"id": "e21", "date": "2026-09-09", "theme": "laitteet", "europe": false, "title": "Lumus nimesi Crystal-Optechin kolmanneksi valmistajakseen", "detail": "Kyse on geometrisista aaltojohteista AR-laseihin.", "src": "s21"},
+  {"id": "e35", "date": "2026-09-10", "theme": "laitteet", "europe": true, "title": "FORVIA HELLA sijoitti Distance Technologiesiin", "detail": "HELLA Venturesin sijoitus liittyy suomalaisen Distancen kanssa tehtyyn kehityskumppanuuteen peilittömästä 3D-AR-tuulilasinäytöstä autoihin.", "src": "s26"},
+  {"id": "e22", "date": "2026-09", "theme": "laitteet", "europe": false, "title": "Metan Phoenix-hanke löytyi Horizon OS:n päivityksestä", "detail": "Firmwaresta paljastui kapea headset, jonka laskenta on ulkoisessa puck-yksikössä.", "src": "s09"},
+  {"id": "e23", "date": "2026-09", "theme": "ala", "europe": true, "title": "NHS Supply Chain avasi simulaatiohankinnan XR-erällä", "detail": "Puitesopimuksen immersiivisen teknologian erä on arviolta 40 milj. puntaa. Ajoitus on likimääräinen.", "src": "s17"},
+  {"id": "e24", "date": "2026-09-23", "end": "2026-09-24", "theme": "laitteet", "europe": false, "title": "Meta Connect: VR Glasses, Ray-Ban Meta Gen 3 ja Muse-tekoäly", "detail": "VR Glasses painaa noin 100 g. Meta tavoittelee yli sataa AI-lasityyliä vuoden loppuun mennessä. Huom.: Phoenixia ei mainittu nimellä, eikä yhteyttä vuotaneeseen Phoenixiin ole vahvistettu.", "src": "s22"},
+  {"id": "e25", "date": "2026-09-23", "end": "2026-09-24", "theme": "laitteet", "europe": true, "title": "Ray-Ban Display laajenee Isoon-Britanniaan, Ranskaan, Italiaan ja Saksaan", "detail": "Verkkotilaukset laajenevat myös Kanadaan. Ajankohtia ei ilmoitettu.", "src": "s22"}
+],
+"figures": [
+  {"key": "rl_loss_2024", "label": "Reality Labsin tappio 2024", "value": 17.7, "unit": "mrd $", "src": "s01"},
+  {"key": "rl_loss_2025", "label": "Reality Labsin tappio 2025", "value": 19.1, "unit": "mrd $", "src": "s01"},
+  {"key": "rl_sales_2025", "label": "Reality Labsin liikevaihto 2025", "value": 2.2, "unit": "mrd $", "src": "s01"},
+  {"key": "vr_q2", "label": "VR-headsetit, toimitusten vuosimuutos, Q2 2026", "value": -18, "unit": "%", "src": "s21"},
+  {"key": "ar_q2", "label": "AR-laitteet, toimitusten vuosimuutos, Q2 2026", "value": 138, "unit": "%", "src": "s21"}
+],
+"prices": [
+  {"group": "ar", "model": "Ray-Ban Meta (Gen 1)", "eur": 247, "from": true, "src": "s29"},
+  {"group": "ar", "model": "Ray-Ban Meta Gen 2", "eur": 419, "from": true, "src": "s29"},
+  {"group": "ar", "model": "Oakley Meta Vanguard", "eur": 549, "from": true, "src": "s29"},
+  {"group": "ar", "model": "Ray-Ban Display", "eur": 899, "from": true, "note": "Ranska, Italia, Saksa", "src": "s28"},
+  {"group": "ar", "model": "Snap Specs", "eur": 1900, "approx": true, "note": "2 195 $ muunnettuna", "src": "s20"},
+  {"group": "vr", "model": "Meta Quest 3S", "eur": 320, "approx": true, "note": "128 Gt", "src": "s30"},
+  {"group": "vr", "model": "Meta Quest 3", "eur": 550, "approx": true, "src": "s30"},
+  {"group": "vr", "model": "Samsung Galaxy XR", "eur": 1960, "approx": true, "note": "1 699 £ Isossa-Britanniassa", "src": "s32"},
+  {"group": "vr", "model": "Apple Vision Pro (M5)", "eur": 3699, "src": "s31"},
+  {"group": "vr", "eu": true, "model": "Somnium VR1 Visionary Edition", "eur": 2999, "note": "Tšekki, hinta tammikuusta 2025", "src": "s34"},
+  {"group": "vr", "eu": true, "model": "Somnium VR1 Ultimate Edition", "eur": 4299, "note": "Tšekki, hinta tammikuusta 2025", "src": "s34"},
+  {"group": "vr", "eu": true, "model": "Varjo XR-4", "eur": 3990, "note": "Suomi, julkaisuhinta 11/2023", "src": "s33"},
+  {"group": "vr", "eu": true, "model": "Varjo XR-4 Secure Edition", "eur": 7990, "from": true, "note": "Suomi, julkaisuhinta 11/2023", "src": "s33"},
+  {"group": "vr", "eu": true, "model": "Varjo XR-4 Focal Edition", "eur": 9990, "note": "Suomi, julkaisuhinta 11/2023", "src": "s33"}
+],
+"sources": [
+  {"id": "s01", "name": "Immersive Wire, uutiskirjearkisto", "url": "https://www.immersivewire.com/t/newsletters"},
+  {"id": "s02", "name": "Immersive Wire, tammikuu", "url": "https://www.immersivewire.com/p/2025-felt-like-a-meagre-year-for-immersive-tech"},
+  {"id": "s03", "name": "Immersive Wire, Reality Labs", "url": "https://www.immersivewire.com/p/meta-cuts-more-than-1-000-roles-from-reality-labs"},
+  {"id": "s04", "name": "Immersive Wire 26.1.", "url": "https://www.immersivewire.com/p/location-based-vr-remains-a-potential-growth-area"},
+  {"id": "s05", "name": "Immersive Wire, Snap", "url": "https://www.immersivewire.com/p/snap-spun-off-its-ar-glasses-into-a-separate-business"},
+  {"id": "s06", "name": "Immersive Wire, Phoenix", "url": "https://www.immersivewire.com/p/report-meta-is-developing-a-lightweight-vr-headset-codenamed-phoenix-expected-h1-2027"},
+  {"id": "s07", "name": "Immersive Wire 23.2.", "url": "https://www.immersivewire.com/p/the-louvre-slaps-a-snap-experience-into-the-massive-museum"},
+  {"id": "s08", "name": "Immersive Wire 9.3.", "url": "https://www.immersivewire.com/p/the-us-air-force-is-using-hololens-to-load-cargo"},
+  {"id": "s09", "name": "Immersive Wire, Phoenix-vihje", "url": "https://www.immersivewire.com/p/meta-s-project-phoenix-surfaces-before-connect"},
+  {"id": "s10", "name": "Immersive Wire 20.7.", "url": "https://www.immersivewire.com/p/meta-cto-andrew-bosworth-has-confirmed-the-company-is-developing-multiple-next-generation-vr-headset"},
+  {"id": "s11", "name": "Immersive Wire 31.8.", "url": "https://www.immersivewire.com/p/meta-issues-update-and-begins-marketing-campaign-on-privacy-and-smart-glasses"},
+  {"id": "s12", "name": "Immersive Wire 24.8.", "url": "https://www.immersivewire.com/p/uk-cinemas-consider-a-ban-on-smart-glasses"},
+  {"id": "s13", "name": "Immersive Wire 17.8.", "url": "https://www.immersivewire.com/p/the-list-of-places-banning-smart-glasses-grows-longer"},
+  {"id": "s14", "name": "Immersive Wire 6.4.", "url": "https://www.immersivewire.com/p/rec-room-is-closing-raising-doubts-on-virtual-hubs"},
+  {"id": "s15", "name": "Auganix, uutislista", "url": "https://www.auganix.org/subscribe/"},
+  {"id": "s16", "name": "Auganix, Distance", "url": "https://www.auganix.org/ar-news-distance-ar-hud-goggles/"},
+  {"id": "s17", "name": "Auganix, NHS", "url": "https://www.auganix.org/xr-news-nhs-supply-chain-medical-simulation-framework/"},
+  {"id": "s18", "name": "UC Today 5.8.", "url": "https://www.uctoday.com/immersive-workplace-xr-tech/meta-glasses-privacy-scrutiny-europe/"},
+  {"id": "s19", "name": "Road to VR, Ray-Ban Display", "url": "https://roadtovr.com/meta-pauses-ray-ban-display-international-release/"},
+  {"id": "s20", "name": "TechSpot, Snap Specs", "url": "https://techspot.com/news/112795-snap-2195-specs-ar-glasses-post-smartphone-era.html"},
+  {"id": "s21", "name": "VR.org", "url": "https://vr.org/xr"},
+  {"id": "s22", "name": "Meta Connect 2026", "url": "https://about.fb.com/news/2026/09/the-biggest-news-from-connect-2026/"},
+  {"id": "s23", "name": "ESA XR", "url": "https://xr.esa.int/"},
+  {"id": "s24", "name": "VR.org, ICE", "url": "https://vr.org/articles/ice-meta-glasses-ban-body-worn-cameras-2026"},
+  {"id": "s25", "name": "VR.org, Pico Space Pro", "url": "https://vr.org/articles/pico-space-pro-delayed-q4-september-event-cancelled-2026"},
+  {"id": "s26", "name": "Auganix, FORVIA HELLA", "url": "https://www.auganix.org/?p=18757"},
+  {"id": "s27", "name": "Auganix, W4 Games", "url": "https://www.auganix.org/?p=18691"},
+  {"id": "s28", "name": "Road to VR, Ray-Ban Display Eurooppa", "url": "https://www.roadtovr.com/meta-ray-ban-display-int-launch-connect-2026/"},
+  {"id": "s29", "name": "Netzwelt, Metan älylasit", "url": "https://www.netzwelt.de/vr-brille/kaufberatung-meta-ray-ban-oakley-2026-so-unterscheiden-ki-brillen.html"},
+  {"id": "s30", "name": "Born City, Quest-hinnat", "url": "https://borncity.com/news/meta-quest-3-wird-teurer-preisschock-fuer-vr-fans/"},
+  {"id": "s31", "name": "Hifi.de, Vision Pro M5", "url": "https://hifi.de/news/apple-vision-pro-neue-macbooks-und-ipads-mit-mehr-power-dank-dem-m5-245828"},
+  {"id": "s32", "name": "Instalki, Galaxy XR", "url": "https://www.instalki.pl/news/hardware/samsung-galaxy-xr-debiut-w-europie/"},
+  {"id": "s33", "name": "IEEE Spectrum, Varjo XR-4", "url": "https://spectrum.ieee.org/varjo-xr-4"},
+  {"id": "s34", "name": "Mixed, Somnium VR1 -hinnat", "url": "https://mixed-news.com/en/somnium-vr-1-price-hike/"},
+  {"id": "s35", "name": "Road to VR, Lynx", "url": "https://roadtovr.com/lynx-liquidation-bankrupt-2026-r2-xr-headset/"},
+  {"id": "s36", "name": "heise online, Lynx", "url": "https://heise.de/-11221765"}
+]
+}</script>
 <script>
 (function () {
   'use strict';
   var DATA = JSON.parse(document.getElementById('xr-data').textContent);
-  var EVENTS = DATA.events, FIG = DATA.figures, SRC = DATA.sources;
+  var FIG = DATA.figures, SRC = DATA.sources, PRICES = DATA.prices || [];
   var THEMES = ['laitteet', 'alustat', 'sisalto', 'saantely', 'ala'];
   var NAMES = { laitteet: 'Laitteet', alustat: 'Alustat ja talous', sisalto: 'Sisältö ja palvelut', saantely: 'Sääntely ja yksityisyys', ala: 'Terveys, puolustus, teollisuus' };
-  var MONTHS = ['Tam', 'Hel', 'Maa', 'Huh', 'Tou', 'Kes', 'Hei', 'Elo', 'Syy', 'Lok'];
+  var MONTHS = ['Tam', 'Hel', 'Maa', 'Huh', 'Tou', 'Kes', 'Hei', 'Elo', 'Syy', 'Lok', 'Mar', 'Jou'];
+  var MONTHS_LONG = ['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu', 'Toukokuu', 'Kesäkuu', 'Heinäkuu', 'Elokuu', 'Syyskuu', 'Lokakuu', 'Marraskuu', 'Joulukuu'];
   var NS = 'http://www.w3.org/2000/svg';
-  var state = { active: new Set(THEMES), europe: false };
+  var state = { active: new Set(THEMES), europe: false, pinned: null };
+  var SRCMAP = {};
+  SRC.forEach(function (s) { SRCMAP[s.id] = s; });
+
+  // Päivämäärä "2026-03-17" (päivä tiedossa) tai "2026-03" (vain kuukausi tiedossa).
+  function parseDate(s) {
+    var m = /^(\d{4})-(\d{2})(?:-(\d{2}))?$/.exec(s || '');
+    if (!m) return null;
+    var y = +m[1], mo = +m[2] - 1, d = m[3] ? +m[3] : 15;
+    return { y: y, m: mo, d: d, ms: Date.UTC(y, mo, d), day: !!m[3] };
+  }
+  function dayText(p) { return p.d + '.' + (p.m + 1) + '.'; }
+
+  // Johdetaan näytettävät kentät datasta, jotta riville riittää id, date, theme, europe, title, detail ja src.
+  var EVENTS = DATA.events.map(function (r, i) {
+    var p = parseDate(r.date), end = r.end ? parseDate(r.end) : null;
+    var problems = [];
+    if (!p) problems.push('date');
+    if (THEMES.indexOf(r.theme) < 0) problems.push('theme');
+    var srcs = [].concat(r.src).filter(Boolean);
+    if (!srcs.length || !srcs.every(function (s) { return SRCMAP[s]; })) problems.push('src');
+    if (problems.length) { console.warn('XR-vuosi: ohitetaan rivi ' + (r.id || i) + ', virheellinen kenttä: ' + problems.join(', ')); return null; }
+    var q = Math.floor(p.m / 3) + 1, tl;
+    if (!p.day) tl = MONTHS_LONG[p.m];
+    else if (end && end.day && end.ms > p.ms) tl = (end.m === p.m ? p.d + '.' : dayText(p)) + '–' + dayText(end);
+    else tl = dayText(p);
+    return {
+      id: r.id, i: i, theme: r.theme, europe: r.europe, title: r.title, detail: r.detail,
+      ms: p.ms, m: p.m, precision: p.day ? 'day' : 'month', q: q, when: 'Q' + q + ' ' + p.y, tl_when: tl,
+      theme_label: NAMES[r.theme], sources: srcs.map(function (s) { return SRCMAP[s]; }),
+      source: srcs.map(function (s) { return SRCMAP[s].name; }).join(', ')
+    };
+  }).filter(Boolean).sort(function (a, b) { return a.ms - b.ms || a.i - b.i; });
+  var UPDATED = parseDate(DATA.updated);
+  var YEAR = UPDATED ? UPDATED.y : 2026;
+  var LAST_M = EVENTS.reduce(function (mx, r) { return Math.max(mx, r.m); }, UPDATED ? UPDATED.m : 0);
+  function safeUrl(u) { return /^https:\/\//.test(u || '') ? u : null; }
+  // Lähde-tägi rivin tai kuvan tekstin loppuun; useammalle lähteelle numerot.
+  function srcTags(list) {
+    var f = document.createDocumentFragment();
+    list.forEach(function (s, i) {
+      var u = safeUrl(s.url);
+      var t = document.createElement(u ? 'a' : 'span');
+      t.className = 'xr-src';
+      t.textContent = 'Lähde' + (list.length > 1 ? ' ' + (i + 1) : '');
+      t.title = s.name;
+      if (u) { t.href = u; t.target = '_blank'; t.rel = 'noopener'; t.setAttribute('aria-label', 'Lähde: ' + s.name); }
+      f.append(' ', t);
+    });
+    return f;
+  }
+  function link(text, url) {
+    var u = safeUrl(url);
+    if (!u) return document.createTextNode(text);
+    var a = document.createElement('a');
+    a.textContent = text; a.href = u; a.target = '_blank'; a.rel = 'noopener';
+    return a;
+  }
   var fi = new Intl.NumberFormat('fi-FI');
   var fi1 = new Intl.NumberFormat('fi-FI', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   var $ = function (id) { return document.getElementById(id); };
@@ -268,12 +453,38 @@ h3 { font-size: 0.95rem; font-weight: 600; }
       if (b) b.textContent = String(n);
     });
     document.querySelectorAll('.xr-theme').forEach(function (b) { b.style.setProperty('--sw', 'var(--c-' + b.dataset.theme + ')'); });
-    var ul = $('xr-sources');
-    SRC.forEach(function (r) {
-      var li = document.createElement('li'), a = document.createElement('a');
-      a.textContent = r.name;
-      if (/^https:\/\//.test(r.url)) { a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; }
-      li.appendChild(a); ul.appendChild(li);
+    document.querySelectorAll('[data-src]').forEach(function (n) {
+      var list = n.dataset.src.split(' ').map(function (s) { return SRCMAP[s]; }).filter(Boolean);
+      n.append(srcTags(list));
+    });
+
+    $('xr-h-timeline').textContent = LAST_M > 0
+      ? 'Aikajana tammikuusta ' + MONTHS_LONG[LAST_M].toLowerCase() + 'hun'
+      : 'Aikajana: tammikuu';
+    if (UPDATED) {
+      $('xr-updated').textContent = dayText(UPDATED) + UPDATED.y;
+      var uq = Math.floor(UPDATED.m / 3) + 1;
+      var qEnd = Date.UTC(UPDATED.y, uq * 3, 0);
+      if (UPDATED.ms < qEnd) {
+        var hasQ = EVENTS.some(function (r) { return r.q === uq; });
+        $('xr-qnote').textContent = ' Q' + uq + ' on käynnissä' + (hasQ ? ', joten sen tapahtumat ovat vielä kesken.' : ', eikä sille ole vielä tapahtumia.');
+      }
+    }
+
+    // Eurooppalaiset mallit omassa ruudussaan, muut ryhmänsä (ar/vr) ruudussa.
+    ['ar', 'vr', 'eu'].forEach(function (g) {
+      var rows = PRICES.filter(function (p) { return isFinite(p.eur) && (g === 'eu' ? p.eu : p.group === g && !p.eu); });
+      var range = document.querySelector('[data-range="' + g + '"]'), list = document.querySelector('[data-prices="' + g + '"]');
+      if (!rows.length || !range || !list) return;
+      var eur = rows.map(function (p) { return p.eur; });
+      range.textContent = fi.format(Math.min.apply(null, eur)) + '–' + fi.format(Math.max.apply(null, eur));
+      list.replaceChildren();
+      rows.forEach(function (p, i) {
+        if (i) list.append(i === rows.length - 1 ? ' ja ' : ', ');
+        var s = SRCMAP[p.src];
+        list.append(s ? link(p.model, s.url) : p.model,
+          ' ' + priceText(p) + (p.note && g !== 'eu' ? ' (' + p.note + ')' : ''));
+      });
     });
   }
 
@@ -319,68 +530,152 @@ h3 { font-size: 0.95rem; font-weight: 600; }
     el('line', { x1: x(0), x2: x(0), y1: 0, y2: H, style: 'stroke:var(--muted);stroke-dasharray:3 3' }, svg);
   }
 
+  // Lähekkäiset pisteet pinotaan tasoille 0, +1, −1, +2, −2 …; kaista kasvaa tarvittaessa.
+  function stackLanes(pts, lanes, top, step, minH) {
+    var placed = [], maxLvl = [], laneTop = [], laneH = [], y = top;
+    for (var i = 0; i < lanes; i++) { placed.push([]); maxLvl.push(0); }
+    pts.sort(function (a, b) { return a.px - b.px; }).forEach(function (p) {
+      var lvl = 0;
+      while (placed[p.lane].some(function (q) { return q.lvl === lvl && Math.abs(q.px - p.px) < 14; })) lvl++;
+      placed[p.lane].push({ px: p.px, lvl: lvl });
+      p.off = (lvl % 2 ? 1 : -1) * Math.ceil(lvl / 2) * step;
+      maxLvl[p.lane] = Math.max(maxLvl[p.lane], Math.ceil(lvl / 2));
+    });
+    maxLvl.forEach(function (n, i) { laneTop[i] = y; laneH[i] = Math.max(minH, 2 * n * step + 20); y += laneH[i]; });
+    pts.forEach(function (p) { p.py = laneTop[p.lane] + laneH[p.lane] / 2 + p.off; });
+    return { laneTop: laneTop, laneH: laneH, H: y + 4 };
+  }
+
+  function showTip(host, tip, p, title, sub) {
+    tip.replaceChildren();
+    var b = document.createElement('span'); b.textContent = title;
+    var s = document.createElement('small'); s.textContent = sub;
+    tip.append(b, s);
+    tip.hidden = false;
+    var pad = 14, w = tip.offsetWidth, hostW = host.clientWidth;
+    tip.style.left = Math.max(4, Math.min(hostW - w - 4, p.px + pad - w / 2)) + 'px';
+    tip.style.top = Math.max(2, p.py + pad - tip.offsetHeight - 6) + 'px';
+  }
+
+  // Hiirellä vihje näkyy osoitettaessa. Napautus tai Enter kiinnittää vihjeen (ja korostaa tapahtuman rivin taulukossa).
+  function bindDot(c, key, tip, show) {
+    var hide = function () { if (state.pinned !== key) tip.hidden = true; };
+    c.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') show(); });
+    c.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
+    c.addEventListener('focus', show);
+    c.addEventListener('blur', hide);
+    var pin = function () { pinEvent(state.pinned === key ? null : key); if (state.pinned) show(); };
+    c.addEventListener('click', function (e) { e.stopPropagation(); pin(); });
+    c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pin(); } });
+    if (state.pinned === key) show();
+  }
+
+  function pinEvent(id) {
+    state.pinned = id;
+    document.querySelectorAll('.xr-tip').forEach(function (t) { t.hidden = true; });
+    document.querySelectorAll('#xr-table tr.hl').forEach(function (tr) { tr.classList.remove('hl'); });
+    var row = id && $('xr-row-' + id);
+    if (row) row.classList.add('hl');
+  }
+  document.addEventListener('click', function () { if (state.pinned) pinEvent(null); });
+
   function drawStrip() {
     var host = $('xr-strip'), box = $('xr-strip-svg'), tip = $('xr-tip');
     tip.hidden = true;
-    var W = Math.max(280, box.clientWidth || 640), laneH = 44, top = 22, ml = 6, mr = 10;
-    var H = top + laneH * THEMES.length + 4;
-    var t0 = Date.UTC(2026, 0, 1), t1 = Date.UTC(2026, 9, 31);
+    var W = Math.max(280, box.clientWidth || 640), top = 22, ml = 6, mr = 10;
+    var t0 = Date.UTC(YEAR, 0, 1), t1 = Date.UTC(YEAR, LAST_M + 1, 1);
     var x = function (ms) { return ml + (ms - t0) / (t1 - t0) * (W - ml - mr); };
+    var pts = EVENTS.map(function (r) { return { r: r, px: x(r.ms), lane: THEMES.indexOf(r.theme) }; });
+    var L = stackLanes(pts, THEMES.length, top, 13, 44), H = L.H;
     var svg = svgIn(box, W, H);
-    MONTHS.forEach(function (name, i) {
-      var px = x(Date.UTC(2026, i, 1));
+    MONTHS.slice(0, LAST_M + 1).forEach(function (name, i) {
+      var px = x(Date.UTC(YEAR, i, 1));
       el('line', { x1: px, x2: px, y1: top - 6, y2: H, style: 'stroke:var(--grid)' }, svg);
       txt('text', { x: px + 4, y: 12, style: 'fill:var(--muted);font-size:11px' }, svg, name);
     });
     THEMES.forEach(function (t, i) {
-      var py = top + laneH * (i + 1);
+      var py = L.laneTop[i] + L.laneH[i];
       el('line', { x1: ml, x2: W - mr, y1: py, y2: py, style: 'stroke:var(--grid)' }, svg);
     });
-    var pts = EVENTS.filter(function (r) { return r.date; }).map(function (r) {
-      return { r: r, px: x(Date.parse(r.date)), lane: THEMES.indexOf(r.theme) };
-    }).filter(function (p) { return p.lane >= 0; }).sort(function (a, b) { return a.px - b.px; });
-    var offs = [0, 13, -13], placed = THEMES.map(function () { return []; });
-    pts.forEach(function (p) {
-      var lvl = 0;
-      while (lvl < 2 && placed[p.lane].some(function (q) { return q.lvl === lvl && Math.abs(q.px - p.px) < 14; })) lvl++;
-      placed[p.lane].push({ px: p.px, lvl: lvl });
-      p.py = top + laneH * p.lane + laneH / 2 + offs[lvl];
-    });
-    function showTip(p) {
-      tip.replaceChildren();
-      var b = document.createElement('span'); b.textContent = p.r.title;
-      var s = document.createElement('small'); s.textContent = (p.r.tl_when || p.r.when) + ' · ' + p.r.source;
-      tip.append(b, s);
-      tip.hidden = false;
-      var pad = 14, w = tip.offsetWidth, hostW = host.clientWidth;
-      tip.style.left = Math.max(4, Math.min(hostW - w - 4, p.px + pad - w / 2)) + 'px';
-      tip.style.top = Math.max(2, p.py + pad - tip.offsetHeight - 6) + 'px';
-    }
     pts.forEach(function (p) {
       var c = el('circle', {
         'class': 'xr-dot', cx: p.px, cy: p.py, r: 6, tabindex: 0, role: 'img',
-        'aria-label': (p.r.tl_when || p.r.when) + ': ' + p.r.title,
+        'aria-label': p.r.tl_when + ': ' + p.r.title,
         style: 'fill:' + (p.r.precision === 'day' ? 'var(--c-' + p.r.theme + ')' : 'var(--panel)') + ';stroke:var(--c-' + p.r.theme + ');stroke-width:2;opacity:' + (visible(p.r) ? 1 : 0.15)
       }, svg);
-      c.addEventListener('pointerenter', function () { showTip(p); });
-      c.addEventListener('focus', function () { showTip(p); });
-      c.addEventListener('pointerleave', function () { tip.hidden = true; });
-      c.addEventListener('blur', function () { tip.hidden = true; });
+      bindDot(c, p.r.id, tip, function () { showTip(host, tip, p, p.r.title, p.r.tl_when + ' · ' + p.r.source); });
+    });
+  }
+
+  var PRICE_LANES = [{ g: 'ar', l: 'AR- ja älylasit', c: 'var(--c-laitteet)' }, { g: 'vr', l: 'VR ja mixed reality', c: 'var(--c-alustat)' }];
+  function priceText(p) { return (p.from ? 'alk. ' : p.approx ? 'noin ' : '') + fi.format(p.eur) + ' €'; }
+
+  function drawPrices() {
+    var host = $('xr-price'), box = $('xr-price-svg'), tip = $('xr-price-tip');
+    if (!$('xr-price-more').open) return;
+    tip.hidden = true;
+    var rows = PRICES.filter(function (p) { return isFinite(p.eur); });
+    var W = Math.max(240, box.clientWidth || 320), top = 22, ml = 6, mr = 14, labelH = 16;
+    // Hinnat vaihtelevat satasista kymmeneen tuhanteen, joten akseli on logaritminen.
+    var eur = rows.map(function (p) { return p.eur; }), TICKS = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000];
+    var lo = TICKS.filter(function (t) { return t <= Math.min.apply(null, eur); }).pop() || TICKS[0];
+    var hi = TICKS.find(function (t) { return t >= Math.max.apply(null, eur); }) || TICKS[TICKS.length - 1];
+    var x = function (v) { return ml + (Math.log(v) - Math.log(lo)) / (Math.log(hi) - Math.log(lo)) * (W - ml - mr); };
+    var pts = [];
+    rows.forEach(function (p, i) {
+      var lane = PRICE_LANES.findIndex(function (L) { return L.g === p.group; });
+      if (lane >= 0) pts.push({ p: p, key: 'price-' + i, px: x(p.eur), lane: lane });
+    });
+    // Kaistan yläosaan jätetään tilaa nimelle.
+    var L = stackLanes(pts, PRICE_LANES.length, top, 13, 40);
+    var shift = function (i) { return labelH * (i + 1); };
+    pts.forEach(function (q) { q.py += shift(q.lane); });
+    var H = L.H + shift(PRICE_LANES.length - 1);
+    var svg = svgIn(box, W, H);
+    svg.setAttribute('aria-label', 'Lasien hinnat euroina');
+    TICKS.filter(function (t) { return t >= lo && t <= hi; }).forEach(function (v) {
+      var px = x(v);
+      el('line', { x1: px, x2: px, y1: top - 6, y2: H, style: 'stroke:var(--grid)' }, svg);
+      txt('text', { x: px, y: 12, 'text-anchor': v === lo ? 'start' : v === hi ? 'end' : 'middle', style: 'fill:var(--muted);font-size:11px;font-variant-numeric:tabular-nums' }, svg, fi.format(v) + (v === hi ? ' €' : ''));
+    });
+    PRICE_LANES.forEach(function (lane, i) {
+      var y0 = L.laneTop[i] + shift(i) - labelH;
+      txt('text', { x: ml, y: y0 + 12, style: 'fill:var(--muted);font-size:11.5px' }, svg, lane.l);
+      var yb = L.laneTop[i] + L.laneH[i] + shift(i);
+      el('line', { x1: ml, x2: W - mr, y1: yb, y2: yb, style: 'stroke:var(--grid)' }, svg);
+    });
+    pts.forEach(function (q) {
+      var p = q.p, col = PRICE_LANES[q.lane].c, s = SRCMAP[p.src];
+      var attrs = {
+        'class': 'xr-dot', tabindex: 0, role: 'img',
+        'aria-label': p.model + ': ' + priceText(p) + (p.eu ? ', eurooppalainen valmistaja' : ''),
+        style: 'fill:' + (p.approx ? 'var(--panel)' : col) + ';stroke:' + col + ';stroke-width:2'
+      };
+      if (p.eu) attrs.d = 'M' + q.px + ' ' + (q.py - 7) + 'l7 7-7 7-7-7z';
+      else { attrs.cx = q.px; attrs.cy = q.py; attrs.r = 6; }
+      var c = el(p.eu ? 'path' : 'circle', attrs, svg);
+      bindDot(c, q.key, tip, function () {
+        showTip(host, tip, q, p.model, priceText(p) + (p.note ? ' (' + p.note + ')' : '') + (s ? ' · ' + s.name : ''));
+      });
     });
   }
 
   function drawTable() {
     var tbody = document.querySelector('#xr-table tbody');
     tbody.replaceChildren();
-    var rows = EVENTS.filter(visible).sort(function (a, b) { return a.ord - b.ord; });
+    var rows = EVENTS.filter(visible);
     var prevQ = null;
     rows.forEach(function (r) {
       var tr = document.createElement('tr');
-      tr.className = 't-' + r.theme + (isEu(r) ? ' eu' : '') + (prevQ !== null && r.q !== prevQ ? ' q-first' : '');
+      tr.id = 'xr-row-' + r.id;
+      tr.className = 't-' + r.theme + (isEu(r) ? ' eu' : '') + (prevQ !== null && r.q !== prevQ ? ' q-first' : '') + (state.pinned === r.id ? ' hl' : '');
       prevQ = r.q;
-      [r.when, r.theme_label, r.title, r.detail, r.source].forEach(function (t) {
-        var td = document.createElement('td'); td.textContent = t; tr.appendChild(td);
+      [r.when, r.theme_label, r.title].forEach(function (t) {
+        var td = document.createElement('td'); td.append(t); tr.appendChild(td);
       });
+      var det = document.createElement('td');
+      det.append(r.detail, srcTags(r.sources));
+      tr.appendChild(det);
       tbody.appendChild(tr);
     });
     $('xr-empty').hidden = rows.length > 0;
@@ -402,7 +697,7 @@ h3 { font-size: 0.95rem; font-weight: 600; }
   }
 
   function drawFiltered() { syncControls(); drawStrip(); drawTable(); }
-  function drawAll() { drawMeta(); drawMarket(); drawFiltered(); }
+  function drawAll() { drawMeta(); drawMarket(); drawPrices(); drawFiltered(); }
 
   document.querySelectorAll('.xr-theme').forEach(function (b) {
     b.addEventListener('click', function () {
@@ -418,6 +713,7 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 
   fillStatic();
   drawAll();
+  $('xr-price-more').addEventListener('toggle', drawPrices);
 
   var lastW = $('xr-root').clientWidth, timer = null;
   function onResize() {

@@ -18,3 +18,29 @@ Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoi
 - Ei ulkoisia kirjastoja, palveluita eikä evästeitä.
 - Toimii vaalealla ja tummalla teemalla sekä mobiilissa.
 - Aineisto on JSON-muodossa tiedoston lopussa (<script id="xr-data">). Rivin voi lisätä tai korjata suoraan siihen.
+
+
+## ✏️ Aineiston päivittäminen
+Jokainen tapahtuma on yksi rivi `events`-listassa:
+
+```json
+{"id": "e46", "date": "2026-10-14", "theme": "laitteet", "europe": false, "title": "Otsikko", "detail": "Lisätieto.", "src": "s33"}
+```
+
+| Kenttä | Selitys |
+|---|---|
+| `id` | Yksilöllinen tunniste, esim. `e46`. |
+| `date` | `"2026-10-14"`, jos päivä on tiedossa, tai `"2026-10"`, jos vain kuukausi on tiedossa. |
+| `end` | Valinnainen loppupäivä monipäiväiselle tapahtumalle, esim. `"2026-10-15"`. |
+| `theme` | `laitteet`, `alustat`, `sisalto`, `saantely` tai `ala`. |
+| `europe` | `true`, jos tapahtumalla on Eurooppa-yhteys. |
+| `title`, `detail` | Otsikko ja lisätieto. |
+| `src` | Lähteen tunniste `sources`-listasta (esim. `"s14"`) tai useampi listana (`["s35", "s36"]`). Lisää uusi lähde ensin sinne: `{"id": "s37", "name": "…", "url": "https://…"}`. Lähde näkyy Lisätieto-tekstin lopussa linkkinä ("Lähde", useammalla "Lähde 1", "Lähde 2"). |
+
+Sivu laskee itse neljänneksen (Q1–Q4), aikajanan päivämäärän, aiheen nimen ja tapahtumien järjestyksen. Rivejä ei siis tarvitse pitää aikajärjestyksessä. Aikajana ja otsikko jatkuvat automaattisesti uusiin kuukausiin.
+
+- `updated`: päivityspäivä (`"2026-10-16"`), näkyy sivun alalaidassa. Tätä ei tarvitse muuttaa käsin: GitHub Actions -työnkulku (`.github/workflows/paivitysaika.yml`) asettaa sen automaattisesti sen päivän mukaan, jolloin index.html:ää viimeksi muutettiin, ja tallentaa muutoksen omana committinaan.
+- `prices`: hintaruutujen ja hintakuvaajan mallit (`group` `ar` tai `vr`, `eur`, valinnaiset `from` = "alk.", `approx` = "noin", `note` ja `eu: true` eurooppalaiselle valmistajalle, sekä `src`). Eurooppalaiset mallit näkyvät omassa ruudussaan ja kuvaajassa vinoneliöinä.
+- `figures`: kaavioiden luvut.
+
+Jos rivillä on virheellinen päivämäärä, aihe tai lähde, sivu jättää rivin pois ja kertoo siitä selaimen konsolissa.
