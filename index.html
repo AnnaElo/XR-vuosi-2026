@@ -72,6 +72,8 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-pgroup-range small { font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); }
 .xr-prow { display: grid; grid-template-columns: minmax(0, 1fr) 5.5rem; grid-template-areas: "name val" "bar bar"; gap: 0.15rem 0.6rem; padding: 0.4rem 0; font-size: 0.8125rem; line-height: 1.35; }
 .xr-pname { grid-area: name; min-width: 0; }
+.xr-pname a { text-decoration: none; }
+.xr-pname a:hover, .xr-pname a:focus-visible { text-decoration: underline; }
 .xr-pname small { color: var(--muted); font-size: 0.75rem; margin-left: 0.35rem; }
 .xr-pval { grid-area: val; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .xr-ptrack { grid-area: bar; height: 8px; background: var(--grid); border-radius: 0 4px 4px 0; }
@@ -183,7 +185,6 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
         <div class="xr-pgroups" id="xr-prices"></div>
         <div class="xr-pnote">
           <p class="xr-note"><b>alk.</b> = lähtöhinta, <b>noin</b> = arvio. Kuluttajalasien hinnat muuttuvat kampanjoiden mukaan.</p>
-          <p class="xr-note">Varjo on suomalainen ja Somnium tšekkiläinen valmistaja. Niiden hinnat ovat valmistajien listahintoja (Varjo 11/2023, Somnium 1/2025), joten ajantasaiset hinnat kannattaa tarkistaa valmistajalta.</p>
         </div>
       </div>
     </div>
