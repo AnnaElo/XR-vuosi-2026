@@ -58,19 +58,25 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-theme-count b { font-family: var(--serif); font-weight: 400; font-size: 2rem; line-height: 1; }
 .xr-theme p { font-size: 0.8125rem; line-height: 1.5; color: var(--muted); }
 
-.xr-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 0.9rem; }
+.xr-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+@media (max-width: 700px) { .xr-cards { grid-template-columns: minmax(0, 1fr); } }
 .xr-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
-.xr-chart { min-height: 11rem; position: relative; }
+.xr-card-wide { grid-column: 1 / -1; gap: 0.9rem; }
+.xr-chart { min-height: 11rem; position: relative; margin-top: auto; }
 .xr-chart svg, .xr-stripsvg svg { display: block; }
-.xr-tiles { display: grid; gap: 0.9rem; }
-.xr-tile { display: flex; flex-direction: column; gap: 0.2rem; padding-bottom: 0.9rem; border-bottom: 1px solid var(--line); }
-.xr-tile:last-of-type { border-bottom: 0; padding-bottom: 0; }
-.xr-more { border-top: 1px solid var(--line); padding-top: 0.9rem; }
-.xr-more summary { cursor: pointer; font-size: 0.8125rem; font-weight: 600; width: fit-content; }
-.xr-more .xr-legend { margin: 0.6rem 0; }
-.xr-pricestrip { padding: 0.6rem; }
-.xr-tile-val { font-family: var(--serif); font-size: 2.1rem; line-height: 1.1; font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: 0.4rem; }
-.xr-tile-val small { font-family: var(--sans); font-size: 0.95rem; color: var(--muted); }
+.xr-pgroups { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1.25rem 2rem; }
+.xr-pgroup { display: flex; flex-direction: column; min-width: 0; }
+.xr-pgroup-head { display: flex; flex-direction: column; gap: 0.1rem; padding-bottom: 0.4rem; margin-bottom: 0.2rem; border-bottom: 1px solid var(--line); }
+.xr-pgroup-head b { font-size: 0.875rem; font-weight: 600; }
+.xr-pgroup-range { font-family: var(--serif); font-size: 1.35rem; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.xr-pgroup-range small { font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); }
+.xr-prow { display: grid; grid-template-columns: minmax(0, 1fr) 5.5rem; grid-template-areas: "name val" "bar bar"; gap: 0.15rem 0.6rem; padding: 0.4rem 0; font-size: 0.8125rem; line-height: 1.35; }
+.xr-pname { grid-area: name; min-width: 0; }
+.xr-pname small { color: var(--muted); font-size: 0.75rem; margin-left: 0.35rem; }
+.xr-pval { grid-area: val; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.xr-ptrack { grid-area: bar; height: 8px; background: var(--grid); border-radius: 0 4px 4px 0; }
+.xr-pbar { display: block; height: 100%; min-width: 3px; background: var(--accent); border-radius: 0 4px 4px 0; }
+.xr-pnote { display: flex; flex-direction: column; gap: 0.3rem; }
 
 .xr-strip { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.9rem; }
 .xr-dot { cursor: pointer; transition: opacity 0.2s; }
@@ -108,7 +114,7 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
 }
 .xr-notes { display: flex; flex-direction: column; gap: 1.5rem; }
 .xr-notes ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8125rem; line-height: 1.5; color: var(--muted); }
-.xr-notes a, .xr-table a, .xr-tile a { color: inherit; text-underline-offset: 2px; }
+.xr-notes a, .xr-table a, .xr-pname a { color: inherit; text-underline-offset: 2px; }
 .xr-table tr.hl td { background: color-mix(in srgb, var(--dot, var(--accent)) 14%, transparent); }
 .xr-notes h3 { margin-bottom: 0.6rem; }
 .xr-foot { color: var(--muted); font-size: 0.8125rem; border-top: 1px solid var(--line); padding-top: 1rem; }
@@ -171,36 +177,13 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
         <p class="xr-note" data-src="s21">Toinen neljännes 2026, Counterpoint Research.</p>
         <div class="xr-chart" id="xr-chart-market"></div>
       </div>
-      <div class="xr-card">
-        <div class="xr-tiles">
-          <div class="xr-tile">
-            <span class="xr-note">AR- ja älylasien hinnat</span>
-            <span class="xr-tile-val"><span data-range="ar">—</span><small>euroa</small></span>
-            <span class="xr-note">Suosituimpia malleja: <span data-prices="ar"></span>.</span>
-          </div>
-          <div class="xr-tile">
-            <span class="xr-note">VR- ja mixed reality -lasien hinnat</span>
-            <span class="xr-tile-val"><span data-range="vr">—</span><small>euroa</small></span>
-            <span class="xr-note">Keskeisiä malleja: <span data-prices="vr"></span>. Hinnat ovat arvioita ja muuttuvat kampanjoiden mukaan.</span>
-          </div>
-          <div class="xr-tile">
-            <span class="xr-note">Eurooppalaiset valmistajat</span>
-            <span class="xr-tile-val"><span data-range="eu">—</span><small>euroa</small></span>
-            <span class="xr-note">Pääosin ammattikäyttöön: <span data-prices="eu"></span>. Varjo on suomalainen ja Somnium tšekkiläinen. Hinnat ovat valmistajien listahintoja (Varjo 11/2023, Somnium 1/2025), ja ajantasaiset hinnat kannattaa tarkistaa valmistajalta.</span>
-          </div>
-          <details class="xr-more" id="xr-price-more">
-            <summary>Näytä hinnat kuvaajana</summary>
-            <div class="xr-legend">
-              <span><i class="xr-full"></i>Hinta</span>
-              <span><i class="xr-ring"></i>Arvio (noin)</span>
-              <span><i class="xr-diamond"></i>Eurooppalainen valmistaja</span>
-              <span>Hinta-akseli on logaritminen.</span>
-            </div>
-            <div class="xr-strip xr-pricestrip" id="xr-price">
-              <div class="xr-stripsvg" id="xr-price-svg"></div>
-              <div class="xr-tip" id="xr-price-tip" hidden></div>
-            </div>
-          </details>
+      <div class="xr-card xr-card-wide">
+        <h3>Lasien hinnat, euroa</h3>
+        <p class="xr-note">Keskeiset mallit kolmessa ryhmässä samalla asteikolla. Pisin palkki on kallein malli.</p>
+        <div class="xr-pgroups" id="xr-prices"></div>
+        <div class="xr-pnote">
+          <p class="xr-note"><b>alk.</b> = lähtöhinta, <b>noin</b> = arvio. Kuluttajalasien hinnat muuttuvat kampanjoiden mukaan.</p>
+          <p class="xr-note">Varjo on suomalainen ja Somnium tšekkiläinen valmistaja. Niiden hinnat ovat valmistajien listahintoja (Varjo 11/2023, Somnium 1/2025), joten ajantasaiset hinnat kannattaa tarkistaa valmistajalta.</p>
         </div>
       </div>
     </div>
@@ -471,21 +454,6 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
       }
     }
 
-    // Eurooppalaiset mallit omassa ruudussaan, muut ryhmänsä (ar/vr) ruudussa.
-    ['ar', 'vr', 'eu'].forEach(function (g) {
-      var rows = PRICES.filter(function (p) { return isFinite(p.eur) && (g === 'eu' ? p.eu : p.group === g && !p.eu); });
-      var range = document.querySelector('[data-range="' + g + '"]'), list = document.querySelector('[data-prices="' + g + '"]');
-      if (!rows.length || !range || !list) return;
-      var eur = rows.map(function (p) { return p.eur; });
-      range.textContent = fi.format(Math.min.apply(null, eur)) + '–' + fi.format(Math.max.apply(null, eur));
-      list.replaceChildren();
-      rows.forEach(function (p, i) {
-        if (i) list.append(i === rows.length - 1 ? ' ja ' : ', ');
-        var s = SRCMAP[p.src];
-        list.append(s ? link(p.model, s.url) : p.model,
-          ' ' + priceText(p) + (p.note && g !== 'eu' ? ' (' + p.note + ')' : ''));
-      });
-    });
   }
 
   function drawMeta() {
@@ -510,24 +478,41 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
     });
   }
 
+  // Palkin pyöristys vain datan päässä; nollaviivan puoli pysyy suorana.
+  function barPath(x0, x1, y, h, r) {
+    var d = x1 >= x0 ? 1 : -1, w = Math.abs(x1 - x0);
+    r = Math.min(r, w, h / 2);
+    var xe = x1 - d * r;
+    return 'M' + x0 + ' ' + y + 'H' + xe + 'q' + d * r + ' 0 ' + d * r + ' ' + r + 'V' + (y + h - r) +
+      'q0 ' + r + ' ' + (-d * r) + ' ' + r + 'H' + x0 + 'Z';
+  }
+
   function drawMarket() {
     var box = $('xr-chart-market');
     var items = [{ l: 'VR-headsetit', v: fig('vr_q2') }, { l: 'AR-laitteet', v: fig('ar_q2') }].filter(function (d) { return isFinite(d.v); });
     if (!items.length) return;
-    var W = Math.max(220, box.clientWidth || 320), rowH = 62, H = rowH * items.length + 10, m = 6;
+    // Nimet omassa sarakkeessaan vasemmalla, joten nollaviiva ei osu teksteihin.
+    var W = Math.max(220, box.clientWidth || 320), labW = 108, valW = 52, rowH = 64, barH = 26, top = 8, axisH = 22, mr = 8;
+    var H = top + rowH * items.length + axisH;
     var vals = items.map(function (d) { return d.v; });
-    var lo = Math.min.apply(null, [0].concat(vals)) - 8, hi = Math.max.apply(null, [0].concat(vals)) * 1.02;
-    var x = function (v) { return m + (v - lo) / (hi - lo) * (W - 2 * m); };
+    var lo = Math.min.apply(null, [0].concat(vals)), hi = Math.max.apply(null, [0].concat(vals));
+    var pl = labW + (lo < 0 ? valW : 0);
+    var x = function (v) { return pl + (v - lo) / ((hi - lo) || 1) * (W - pl - mr); };
     var svg = svgIn(box, W, H);
+    var yEnd = top + rowH * items.length;
     items.forEach(function (d, i) {
-      var y0 = 6 + i * rowH, x0 = x(0), x1 = x(d.v);
-      txt('text', { x: m, y: y0 + 12, style: 'fill:var(--muted);font-size:12.5px' }, svg, d.l);
-      el('rect', { x: Math.min(x0, x1), y: y0 + 22, width: Math.max(2, Math.abs(x1 - x0)), height: 20, rx: 4, style: 'fill:' + (d.v < 0 ? 'var(--mutedbar)' : 'var(--accent)') }, svg);
+      var yc = top + i * rowH + rowH / 2, x0 = x(0), x1 = x(d.v);
+      txt('text', { x: 0, y: yc + 4.5, style: 'fill:var(--fg);font-size:13px' }, svg, d.l);
+      el('path', { d: barPath(x0, x1, yc - barH / 2, barH, 4), style: 'fill:' + (d.v < 0 ? 'var(--mutedbar)' : 'var(--accent)') }, svg);
       var inside = d.v > 0 && Math.abs(x1 - x0) > 70;
-      txt('text', { x: d.v < 0 ? x0 + 8 : inside ? x1 - 8 : x1 + 8, y: y0 + 37, 'text-anchor': d.v > 0 && inside ? 'end' : 'start',
-        style: 'fill:' + (inside ? 'var(--bg)' : 'var(--fg)') + ';font-size:13.5px;font-variant-numeric:tabular-nums' }, svg, signed(d.v));
+      txt('text', {
+        x: d.v < 0 ? x1 - 6 : inside ? x1 - 8 : x1 + 6, y: yc + 5,
+        'text-anchor': d.v < 0 || inside ? 'end' : 'start',
+        style: 'fill:' + (inside ? 'var(--panel)' : 'var(--fg)') + ';font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums'
+      }, svg, signed(d.v));
     });
-    el('line', { x1: x(0), x2: x(0), y1: 0, y2: H, style: 'stroke:var(--muted);stroke-dasharray:3 3' }, svg);
+    el('line', { x1: x(0), x2: x(0), y1: top, y2: yEnd, style: 'stroke:var(--fg);stroke-width:1' }, svg);
+    txt('text', { x: x(0), y: yEnd + 15, 'text-anchor': 'middle', style: 'fill:var(--muted);font-size:11.5px' }, svg, '0 %');
   }
 
   // Lähekkäiset pisteet pinotaan tasoille 0, +1, −1, +2, −2 …; kaista kasvaa tarvittaessa.
@@ -607,56 +592,47 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
     });
   }
 
-  var PRICE_LANES = [{ g: 'ar', l: 'AR- ja älylasit', c: 'var(--c-laitteet)' }, { g: 'vr', l: 'VR ja mixed reality', c: 'var(--c-alustat)' }];
   function priceText(p) { return (p.from ? 'alk. ' : p.approx ? 'noin ' : '') + fi.format(p.eur) + ' €'; }
 
+  // Eurooppalaiset mallit omana ryhmänään, muut ryhmänsä (ar/vr) mukaan. Kaikilla ryhmillä sama asteikko.
+  var PRICE_GROUPS = [
+    { g: 'ar', l: 'AR- ja älylasit' },
+    { g: 'vr', l: 'VR- ja mixed reality -lasit' },
+    { g: 'eu', l: 'Eurooppalaiset, ammattikäyttöön' }
+  ];
   function drawPrices() {
-    var host = $('xr-price'), box = $('xr-price-svg'), tip = $('xr-price-tip');
-    if (!$('xr-price-more').open) return;
-    tip.hidden = true;
-    var rows = PRICES.filter(function (p) { return isFinite(p.eur); });
-    var W = Math.max(240, box.clientWidth || 320), top = 22, ml = 6, mr = 14, labelH = 16;
-    // Hinnat vaihtelevat satasista kymmeneen tuhanteen, joten akseli on logaritminen.
-    var eur = rows.map(function (p) { return p.eur; }), TICKS = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000];
-    var lo = TICKS.filter(function (t) { return t <= Math.min.apply(null, eur); }).pop() || TICKS[0];
-    var hi = TICKS.find(function (t) { return t >= Math.max.apply(null, eur); }) || TICKS[TICKS.length - 1];
-    var x = function (v) { return ml + (Math.log(v) - Math.log(lo)) / (Math.log(hi) - Math.log(lo)) * (W - ml - mr); };
-    var pts = [];
-    rows.forEach(function (p, i) {
-      var lane = PRICE_LANES.findIndex(function (L) { return L.g === p.group; });
-      if (lane >= 0) pts.push({ p: p, key: 'price-' + i, px: x(p.eur), lane: lane });
-    });
-    // Kaistan yläosaan jätetään tilaa nimelle.
-    var L = stackLanes(pts, PRICE_LANES.length, top, 13, 40);
-    var shift = function (i) { return labelH * (i + 1); };
-    pts.forEach(function (q) { q.py += shift(q.lane); });
-    var H = L.H + shift(PRICE_LANES.length - 1);
-    var svg = svgIn(box, W, H);
-    svg.setAttribute('aria-label', 'Lasien hinnat euroina');
-    TICKS.filter(function (t) { return t >= lo && t <= hi; }).forEach(function (v) {
-      var px = x(v);
-      el('line', { x1: px, x2: px, y1: top - 6, y2: H, style: 'stroke:var(--grid)' }, svg);
-      txt('text', { x: px, y: 12, 'text-anchor': v === lo ? 'start' : v === hi ? 'end' : 'middle', style: 'fill:var(--muted);font-size:11px;font-variant-numeric:tabular-nums' }, svg, fi.format(v) + (v === hi ? ' €' : ''));
-    });
-    PRICE_LANES.forEach(function (lane, i) {
-      var y0 = L.laneTop[i] + shift(i) - labelH;
-      txt('text', { x: ml, y: y0 + 12, style: 'fill:var(--muted);font-size:11.5px' }, svg, lane.l);
-      var yb = L.laneTop[i] + L.laneH[i] + shift(i);
-      el('line', { x1: ml, x2: W - mr, y1: yb, y2: yb, style: 'stroke:var(--grid)' }, svg);
-    });
-    pts.forEach(function (q) {
-      var p = q.p, col = PRICE_LANES[q.lane].c, s = SRCMAP[p.src];
-      var attrs = {
-        'class': 'xr-dot', tabindex: 0, role: 'img',
-        'aria-label': p.model + ': ' + priceText(p) + (p.eu ? ', eurooppalainen valmistaja' : ''),
-        style: 'fill:' + (p.approx ? 'var(--panel)' : col) + ';stroke:' + col + ';stroke-width:2'
-      };
-      if (p.eu) attrs.d = 'M' + q.px + ' ' + (q.py - 7) + 'l7 7-7 7-7-7z';
-      else { attrs.cx = q.px; attrs.cy = q.py; attrs.r = 6; }
-      var c = el(p.eu ? 'path' : 'circle', attrs, svg);
-      bindDot(c, q.key, tip, function () {
-        showTip(host, tip, q, p.model, priceText(p) + (p.note ? ' (' + p.note + ')' : '') + (s ? ' · ' + s.name : ''));
+    var host = $('xr-prices');
+    var all = PRICES.filter(function (p) { return isFinite(p.eur); });
+    if (!all.length) return;
+    var max = Math.max.apply(null, all.map(function (p) { return p.eur; }));
+    host.replaceChildren();
+    PRICE_GROUPS.forEach(function (G) {
+      var rows = all.filter(function (p) { return G.g === 'eu' ? p.eu : p.group === G.g && !p.eu; })
+        .sort(function (a, b) { return a.eur - b.eur; });
+      if (!rows.length) return;
+      var box = document.createElement('div'); box.className = 'xr-pgroup';
+      var head = document.createElement('div'); head.className = 'xr-pgroup-head';
+      var name = document.createElement('b'); name.textContent = G.l;
+      var range = document.createElement('span'); range.className = 'xr-pgroup-range';
+      range.textContent = fi.format(rows[0].eur) + '–' + fi.format(rows[rows.length - 1].eur) + ' ';
+      var unit = document.createElement('small'); unit.textContent = '€';
+      range.append(unit);
+      head.append(name, range);
+      box.append(head);
+      rows.forEach(function (p) {
+        var s = SRCMAP[p.src];
+        var row = document.createElement('div'); row.className = 'xr-prow';
+        var nm = document.createElement('span'); nm.className = 'xr-pname';
+        nm.append(s ? link(p.model, s.url) : p.model);
+        if (p.note && !p.eu) { var n = document.createElement('small'); n.textContent = p.note; nm.append(n); }
+        var val = document.createElement('span'); val.className = 'xr-pval'; val.textContent = priceText(p);
+        var track = document.createElement('span'); track.className = 'xr-ptrack'; track.setAttribute('aria-hidden', 'true');
+        var bar = document.createElement('span'); bar.className = 'xr-pbar'; bar.style.width = (p.eur / max * 100).toFixed(1) + '%';
+        track.append(bar);
+        row.append(nm, val, track);
+        box.append(row);
       });
+      host.append(box);
     });
   }
 
@@ -713,7 +689,6 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
 
   fillStatic();
   drawAll();
-  $('xr-price-more').addEventListener('toggle', drawPrices);
 
   var lastW = $('xr-root').clientWidth, timer = null;
   function onResize() {
