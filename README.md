@@ -15,11 +15,22 @@ Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoi
 ## 🔧 Tekninen toteutus
 - Rakennettu hyödyntäen tekoälytyökalua (Claude Sonnet 5.5) 
 - Yksi itsenäinen index.html: tyylit, data, JavaScript ja kuva ovat samassa tiedostossa.
-- Ei ulkoisia kirjastoja, palveluita eikä evästeitä.
+- Ei ulkoisia kirjastoja eikä evästeitä. Ainoa ulkoinen palvelu on Google Fonts, josta fontit ladataan.
 - Toimii mobiilissa sekä vaalealla ja tummalla teemalla. Oletuksena on vaalea teema, ja tumman voi valita yläpalkin säätimestä. Valinta muistetaan selaimessa.
 - Sivulla on kolme osiota, joihin yläpalkin linkit vievät: keskeiset tapahtumat, XR-kehitys lukuina sekä standardit ja sääntely.
 - Aineisto on JSON-muodossa tiedoston lopussa (<script id="xr-data">). Rivin voi lisätä tai korjata suoraan siihen.
 
+
+## 🎨 Visuaalinen ilme (Napapiiri)
+Ilme valittiin kolmesta vaihtoehdosta (Napapiiri, Revontuli ja Polaarikartta). Teemoina olivat avoimuus, metaversumi, virtuaalimaailma ja Suomen arktisuus. Napapiiri on ilmava ja helppolukuinen, ja se sopii datavetoiselle sivulle.
+
+- **Värit** on poimittu sivun hero-kuvasta. Vaalean teeman pohja on hangen sävy (`#f2f6fb`), teksti kaamoksen sininen (`#05103b`) ja korostus koboltti (`#103f96`). Tumma teema käyttää pohjana kaamoksen sinistä (`#06112d`) ja korostuksena vaaleaa kobolttia (`#8fb0f2`).
+- **Aihevärit** ovat värisokeille sopivaa Okabe–Ito-palettia, ja ne ovat samat molemmissa teemoissa (tummassa hieman vaaleampina). Aiheen pallo on täytetty, kun aihe on valittuna, ja rengas, kun se on rajattu pois.
+- **Fontit:** Schibsted Grotesk otsikoissa ja leipätekstissä, IBM Plex Mono päivämäärissä ja lähdetägeissä. Jos fontit eivät lataudu, sivu käyttää järjestelmäfontteja.
+- **Hero-kuva** on jäänsinisen pyöreän "keskiyön auringon" sisällä.
+- **Muodot:** 8 px pyöristys korteissa, pillerinmuotoiset painikkeet ja ohuet viivat, ei koristeellisia varjoja.
+- **Saavutettavuus:** pienin fonttikoko on 12 px, myös kaavioissa. Värien kontrastit on tarkistettu molemmissa teemoissa, ja näppäimistöfokus näkyy selvästi.
+- Värit ja fontit on määritelty CSS-muuttujina index.html:n alussa (`:root` ja `[data-scheme="dark"]`), joten niitä voi muuttaa yhdestä kohdasta.
 
 ## ✏️ Aineiston päivittäminen
 Jokainen tapahtuma on yksi rivi `events`-listassa:
