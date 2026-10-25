@@ -1,11 +1,11 @@
-# Päivittää index.html:n "updated"-kentän (sivun "Viimeksi päivitetty") sen päivän mukaan,
-# jolloin index.html:ää viimeksi muutettiin. Ajetaan aina, kun main-haaraan pushataan muutos index.html:ään.
+# Päivittää aineistotiedostojen (data/*.json) "updated"-kentän (sivun "Viimeksi päivitetty") sen päivän mukaan,
+# jolloin kyseistä tiedostoa viimeksi muutettiin. Ajetaan aina, kun main-haaraan pushataan muutos data-kansioon.
 name: Päivitysaika
 
 on:
   push:
     branches: [main]
-    paths: [index.html]
+    paths: ['data/**.json']
   workflow_dispatch:
 
 permissions:
@@ -25,22 +25,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Aseta päivämäärä viimeisimmästä index.html-muutoksesta
+      - name: Aseta päivämäärät viimeisimmistä muutoksista
         env:
           TZ: Europe/Helsinki
         run: |
-          D=$(git log -1 --format=%cd --date=format-local:%Y-%m-%d -- index.html)
-          echo "Päivämäärä: $D"
-          sed -i -E "s/^\"updated\": \"[0-9]{4}-[0-9]{2}-[0-9]{2}\"/\"updated\": \"$D\"/" index.html
-          grep -q "^\"updated\": \"$D\"" index.html || { echo "updated-kenttää ei löytynyt index.html:stä"; exit 1; }
-          echo "D=$D" >> "$GITHUB_ENV"
+          for F in data/*.json; do
+            grep -q '^"updated": ' "$F" || continue
+            D=$(git log -1 --format=%cd --date=format-local:%Y-%m-%d -- "$F")
+            echo "$F: $D"
+            sed -i -E "s/^\"updated\": \"[0-9]{4}-[0-9]{2}-[0-9]{2}\"/\"updated\": \"$D\"/" "$F"
+            grep -q "^\"updated\": \"$D\"" "$F" || { echo "updated-kenttää ei löytynyt tiedostosta $F"; exit 1; }
+          done
 
       - name: Tallenna muutos
         run: |
-          if git diff --quiet index.html; then
-            echo "Aikaleima on jo ajan tasalla."
+          if git diff --quiet data; then
+            echo "Aikaleimat ovat jo ajan tasalla."
             exit 0
           fi
+          D=$(TZ=Europe/Helsinki date +%Y-%m-%d)
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -am "Päivitä aikaleima $D"

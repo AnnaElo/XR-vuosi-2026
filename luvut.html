@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XR-kehitys lukuina</title>
+<meta name="description" content="XR-kehitys lukuina: Meta Reality Labsin luvut, AR- ja VR-laitteiden toimitusten vuosimuutos sekä lasien hinnat euroina.">
+<link rel="stylesheet" href="assets/tyylit.css">
+<script src="assets/yhteinen.js"></script>
+<script src="assets/luvut.js" defer></script>
+</head>
+<body>
+<main class="xr" id="xr-root">
+  <nav class="xr-nav" aria-label="Sivut">
+    <ul class="xr-nav-links">
+      <li><a href="index.html">XR-vuosi 2026</a></li>
+      <li><a href="luvut.html" aria-current="page">XR-kehitys lukuina</a></li>
+      <li><a href="standardit.html">Standardit ja sääntely</a></li>
+    </ul>
+    <button type="button" class="xr-btn" id="xr-scheme" title="Vaihda vaalean ja tumman teeman välillä">Teema: automaattinen</button>
+  </nav>
+  <header class="xr-pagehead">
+    <h1>XR-kehitys lukuina</h1>
+    <p class="xr-lede">Raha ja laitemäärät kertovat suunnan: Metan XR-tappiot kasvavat, VR-headsetien toimitukset laskevat ja AR-laitteiden kasvavat. Lasien hinnat ulottuvat parista sadasta eurosta ammattilaitteiden lähes kymmeneen tuhanteen euroon.</p>
+    <noscript><p class="xr-note">Tämä sivu tarvitsee JavaScriptin kaavioiden näyttämiseen.</p></noscript>
+  </header>
+
+  <section class="xr-sec" aria-labelledby="xr-h-numbers">
+    <h2 id="xr-h-numbers">Luvut, jotka kertovat suunnan</h2>
+    <div class="xr-cards">
+      <div class="xr-card">
+        <h3>Meta Reality Labs, mrd dollaria</h3>
+        <p class="xr-note" data-src="s01">Tappio vuosina 2024 ja 2025 sekä vuoden 2025 liikevaihto.</p>
+        <div class="xr-chart" id="xr-chart-meta"></div>
+      </div>
+      <div class="xr-card">
+        <h3>Laitetoimitusten vuosimuutos</h3>
+        <p class="xr-note" data-src="s21">Toinen neljännes 2026, Counterpoint Research.</p>
+        <div class="xr-chart" id="xr-chart-market"></div>
+      </div>
+      <div class="xr-card xr-card-wide">
+        <h3>Lasien hinnat, euroa</h3>
+        <p class="xr-note">Keskeiset mallit kolmessa ryhmässä samalla asteikolla. Pisin palkki on kallein malli.</p>
+        <div class="xr-pgroups" id="xr-prices"></div>
+        <div class="xr-pnote">
+          <p class="xr-note"><b>alk.</b> = lähtöhinta, <b>noin</b> = arvio. Hinnat ovat euroina ja suuntaa-antavia, ja kuluttajalasien hinnat muuttuvat kampanjoiden mukaan. Osa eurohinnoista on muunnettu muista valuutoista.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="xr-foot">Viimeksi päivitetty: <span id="xr-updated">—</span>. Anna Eloranta (Oulun ammattikorkeakoulu) on koonnut aineiston julkisista XR-uutiskirjeistä sekä lähteistä.</p>
+</main>
+</body>
+</html>

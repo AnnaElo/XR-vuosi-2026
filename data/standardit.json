@@ -1,0 +1,56 @@
+{
+"updated": "2026-10-25",
+"standards": [
+  {"id": "openxr", "name": "OpenXR", "org": "Khronos Group", "status": "Versio 1.1, 15.4.2024", "detail": "Avoin rajapintastandardi, jonka avulla sama XR-sovellus toimii eri valmistajien laseilla ilman laitekohtaista koodia. Versio 1.1 siirsi laajasti käytettyjä laajennuksia ydinmäärittelyyn, mikä vähentää pirstaloitumista.", "src": "x01"},
+  {"id": "gltf", "name": "glTF 2.0", "org": "Khronos Group · ISO/IEC 12113:2022", "status": "ISO/IEC-standardi 4.8.2022", "detail": "Kevyt tiedostomuoto 3D-mallien ja -näkymien siirtämiseen ja näyttämiseen sovellusten välillä. Muoto hyväksyttiin vuonna 2022 kansainväliseksi ISO/IEC-standardiksi.", "src": "x02"},
+  {"id": "openusd", "name": "OpenUSD", "org": "Alliance for OpenUSD (Linux Foundation)", "status": "Core Specification 1.0, 17.12.2025", "detail": "Avoin kuvausmuoto laajoille 3D-maailmoille ja -näkymille, käytössä mm. elokuvatuotannossa ja teollisuuden digitaalisissa kaksosissa. Ensimmäinen ydinmäärittely on AOUSD:n mukaan ensimmäinen askel kohti ISO-standardointia.", "src": "x03"},
+  {"id": "webxr", "name": "WebXR Device API", "org": "W3C", "status": "Candidate Recommendation Draft, 9.6.2026", "detail": "Selainrajapinta, jolla VR- ja AR-sisältöä voi käyttää suoraan verkkosivulta ilman erillistä sovellusta. Määrittely on vielä W3C:n suositusehdotuksen luonnosvaiheessa.", "src": "x04"},
+  {"id": "msf", "name": "Metaverse Standards Forum", "org": "Yritysten ja standardointijärjestöjen foorumi", "status": "Perustettu 21.6.2022", "detail": "Foorumi ei laadi standardeja itse, vaan koordinoi olemassa olevien standardien yhteentoimivuutta. Alkuvuonna 2026 sen 3D Web Interoperability -työryhmä julkaisi Web of Worlds -whitepaperin, jossa 3D-maailmat linkitettäisiin toisiinsa kuten verkkosivut.", "src": ["x05", "x06"]},
+  {"id": "sc24", "name": "ISO/IEC JTC 1/SC 24", "org": "ISO ja IEC", "status": "Metaverse-työpaja 26.6.2023", "detail": "Kansainvälinen alikomitea, joka vastaa tietokonegrafiikan ja ympäristödatan esittämisen standardeista, mukaan lukien VR-, AR- ja metaverse-aiheiset ISO/IEC-standardit.", "src": "x07"}
+],
+"eu": [
+  {"id": "web40", "name": "Web 4.0 ja virtuaalimaailmat -aloite", "org": "Euroopan komissio · COM(2023) 442", "status": "Julkaistu 11.7.2023", "detail": "EU:n strategia virtuaalimaailmoille. Painopisteet ovat osaaminen, eurooppalainen teollisuusekosysteemi, virtuaalimaailmat julkisissa palveluissa sekä avoimet standardit, jotta suuret toimijat eivät hallitse kehitystä yksin. Taustalla on 150 satunnaisesti valitun kansalaisen paneelin 23 suositusta.", "src": ["x08", "x09"]},
+  {"id": "ep2024", "name": "Parlamentin päätöslauselma virtuaalimaailmoista", "org": "Euroopan parlamentti · JURI-valiokunta", "status": "Hyväksytty 17.1.2024", "detail": "Nykyinen immateriaalioikeus koskee myös virtuaalimaailmoja, mutta oikeuksien valvonta ja sovellettava laki rajat ylittävissä tilanteissa kaipaavat selvennystä. Parlamentti pyysi komissiolta ohjeita toimijoiden vastuista.", "src": "x10"},
+  {"id": "gdpr", "name": "Tietosuoja-asetus (GDPR)", "org": "Asetus (EU) 2016/679", "status": "Sovellettu 25.5.2018 alkaen", "detail": "Älylasien kamerat ja mikrofonit sekä silmän- ja kasvojenseuranta keräävät henkilötietoja, osin myös biometrisiä tietoja. Eurooppalaiset tietosuojaviranomaiset ovat ottaneet kantaa älylaseihin vuonna 2026.", "src": "x11"},
+  {"id": "aiact", "name": "Tekoälysäädös (AI Act)", "org": "Asetus (EU) 2024/1689, muutettu asetuksella (EU) 2026/1744", "status": "Vaiheittain 2025–2028", "detail": "Tunteiden tunnistaminen on kielletty työpaikoilla ja oppilaitoksissa, mikä rajaa myös XR-laitteiden kasvo- ja ääniseurannan käyttöä. Läpinäkyvyysvelvoitteet, kuten tekoälyllä tuotetun sisällön merkintä, koskevat myös XR-sisältöä. Digitaalinen omnibus siirsi suuririskisten järjestelmien määräaikoja.", "src": ["x12", "x13"]},
+  {"id": "dsa", "name": "Digipalvelusäädös (DSA)", "org": "Asetus (EU) 2022/2065", "status": "Kokonaan sovellettava 17.2.2024 alkaen", "detail": "Virtuaalimaailmat ja sosiaaliset XR-alustat ovat verkkoalustoja, joiden on puututtava laittomaan sisältöön ja suojattava alaikäisiä. Parlamentti on pyytänyt selventämään, miten säädöstä sovelletaan virtuaalimaailmoihin.", "src": ["x15", "x10"]},
+  {"id": "dataact", "name": "Datasäädös (Data Act)", "org": "Asetus (EU) 2023/2854", "status": "Sovellettava 12.9.2025 alkaen", "detail": "Verkkoon kytketyn laitteen käyttäjällä on oikeus saada laitteen käytössä syntyvä data ja jakaa se haluamalleen palveluntarjoajalle. Tämä koskee myös XR-laseja.", "src": "x16"},
+  {"id": "cra", "name": "Kyberresilienssisäädös (CRA)", "org": "Asetus (EU) 2024/2847", "status": "Raportointi 11.9.2026, kokonaan 11.12.2027", "detail": "Kyberturvavaatimukset digitaalisille tuotteille koko niiden elinkaaren ajan, myös XR-laitteille ja niiden ohjelmistoille. Valmistajien on ilmoitettava aktiivisesti hyödynnetyistä haavoittuvuuksista syyskuusta 2026 alkaen.", "src": ["x17", "x18"]}
+],
+"dates": [
+  {"date": "2024-02-17", "title": "DSA kokonaan sovellettavaksi", "src": "x15"},
+  {"date": "2025-02-02", "title": "Tekoälysäädöksen kiellot voimaan, mm. tunteiden tunnistus työpaikoilla ja oppilaitoksissa", "src": "x12"},
+  {"date": "2025-09-12", "title": "Datasäädös sovellettavaksi", "src": "x16"},
+  {"date": "2026-08-02", "title": "Tekoälysäädöksen läpinäkyvyysvelvoitteet (artikla 50)", "src": "x14"},
+  {"date": "2026-09-11", "title": "Kyberresilienssisäädöksen haavoittuvuuksien raportointivelvoite", "src": "x18"},
+  {"date": "2026-12-02", "title": "Tekoälysäädös: tekoälysisällön merkinnän siirtymäaika päättyy jo markkinoilla oleville järjestelmille", "src": "x14"},
+  {"date": "2027-12-02", "title": "Tekoälysäädös: liitteen III suuririskiset järjestelmät (mm. työelämä ja koulutus)", "src": "x13"},
+  {"date": "2027-12-11", "title": "Kyberresilienssisäädös kokonaan sovellettavaksi", "src": "x17"},
+  {"date": "2028-08-02", "title": "Tekoälysäädös: tuotteisiin sulautetut suuririskiset järjestelmät (liite I)", "src": "x13"}
+],
+"reading": [
+  {"name": "Niestadt, M. (2023). Virtual worlds (metaverses). EPRS At a Glance, PE 751.408", "url": "https://www.europarl.europa.eu/thinktank/en/document/EPRS_ATA(2023)751408"},
+  {"name": "Maciejewski, M. (2023). Metaverse. JURI-valiokunnan tilaama tutkimus, PE 751.222", "url": "https://www.europarl.europa.eu/thinktank/en/document/IPOL_STU(2023)751222"},
+  {"name": "Hemphill, T.A. (2023). The 'Metaverse' and the challenge of responsible standards development. Journal of Responsible Innovation", "url": "https://doi.org/10.1080/23299460.2023.2243121"}
+],
+"sources": [
+  {"id": "x01", "name": "Khronos Group, OpenXR 1.1 -tiedote", "url": "https://khronos.org/news/press/khronos-releases-openxr-1.1-to-further-streamline-cross-platform-xr-development"},
+  {"id": "x02", "name": "Khronos Group, glTF 2.0 ISO/IEC-standardiksi", "url": "https://www.khronos.org/news/press/khronos-gltf-2.0-released-as-an-iso-iec-international-standard"},
+  {"id": "x03", "name": "Linux Foundation, OpenUSD Core Specification 1.0", "url": "https://www.linuxfoundation.org/press/alliance-for-openusd-announces-core-specification-1.0-the-universal-language-for-building-3d-worlds"},
+  {"id": "x04", "name": "W3C, WebXR Device API", "url": "https://www.w3.org/TR/webxr/"},
+  {"id": "x05", "name": "Business Wire, Metaverse Standards Forumin perustaminen", "url": "https://www.businesswire.com/news/home/20220621005486/en"},
+  {"id": "x06", "name": "Metaverse Standards Forum, Web of Worlds -whitepaper", "url": "https://webofworlds.github.io/initial_MSF_Whitepaper"},
+  {"id": "x07", "name": "JTC 1, SC 24:n metaverse-työpaja", "url": "https://jtc1info.org/replay-of-the-jtc-1-sc-24-workshop-on-metaverse/"},
+  {"id": "x08", "name": "Euroopan komissio, Virtual worlds", "url": "https://digital-strategy.ec.europa.eu/en/policies/virtual-worlds"},
+  {"id": "x09", "name": "Bird & Bird, Web 4.0 ja virtuaalimaailmat", "url": "https://www.twobirds.com/en/insights/2023/global/european-commission-presents-eu-vision-on-web-40-and-virtual-worlds"},
+  {"id": "x10", "name": "IMRO, parlamentin päätöslauselma virtuaalimaailmoista", "url": "https://imro.ie/industry-news/european-parliament-adopts-resolution-on-virtual-worlds/"},
+  {"id": "x11", "name": "EUR-Lex, asetus (EU) 2016/679", "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"},
+  {"id": "x12", "name": "EUR-Lex, asetus (EU) 2024/1689", "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"},
+  {"id": "x13", "name": "Hunton, Digital Omnibus on AI voimaan", "url": "https://www.hunton.com/privacy-and-cybersecurity-law-blog/eu-digital-omnibus-on-ai-enters-into-force"},
+  {"id": "x14", "name": "Gibson Dunn, AI Act Omnibus -sopimus", "url": "https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/"},
+  {"id": "x15", "name": "EUR-Lex, asetus (EU) 2022/2065", "url": "https://eur-lex.europa.eu/eli/reg/2022/2065/oj"},
+  {"id": "x16", "name": "EUR-Lex, asetus (EU) 2023/2854", "url": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj"},
+  {"id": "x17", "name": "EUR-Lex, asetus (EU) 2024/2847", "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"},
+  {"id": "x18", "name": "McCann FitzGerald, CRA:n raportointivelvoitteet", "url": "https://www.mccannfitzgerald.com/knowledge/data-privacy-and-cyber-risk/cyber-resilience-act-reporting-obligations-apply-from-11-september-2026"}
+]
+}
