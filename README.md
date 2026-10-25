@@ -29,7 +29,7 @@ Ilme valittiin kolmesta vaihtoehdosta (Napapiiri, Revontuli ja Polaarikartta). T
 - **Fontit:** Schibsted Grotesk otsikoissa ja leipätekstissä, IBM Plex Mono päivämäärissä ja lähdetägeissä. Jos fontit eivät lataudu, sivu käyttää järjestelmäfontteja.
 - **Hero-kuva** on jäänsinisen pyöreän "keskiyön auringon" sisällä.
 - **Muodot:** 8 px pyöristys korteissa, pillerinmuotoiset painikkeet ja ohuet viivat, ei koristeellisia varjoja.
-- **Saavutettavuus:** pienin fonttikoko on 12 px, myös kaavioissa. Värien kontrastit on tarkistettu molemmissa teemoissa, ja näppäimistöfokus näkyy selvästi.
+- **Saavutettavuus:** pienin fonttikoko on 12 px, myös kaavioissa. Tekstin ja taustan kontrasti täyttää WCAG AA -tason (vähintään 4,5:1) molemmissa teemoissa, ja näppäimistöfokus näkyy selvästi.
 - Värit ja fontit on määritelty CSS-muuttujina index.html:n alussa (`:root` ja `[data-scheme="dark"]`), joten niitä voi muuttaa yhdestä kohdasta.
 
 ## ✏️ Aineiston päivittäminen
