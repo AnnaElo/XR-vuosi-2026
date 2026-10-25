@@ -16,7 +16,7 @@ Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoi
 - Rakennettu hyödyntäen tekoälytyökalua (Claude Sonnet 5.5) 
 - Yksi itsenäinen index.html: tyylit, data, JavaScript ja kuva ovat samassa tiedostossa.
 - Ei ulkoisia kirjastoja, palveluita eikä evästeitä.
-- Toimii mobiilissa sekä vaalealla ja tummalla teemalla. Teema seuraa järjestelmän asetusta, ja sen voi vaihtaa yläpalkin säätimestä (automaattinen / vaalea / tumma). Valinta muistetaan selaimessa.
+- Toimii mobiilissa sekä vaalealla ja tummalla teemalla. Oletuksena on vaalea teema, ja tumman voi valita yläpalkin säätimestä. Valinta muistetaan selaimessa.
 - Sivulla on kolme osiota, joihin yläpalkin linkit vievät: keskeiset tapahtumat, XR-kehitys lukuina sekä standardit ja sääntely.
 - Aineisto on JSON-muodossa tiedoston lopussa (<script id="xr-data">). Rivin voi lisätä tai korjata suoraan siihen.
 
