@@ -16,7 +16,8 @@ Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoi
 - Rakennettu hyödyntäen tekoälytyökalua (Claude Sonnet 5.5) 
 - Yksi itsenäinen index.html: tyylit, data, JavaScript ja kuva ovat samassa tiedostossa.
 - Ei ulkoisia kirjastoja, palveluita eikä evästeitä.
-- Toimii vaalealla ja tummalla teemalla sekä mobiilissa.
+- Toimii mobiilissa sekä vaalealla ja tummalla teemalla. Teema seuraa järjestelmän asetusta, ja sen voi vaihtaa yläpalkin säätimestä (automaattinen / vaalea / tumma). Valinta muistetaan selaimessa.
+- Sivulla on kolme osiota, joihin yläpalkin linkit vievät: keskeiset tapahtumat, XR-kehitys lukuina sekä standardit ja sääntely.
 - Aineisto on JSON-muodossa tiedoston lopussa (<script id="xr-data">). Rivin voi lisätä tai korjata suoraan siihen.
 
 
@@ -40,7 +41,10 @@ Jokainen tapahtuma on yksi rivi `events`-listassa:
 Sivu laskee itse neljänneksen (Q1–Q4), aikajanan päivämäärän, aiheen nimen ja tapahtumien järjestyksen. Rivejä ei siis tarvitse pitää aikajärjestyksessä. Aikajana ja otsikko jatkuvat automaattisesti uusiin kuukausiin.
 
 - `updated`: päivityspäivä (`"2026-10-16"`), näkyy sivun alalaidassa. Tätä ei tarvitse muuttaa käsin: GitHub Actions -työnkulku (`.github/workflows/paivitysaika.yml`) asettaa sen automaattisesti sen päivän mukaan, jolloin index.html:ää viimeksi muutettiin, ja tallentaa muutoksen omana committinaan.
-- `prices`: hintaruutujen ja hintakuvaajan mallit (`group` `ar` tai `vr`, `eur`, valinnaiset `from` = "alk.", `approx` = "noin", `note` ja `eu: true` eurooppalaiselle valmistajalle, sekä `src`). Eurooppalaiset mallit näkyvät omassa ruudussaan ja kuvaajassa vinoneliöinä.
+- `prices`: hintalistan mallit (`group` `ar` tai `vr`, `eur`, valinnaiset `from` = "alk.", `approx` = "noin", `note` ja `eu: true` eurooppalaiselle valmistajalle, sekä `src`). Eurooppalaiset mallit näkyvät omana ryhmänään.
 - `figures`: kaavioiden luvut.
+- `standards` ja `eu`: Standardit ja sääntely -osion kortit (`id`, `name`, `org`, `status`, `detail`, `src`). Näiden lähteillä on tunnisteet `x01`, `x02` … samassa `sources`-listassa.
+- `dates`: EU-säädösten määräpäivät (`date`, `title`, `src`). Sivu järjestää ne ja merkitsee ne avauspäivän mukaan joko "Voimassa" tai "Tulossa".
+- `reading`: taustalukemisto (`name`, `url`).
 
 Jos rivillä on virheellinen päivämäärä, aihe tai lähde, sivu jättää rivin pois ja kertoo siitä selaimen konsolissa.

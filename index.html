@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>XR-vuosi 2026</title>
-<meta name="description" content="Vuoden 2026 XR-kehitys aikajanana: laitteet, alustat, sisältö, sääntely ja yksityisyys sekä terveys, puolustus ja teollisuus.">
+<meta name="description" content="Vuoden 2026 XR-kehitys: keskeiset tapahtumat aikajanana, kehitys lukuina sekä XR:n avoimet standardit ja EU:n sääntely.">
 <style>
 :root {
   --bg: #f6f7f9; --panel: #ffffff; --fg: #151a22; --muted: #5a6372; --line: #dde1e7; --grid: #e8ebf0;
@@ -15,14 +15,22 @@
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
 }
+/* Tumma teema: järjestelmän asetuksen mukaan, ellei teemasäätimellä ole valittu vaaleaa. Säädin asettaa <html data-scheme="light|dark">. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-scheme="light"]) {
     --bg: #0e1218; --panel: #161b23; --fg: #e9ecf1; --muted: #9ba5b4; --line: #283040; --grid: #222a36;
     --accent: #56B4E9; --mutedbar: #46505f;
     --c-laitteet: #56B4E9; --c-alustat: #F08A3C; --c-sisalto: #2BC59A; --c-saantely: #E59AC4; --c-ala: #F0B93A;
     --shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
     color-scheme: dark;
   }
+}
+:root[data-scheme="dark"] {
+  --bg: #0e1218; --panel: #161b23; --fg: #e9ecf1; --muted: #9ba5b4; --line: #283040; --grid: #222a36;
+  --accent: #56B4E9; --mutedbar: #46505f;
+  --c-laitteet: #56B4E9; --c-alustat: #F08A3C; --c-sisalto: #2BC59A; --c-saantely: #E59AC4; --c-ala: #F0B93A;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -47,7 +55,7 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-btn:hover { border-color: var(--muted); }
 .xr-btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 .xr-filterline.on { color: var(--fg); font-weight: 600; }
-:is(.xr-btn, .xr-theme, .xr-dot, a, summary):focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+:is(.xr-btn, .xr-theme, .xr-dot, a, summary, button):focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
 
 .xr-themes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 0.9rem; }
 .xr-theme { font: inherit; color: inherit; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 0.6rem; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; transition: opacity 0.2s; }
@@ -116,24 +124,177 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
 }
 .xr-notes { display: flex; flex-direction: column; gap: 1.5rem; }
 .xr-notes ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8125rem; line-height: 1.5; color: var(--muted); }
-.xr-notes a, .xr-table a, .xr-pname a { color: inherit; text-underline-offset: 2px; }
+.xr-notes a, .xr-table a, .xr-pname a, .xr-note a { color: inherit; text-underline-offset: 2px; }
 .xr-table tr.hl td { background: color-mix(in srgb, var(--dot, var(--accent)) 14%, transparent); }
 .xr-notes h3 { margin-bottom: 0.6rem; }
 .xr-foot { color: var(--muted); font-size: 0.8125rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+
+/* Yläpalkki: siirtymät osioihin ja teemasäädin */
+.xr-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1.25rem; padding-bottom: 0.9rem; border-bottom: 1px solid var(--line); }
+.xr-nav-links { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; margin: 0; padding: 0; list-style: none; font-size: 0.875rem; }
+.xr-nav-links a { color: var(--muted); text-decoration: none; padding-block: 0.2rem; border-bottom: 2px solid transparent; }
+.xr-nav-links a:hover { color: var(--fg); }
+.xr-parthead ~ .xr-sec > h3 { font-size: 1.15rem; }
+.xr-part { display: flex; flex-direction: column; gap: 2.5rem; scroll-margin-top: 1rem; }
+.xr-parthead { display: flex; flex-direction: column; gap: 0.6rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.xr-parthead h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.1; }
+
+/* Standardit ja sääntely */
+.xr-item h4 { margin: 0; font-size: 0.95rem; font-weight: 600; }
+.xr-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 0.9rem; }
+.xr-item { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.xr-item-org { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.xr-item-status { font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.xr-item p { font-size: 0.875rem; line-height: 1.5; }
+.xr-item .xr-item-xr { color: var(--muted); font-size: 0.8125rem; }
+.xr-dates { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+.xr-dates li { display: grid; grid-template-columns: 7.5rem 6.5rem minmax(0, 1fr); gap: 0.2rem 0.9rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; line-height: 1.45; }
+.xr-dates time { font-variant-numeric: tabular-nums; }
+.xr-dates .xr-state { justify-self: start; padding: 0 0.45rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.75rem; color: var(--muted); }
+.xr-dates li.tulossa .xr-state { color: var(--fg); border-color: var(--accent); }
+@media (max-width: 560px) { .xr-dates li { grid-template-columns: auto auto; } .xr-dates li > span:last-child { grid-column: 1 / -1; } }
+.xr-reading { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.875rem; }
+.xr-reading a { color: inherit; text-underline-offset: 2px; }
+
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
+<script>
+// Yhteinen koodi: teemasäädin, aineiston luku ja apufunktiot.
+// Ajetaan <head>-osassa, jotta valittu teema on käytössä ennen ensimmäistä piirtoa.
+var XR = (function () {
+  'use strict';
+  var root = document.documentElement;
+
+  // Teemasäädin: automaattinen (järjestelmän asetus) → vaalea → tumma. Valinta muistetaan selaimessa.
+  var SCHEMES = ['auto', 'light', 'dark'];
+  var SCHEME_NAMES = { auto: 'automaattinen', light: 'vaalea', dark: 'tumma' };
+  var KEY = 'xr-teema';
+  function getScheme() { try { return localStorage.getItem(KEY) || 'auto'; } catch (e) { return 'auto'; } }
+  function setScheme(s) {
+    if (s === 'auto') delete root.dataset.scheme; else root.dataset.scheme = s;
+    try { if (s === 'auto') localStorage.removeItem(KEY); else localStorage.setItem(KEY, s); } catch (e) { /* ei tallennusta */ }
+    var b = document.getElementById('xr-scheme');
+    if (b) b.textContent = 'Teema: ' + SCHEME_NAMES[s];
+  }
+  if (getScheme() !== 'auto') root.dataset.scheme = getScheme();
+  document.addEventListener('DOMContentLoaded', function () {
+    var b = document.getElementById('xr-scheme');
+    if (!b) return;
+    setScheme(getScheme());
+    b.addEventListener('click', function () { setScheme(SCHEMES[(SCHEMES.indexOf(getScheme()) + 1) % SCHEMES.length]); });
+  });
+
+  var THEMES = ['laitteet', 'alustat', 'sisalto', 'saantely', 'ala'];
+  var NAMES = { laitteet: 'Laitteet', alustat: 'Alustat ja talous', sisalto: 'Sisältö ja palvelut', saantely: 'Sääntely ja yksityisyys', ala: 'Terveys, puolustus, teollisuus' };
+  var MONTHS = ['Tam', 'Hel', 'Maa', 'Huh', 'Tou', 'Kes', 'Hei', 'Elo', 'Syy', 'Lok', 'Mar', 'Jou'];
+  var MONTHS_LONG = ['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu', 'Toukokuu', 'Kesäkuu', 'Heinäkuu', 'Elokuu', 'Syyskuu', 'Lokakuu', 'Marraskuu', 'Joulukuu'];
+  var NS = 'http://www.w3.org/2000/svg';
+  var $ = function (id) { return document.getElementById(id); };
+
+  // Päivämäärä "2026-03-17" (päivä tiedossa) tai "2026-03" (vain kuukausi tiedossa).
+  function parseDate(s) {
+    var m = /^(\d{4})-(\d{2})(?:-(\d{2}))?$/.exec(s || '');
+    if (!m) return null;
+    var y = +m[1], mo = +m[2] - 1, d = m[3] ? +m[3] : 15;
+    return { y: y, m: mo, d: d, ms: Date.UTC(y, mo, d), day: !!m[3] };
+  }
+  function dayText(p) { return p.d + '.' + (p.m + 1) + '.'; }
+  function safeUrl(u) { return /^https:\/\//.test(u || '') ? u : null; }
+
+  // Lähde-tägi rivin tai kuvan tekstin loppuun; useammalle lähteelle numerot.
+  function srcTags(list) {
+    var f = document.createDocumentFragment();
+    list.forEach(function (s, i) {
+      var u = safeUrl(s.url);
+      var t = document.createElement(u ? 'a' : 'span');
+      t.className = 'xr-src';
+      t.textContent = 'Lähde' + (list.length > 1 ? ' ' + (i + 1) : '');
+      t.title = s.name;
+      if (u) { t.href = u; t.target = '_blank'; t.rel = 'noopener'; t.setAttribute('aria-label', 'Lähde: ' + s.name); }
+      f.append(' ', t);
+    });
+    return f;
+  }
+  function link(text, url) {
+    var u = safeUrl(url);
+    if (!u) return document.createTextNode(text);
+    var a = document.createElement('a');
+    a.textContent = text; a.href = u; a.target = '_blank'; a.rel = 'noopener';
+    return a;
+  }
+
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function txt(tag, attrs, parent, text) { var e = el(tag, attrs, parent); e.textContent = text; return e; }
+  function svgIn(box, W, H) { box.replaceChildren(); return el('svg', { width: '100%', viewBox: '0 0 ' + W + ' ' + H, role: 'img' }, box); }
+
+  function srcMap(sources) { var m = {}; (sources || []).forEach(function (s) { m[s.id] = s; }); return m; }
+
+  // Lukee aineiston sivun lopun JSON-lohkosta (<script id="xr-data">), kun sivu on latautunut.
+  function load(done) {
+    var run = function () { done(JSON.parse($('xr-data').textContent)); };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+  }
+
+  // "Viimeksi päivitetty" ja [data-src]-lähdetägit.
+  function fillCommon(data, SRCMAP) {
+    var u = parseDate(data.updated);
+    if (u && $('xr-updated')) $('xr-updated').textContent = dayText(u) + u.y;
+    document.querySelectorAll('[data-src]').forEach(function (n) {
+      var list = n.dataset.src.split(' ').map(function (s) { return SRCMAP[s]; }).filter(Boolean);
+      n.append(srcTags(list));
+    });
+  }
+
+  // Piirtää kaaviot uudelleen vain, kun sisällön leveys oikeasti muuttuu.
+  function onResize(draw) {
+    var main = $('xr-root'), lastW = main.clientWidth, timer = null;
+    var check = function () {
+      var w = main.clientWidth;
+      if (w === lastW) return;
+      lastW = w;
+      clearTimeout(timer);
+      timer = setTimeout(draw, 80);
+    };
+    if (window.ResizeObserver) new ResizeObserver(check).observe(main);
+    else window.addEventListener('resize', check);
+  }
+
+  return {
+    THEMES: THEMES, NAMES: NAMES, MONTHS: MONTHS, MONTHS_LONG: MONTHS_LONG,
+    $: $, parseDate: parseDate, dayText: dayText, safeUrl: safeUrl, srcTags: srcTags, link: link,
+    el: el, txt: txt, svgIn: svgIn, srcMap: srcMap, load: load, fillCommon: fillCommon, onResize: onResize,
+    fi: new Intl.NumberFormat('fi-FI'),
+    fi1: new Intl.NumberFormat('fi-FI', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+  };
+})();
+</script>
 </head>
 <body>
 <main class="xr" id="xr-root">
+  <nav class="xr-nav" aria-label="Sivun osiot">
+    <ul class="xr-nav-links">
+      <li><a href="#tapahtumat">Tapahtumat</a></li>
+      <li><a href="#luvut">XR-kehitys lukuina</a></li>
+      <li><a href="#standardit">Standardit ja sääntely</a></li>
+    </ul>
+    <button type="button" class="xr-btn" id="xr-scheme" title="Vaihda vaalean ja tumman teeman välillä">Teema: automaattinen</button>
+  </nav>
   <header class="xr-head">
     <div class="xr-head-text">
     <h1>XR-vuosi 2026</h1>
     <p class="xr-lede">Tämän vuoden XR-uutisissa kilpailu siirtyi headseteista kevyisiin laseihin. Meta karsi Reality Labsia ja siirsi Horizon Worldsin mobiiliin, Snap toi AR-lasinsa myyntiin, ja älylasien yksityisyys nousi sääntelyn pääteemaksi Euroopassa. Käyttö kasvaa siellä, missä hyöty on mitattavissa: terveydenhuollossa, puolustuksessa ja teollisuudessa.</p>
-    <noscript><p class="xr-note">Tämä sivu tarvitsee JavaScriptin aikajanan ja taulukon näyttämiseen.</p></noscript>
+    <p class="xr-note">Sivulla: <a href="#tapahtumat">keskeiset tapahtumat</a>, <a href="#luvut">XR-kehitys lukuina</a> sekä <a href="#standardit">standardit ja sääntely</a>.</p>
+    <noscript><p class="xr-note">Tämä sivu tarvitsee JavaScriptin aikajanan, kaavioiden ja taulukoiden näyttämiseen.</p></noscript>
     </div>
     <figure class="xr-hero"><img src="data:image/webp;base64,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" width="721" height="480" alt="Nainen kokeilee VR-laseja ja ojentaa kättään kohti virtuaalimaailmaa"></figure>
   </header>
 
+  <div class="xr-part" id="tapahtumat">
   <section class="xr-sec" aria-labelledby="xr-h-overview">
     <h2 id="xr-h-overview">Kokonaiskuva viidessä aiheessa</h2>
     <p class="xr-note"><span id="xr-total">—</span> tapahtumaa, joista <span id="xr-total-eu">—</span> liittyy Eurooppaan (eurooppalainen toimija, viranomainen tai markkina). Valitse aihe, niin aikajana ja taulukko alempana rajautuvat siihen. Eurooppa-rajaus on aikajanan otsikon vieressä.</p>
@@ -163,30 +324,6 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
         <span class="xr-theme-count"><b data-count="ala">—</b> tapahtumaa</span>
         <p>Käyttö kasvaa leikkaussaleissa, sotilaskoulutuksessa ja huoltotyössä. Julkiset hankinnat, kuten NHS:n puitesopimus, kasvattavat kysyntää.</p>
       </button>
-    </div>
-  </section>
-
-  <section class="xr-sec" aria-labelledby="xr-h-numbers">
-    <h2 id="xr-h-numbers">Luvut, jotka kertovat suunnan</h2>
-    <div class="xr-cards">
-      <div class="xr-card">
-        <h3>Meta Reality Labs, mrd dollaria</h3>
-        <p class="xr-note" data-src="s01">Tappio vuosina 2024 ja 2025 sekä vuoden 2025 liikevaihto.</p>
-        <div class="xr-chart" id="xr-chart-meta"></div>
-      </div>
-      <div class="xr-card">
-        <h3>Laitetoimitusten vuosimuutos</h3>
-        <p class="xr-note" data-src="s21">Toinen neljännes 2026, Counterpoint Research.</p>
-        <div class="xr-chart" id="xr-chart-market"></div>
-      </div>
-      <div class="xr-card xr-card-wide">
-        <h3>Lasien hinnat, euroa</h3>
-        <p class="xr-note">Keskeiset mallit kolmessa ryhmässä samalla asteikolla. Pisin palkki on kallein malli.</p>
-        <div class="xr-pgroups" id="xr-prices"></div>
-        <div class="xr-pnote">
-          <p class="xr-note"><b>alk.</b> = lähtöhinta, <b>noin</b> = arvio. Kuluttajalasien hinnat muuttuvat kampanjoiden mukaan.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -224,18 +361,87 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
     <div>
       <h3 id="xr-h-notes">Huomioita</h3>
       <ul>
-        <li>Taulukon ajankohdat ovat neljänneksiä (Q1–Q4), ja ne perustuvat uutisten ja artikkelien julkaisuajankohtiin.<span id="xr-qnote"></span> Hinnat ovat euroina ja suuntaa-antavia.</li>
+        <li>Taulukon ajankohdat ovat neljänneksiä (Q1–Q4), ja ne perustuvat uutisten ja artikkelien julkaisuajankohtiin.<span id="xr-qnote"></span></li>
         <li>Reality Labsin irtisanomisten laajuus vaihtelee lähteestä riippuen.</li>
         <li>Connectin VR Glasses ja vuotanut Phoenix saattavat olla sama hanke, mutta Meta ei vahvistanut sitä.</li>
       </ul>
     </div>
   </section>
+  </div>
+
+  <div class="xr-part" id="luvut">
+    <header class="xr-parthead">
+      <h2>XR-kehitys lukuina</h2>
+      <p class="xr-lede">Raha ja laitemäärät kertovat suunnan: Metan XR-tappiot kasvavat, VR-headsetien toimitukset laskevat ja AR-laitteiden kasvavat. Lasien hinnat ulottuvat parista sadasta eurosta ammattilaitteiden lähes kymmeneen tuhanteen euroon.</p>
+    </header>
+  <section class="xr-sec" aria-labelledby="xr-h-numbers">
+    <h3 id="xr-h-numbers" hidden>Luvut, jotka kertovat suunnan</h3>
+    <div class="xr-cards">
+      <div class="xr-card">
+        <h3>Meta Reality Labs, mrd dollaria</h3>
+        <p class="xr-note" data-src="s01">Tappio vuosina 2024 ja 2025 sekä vuoden 2025 liikevaihto.</p>
+        <div class="xr-chart" id="xr-chart-meta"></div>
+      </div>
+      <div class="xr-card">
+        <h3>Laitetoimitusten vuosimuutos</h3>
+        <p class="xr-note" data-src="s21">Toinen neljännes 2026, Counterpoint Research.</p>
+        <div class="xr-chart" id="xr-chart-market"></div>
+      </div>
+      <div class="xr-card xr-card-wide">
+        <h3>Lasien hinnat, euroa</h3>
+        <p class="xr-note">Keskeiset mallit kolmessa ryhmässä samalla asteikolla. Pisin palkki on kallein malli.</p>
+        <div class="xr-pgroups" id="xr-prices"></div>
+        <div class="xr-pnote">
+          <p class="xr-note"><b>alk.</b> = lähtöhinta, <b>noin</b> = arvio. Hinnat ovat euroina ja suuntaa-antavia, ja kuluttajalasien hinnat muuttuvat kampanjoiden mukaan. Osa eurohinnoista on muunnettu muista valuutoista.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <div class="xr-part" id="standardit">
+    <header class="xr-parthead">
+      <h2>Standardit ja sääntely</h2>
+      <p class="xr-lede">Avoimet standardit ratkaisevat, siirtyvätkö sovellukset, 3D-sisältö ja käyttäjät laitteelta ja palvelusta toiselle. EU:ssa XR:ää ei säännellä omalla lailla, vaan sitä koskevat tietosuoja-, tekoäly-, alusta-, data- ja kyberturvasäädökset.</p>
+    </header>
+  <section class="xr-sec" aria-labelledby="xr-h-standards">
+    <h3 id="xr-h-standards">Avoimet standardit</h3>
+    <p class="xr-note">Rajapinnat, 3D-tiedostomuodot ja niitä kehittävät järjestöt.</p>
+    <div class="xr-items" id="xr-standards"></div>
+  </section>
+
+  <section class="xr-sec" aria-labelledby="xr-h-eu">
+    <h3 id="xr-h-eu">EU:n linjaukset ja säädökset</h3>
+    <p class="xr-note">Virtuaalimaailmoja koskevat linjaukset ja säädökset, jotka vaikuttavat XR-laitteisiin ja -palveluihin. Ajankohtaiset sääntelytapahtumat näkyvät tapahtumissa: <a href="?aihe=saantely#tapahtumat">Sääntely ja yksityisyys</a>.</p>
+    <div class="xr-items" id="xr-eu-items"></div>
+  </section>
+
+  <section class="xr-sec" aria-labelledby="xr-h-dates">
+    <h3 id="xr-h-dates">Määräpäivät</h3>
+    <p class="xr-note">Milloin velvoitteet alkavat koskea toimijoita. Tila päivittyy sen päivän mukaan, jona sivu avataan.</p>
+    <ul class="xr-dates" id="xr-dates"></ul>
+  </section>
+
+  <section class="xr-sec xr-notes" aria-labelledby="xr-h-reading">
+    <div>
+      <h3 id="xr-h-reading">Taustaksi</h3>
+      <ul class="xr-reading" id="xr-reading"></ul>
+    </div>
+    <div>
+      <h3>Huomioita</h3>
+      <ul>
+        <li>Kuvaukset ovat tiivistelmiä eivätkä oikeudellista neuvontaa. Tarkista velvoitteet aina säädöstekstistä.</li>
+        <li>Tekoälysäädöksen määräpäivät ovat digitaalisen omnibusin (asetus (EU) 2026/1744) mukaisia.</li>
+      </ul>
+    </div>
+  </section>
+  </div>
 
   <p class="xr-foot">Viimeksi päivitetty: <span id="xr-updated">—</span>. Anna Eloranta (Oulun ammattikorkeakoulu) on koonnut aineiston julkisista XR-uutiskirjeistä sekä lähteistä.</p>
 </main>
 
 <script type="application/json" id="xr-data">{
-"updated": "2026-10-23",
+"updated": "2026-10-25",
 "events": [
   {"id": "e26", "date": "2026-01-07", "theme": "laitteet", "europe": true, "title": "Metan Ray-Ban Display -lasien kansainvälinen lanseeraus keskeytettiin", "detail": "Meta keskeytti lanseerauksen Isossa-Britanniassa, Ranskassa, Italiassa ja Kanadassa suuren kysynnän ja rajallisten varastojen vuoksi.", "src": "s19"},
   {"id": "e02", "date": "2026-01", "theme": "laitteet", "europe": false, "title": "CES 2026: kevyitä AR- ja tekoälylaseja", "detail": "Avegant ja Vuzix esittelivät kevyen binokulaarisen AR-referenssimallin. Rokidin näytötön AI-lasimalli painaa 38,5 g.", "src": "s01"},
@@ -304,6 +510,39 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
   {"group": "vr", "eu": true, "model": "Varjo XR-4 Secure Edition", "eur": 7990, "from": true, "note": "Suomi, julkaisuhinta 11/2023", "src": "s33"},
   {"group": "vr", "eu": true, "model": "Varjo XR-4 Focal Edition", "eur": 9990, "note": "Suomi, julkaisuhinta 11/2023", "src": "s33"}
 ],
+"standards": [
+  {"id": "openxr", "name": "OpenXR", "org": "Khronos Group", "status": "Versio 1.1, 15.4.2024", "detail": "Avoin rajapintastandardi, jonka avulla sama XR-sovellus toimii eri valmistajien laseilla ilman laitekohtaista koodia. Versio 1.1 siirsi laajasti käytettyjä laajennuksia ydinmäärittelyyn, mikä vähentää pirstaloitumista.", "src": "x01"},
+  {"id": "gltf", "name": "glTF 2.0", "org": "Khronos Group · ISO/IEC 12113:2022", "status": "ISO/IEC-standardi 4.8.2022", "detail": "Kevyt tiedostomuoto 3D-mallien ja -näkymien siirtämiseen ja näyttämiseen sovellusten välillä. Muoto hyväksyttiin vuonna 2022 kansainväliseksi ISO/IEC-standardiksi.", "src": "x02"},
+  {"id": "openusd", "name": "OpenUSD", "org": "Alliance for OpenUSD (Linux Foundation)", "status": "Core Specification 1.0, 17.12.2025", "detail": "Avoin kuvausmuoto laajoille 3D-maailmoille ja -näkymille, käytössä mm. elokuvatuotannossa ja teollisuuden digitaalisissa kaksosissa. Ensimmäinen ydinmäärittely on AOUSD:n mukaan ensimmäinen askel kohti ISO-standardointia.", "src": "x03"},
+  {"id": "webxr", "name": "WebXR Device API", "org": "W3C", "status": "Candidate Recommendation Draft, 9.6.2026", "detail": "Selainrajapinta, jolla VR- ja AR-sisältöä voi käyttää suoraan verkkosivulta ilman erillistä sovellusta. Määrittely on vielä W3C:n suositusehdotuksen luonnosvaiheessa.", "src": "x04"},
+  {"id": "msf", "name": "Metaverse Standards Forum", "org": "Yritysten ja standardointijärjestöjen foorumi", "status": "Perustettu 21.6.2022", "detail": "Foorumi ei laadi standardeja itse, vaan koordinoi olemassa olevien standardien yhteentoimivuutta. Alkuvuonna 2026 sen 3D Web Interoperability -työryhmä julkaisi Web of Worlds -whitepaperin, jossa 3D-maailmat linkitettäisiin toisiinsa kuten verkkosivut.", "src": ["x05", "x06"]},
+  {"id": "sc24", "name": "ISO/IEC JTC 1/SC 24", "org": "ISO ja IEC", "status": "Metaverse-työpaja 26.6.2023", "detail": "Kansainvälinen alikomitea, joka vastaa tietokonegrafiikan ja ympäristödatan esittämisen standardeista, mukaan lukien VR-, AR- ja metaverse-aiheiset ISO/IEC-standardit.", "src": "x07"}
+],
+"eu": [
+  {"id": "web40", "name": "Web 4.0 ja virtuaalimaailmat -aloite", "org": "Euroopan komissio · COM(2023) 442", "status": "Julkaistu 11.7.2023", "detail": "EU:n strategia virtuaalimaailmoille. Painopisteet ovat osaaminen, eurooppalainen teollisuusekosysteemi, virtuaalimaailmat julkisissa palveluissa sekä avoimet standardit, jotta suuret toimijat eivät hallitse kehitystä yksin. Taustalla on 150 satunnaisesti valitun kansalaisen paneelin 23 suositusta.", "src": ["x08", "x09"]},
+  {"id": "ep2024", "name": "Parlamentin päätöslauselma virtuaalimaailmoista", "org": "Euroopan parlamentti · JURI-valiokunta", "status": "Hyväksytty 17.1.2024", "detail": "Nykyinen immateriaalioikeus koskee myös virtuaalimaailmoja, mutta oikeuksien valvonta ja sovellettava laki rajat ylittävissä tilanteissa kaipaavat selvennystä. Parlamentti pyysi komissiolta ohjeita toimijoiden vastuista.", "src": "x10"},
+  {"id": "gdpr", "name": "Tietosuoja-asetus (GDPR)", "org": "Asetus (EU) 2016/679", "status": "Sovellettu 25.5.2018 alkaen", "detail": "Älylasien kamerat ja mikrofonit sekä silmän- ja kasvojenseuranta keräävät henkilötietoja, osin myös biometrisiä tietoja. Eurooppalaiset tietosuojaviranomaiset ovat ottaneet kantaa älylaseihin vuonna 2026.", "src": "x11"},
+  {"id": "aiact", "name": "Tekoälysäädös (AI Act)", "org": "Asetus (EU) 2024/1689, muutettu asetuksella (EU) 2026/1744", "status": "Vaiheittain 2025–2028", "detail": "Tunteiden tunnistaminen on kielletty työpaikoilla ja oppilaitoksissa, mikä rajaa myös XR-laitteiden kasvo- ja ääniseurannan käyttöä. Läpinäkyvyysvelvoitteet, kuten tekoälyllä tuotetun sisällön merkintä, koskevat myös XR-sisältöä. Digitaalinen omnibus siirsi suuririskisten järjestelmien määräaikoja.", "src": ["x12", "x13"]},
+  {"id": "dsa", "name": "Digipalvelusäädös (DSA)", "org": "Asetus (EU) 2022/2065", "status": "Kokonaan sovellettava 17.2.2024 alkaen", "detail": "Virtuaalimaailmat ja sosiaaliset XR-alustat ovat verkkoalustoja, joiden on puututtava laittomaan sisältöön ja suojattava alaikäisiä. Parlamentti on pyytänyt selventämään, miten säädöstä sovelletaan virtuaalimaailmoihin.", "src": ["x15", "x10"]},
+  {"id": "dataact", "name": "Datasäädös (Data Act)", "org": "Asetus (EU) 2023/2854", "status": "Sovellettava 12.9.2025 alkaen", "detail": "Verkkoon kytketyn laitteen käyttäjällä on oikeus saada laitteen käytössä syntyvä data ja jakaa se haluamalleen palveluntarjoajalle. Tämä koskee myös XR-laseja.", "src": "x16"},
+  {"id": "cra", "name": "Kyberresilienssisäädös (CRA)", "org": "Asetus (EU) 2024/2847", "status": "Raportointi 11.9.2026, kokonaan 11.12.2027", "detail": "Kyberturvavaatimukset digitaalisille tuotteille koko niiden elinkaaren ajan, myös XR-laitteille ja niiden ohjelmistoille. Valmistajien on ilmoitettava aktiivisesti hyödynnetyistä haavoittuvuuksista syyskuusta 2026 alkaen.", "src": ["x17", "x18"]}
+],
+"dates": [
+  {"date": "2024-02-17", "title": "DSA kokonaan sovellettavaksi", "src": "x15"},
+  {"date": "2025-02-02", "title": "Tekoälysäädöksen kiellot voimaan, mm. tunteiden tunnistus työpaikoilla ja oppilaitoksissa", "src": "x12"},
+  {"date": "2025-09-12", "title": "Datasäädös sovellettavaksi", "src": "x16"},
+  {"date": "2026-08-02", "title": "Tekoälysäädöksen läpinäkyvyysvelvoitteet (artikla 50)", "src": "x14"},
+  {"date": "2026-09-11", "title": "Kyberresilienssisäädöksen haavoittuvuuksien raportointivelvoite", "src": "x18"},
+  {"date": "2026-12-02", "title": "Tekoälysäädös: tekoälysisällön merkinnän siirtymäaika päättyy jo markkinoilla oleville järjestelmille", "src": "x14"},
+  {"date": "2027-12-02", "title": "Tekoälysäädös: liitteen III suuririskiset järjestelmät (mm. työelämä ja koulutus)", "src": "x13"},
+  {"date": "2027-12-11", "title": "Kyberresilienssisäädös kokonaan sovellettavaksi", "src": "x17"},
+  {"date": "2028-08-02", "title": "Tekoälysäädös: tuotteisiin sulautetut suuririskiset järjestelmät (liite I)", "src": "x13"}
+],
+"reading": [
+  {"name": "Niestadt, M. (2023). Virtual worlds (metaverses). EPRS At a Glance, PE 751.408", "url": "https://www.europarl.europa.eu/thinktank/en/document/EPRS_ATA(2023)751408"},
+  {"name": "Maciejewski, M. (2023). Metaverse. JURI-valiokunnan tilaama tutkimus, PE 751.222", "url": "https://www.europarl.europa.eu/thinktank/en/document/IPOL_STU(2023)751222"},
+  {"name": "Hemphill, T.A. (2023). The 'Metaverse' and the challenge of responsible standards development. Journal of Responsible Innovation", "url": "https://doi.org/10.1080/23299460.2023.2243121"}
+],
 "sources": [
   {"id": "s01", "name": "Immersive Wire, uutiskirjearkisto", "url": "https://www.immersivewire.com/t/newsletters"},
   {"id": "s02", "name": "Immersive Wire, tammikuu", "url": "https://www.immersivewire.com/p/2025-felt-like-a-meagre-year-for-immersive-tech"},
@@ -340,31 +579,38 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
   {"id": "s33", "name": "IEEE Spectrum, Varjo XR-4", "url": "https://spectrum.ieee.org/varjo-xr-4"},
   {"id": "s34", "name": "Mixed, Somnium VR1 -hinnat", "url": "https://mixed-news.com/en/somnium-vr-1-price-hike/"},
   {"id": "s35", "name": "Road to VR, Lynx", "url": "https://roadtovr.com/lynx-liquidation-bankrupt-2026-r2-xr-headset/"},
-  {"id": "s36", "name": "heise online, Lynx", "url": "https://heise.de/-11221765"}
+  {"id": "s36", "name": "heise online, Lynx", "url": "https://heise.de/-11221765"},
+  {"id": "x01", "name": "Khronos Group, OpenXR 1.1 -tiedote", "url": "https://khronos.org/news/press/khronos-releases-openxr-1.1-to-further-streamline-cross-platform-xr-development"},
+  {"id": "x02", "name": "Khronos Group, glTF 2.0 ISO/IEC-standardiksi", "url": "https://www.khronos.org/news/press/khronos-gltf-2.0-released-as-an-iso-iec-international-standard"},
+  {"id": "x03", "name": "Linux Foundation, OpenUSD Core Specification 1.0", "url": "https://www.linuxfoundation.org/press/alliance-for-openusd-announces-core-specification-1.0-the-universal-language-for-building-3d-worlds"},
+  {"id": "x04", "name": "W3C, WebXR Device API", "url": "https://www.w3.org/TR/webxr/"},
+  {"id": "x05", "name": "Business Wire, Metaverse Standards Forumin perustaminen", "url": "https://www.businesswire.com/news/home/20220621005486/en"},
+  {"id": "x06", "name": "Metaverse Standards Forum, Web of Worlds -whitepaper", "url": "https://webofworlds.github.io/initial_MSF_Whitepaper"},
+  {"id": "x07", "name": "JTC 1, SC 24:n metaverse-työpaja", "url": "https://jtc1info.org/replay-of-the-jtc-1-sc-24-workshop-on-metaverse/"},
+  {"id": "x08", "name": "Euroopan komissio, Virtual worlds", "url": "https://digital-strategy.ec.europa.eu/en/policies/virtual-worlds"},
+  {"id": "x09", "name": "Bird & Bird, Web 4.0 ja virtuaalimaailmat", "url": "https://www.twobirds.com/en/insights/2023/global/european-commission-presents-eu-vision-on-web-40-and-virtual-worlds"},
+  {"id": "x10", "name": "IMRO, parlamentin päätöslauselma virtuaalimaailmoista", "url": "https://imro.ie/industry-news/european-parliament-adopts-resolution-on-virtual-worlds/"},
+  {"id": "x11", "name": "EUR-Lex, asetus (EU) 2016/679", "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"},
+  {"id": "x12", "name": "EUR-Lex, asetus (EU) 2024/1689", "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"},
+  {"id": "x13", "name": "Hunton, Digital Omnibus on AI voimaan", "url": "https://www.hunton.com/privacy-and-cybersecurity-law-blog/eu-digital-omnibus-on-ai-enters-into-force"},
+  {"id": "x14", "name": "Gibson Dunn, AI Act Omnibus -sopimus", "url": "https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/"},
+  {"id": "x15", "name": "EUR-Lex, asetus (EU) 2022/2065", "url": "https://eur-lex.europa.eu/eli/reg/2022/2065/oj"},
+  {"id": "x16", "name": "EUR-Lex, asetus (EU) 2023/2854", "url": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj"},
+  {"id": "x17", "name": "EUR-Lex, asetus (EU) 2024/2847", "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"},
+  {"id": "x18", "name": "McCann FitzGerald, CRA:n raportointivelvoitteet", "url": "https://www.mccannfitzgerald.com/knowledge/data-privacy-and-cyber-risk/cyber-resilience-act-reporting-obligations-apply-from-11-september-2026"}
 ]
 }</script>
 <script>
-(function () {
+// Tapahtumat: aihekortit, aikajana ja tapahtumataulukko.
+XR.load(function (DATA) {
   'use strict';
-  var DATA = JSON.parse(document.getElementById('xr-data').textContent);
-  var FIG = DATA.figures, SRC = DATA.sources, PRICES = DATA.prices || [];
-  var THEMES = ['laitteet', 'alustat', 'sisalto', 'saantely', 'ala'];
-  var NAMES = { laitteet: 'Laitteet', alustat: 'Alustat ja talous', sisalto: 'Sisältö ja palvelut', saantely: 'Sääntely ja yksityisyys', ala: 'Terveys, puolustus, teollisuus' };
-  var MONTHS = ['Tam', 'Hel', 'Maa', 'Huh', 'Tou', 'Kes', 'Hei', 'Elo', 'Syy', 'Lok', 'Mar', 'Jou'];
-  var MONTHS_LONG = ['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu', 'Toukokuu', 'Kesäkuu', 'Heinäkuu', 'Elokuu', 'Syyskuu', 'Lokakuu', 'Marraskuu', 'Joulukuu'];
-  var NS = 'http://www.w3.org/2000/svg';
-  var state = { active: new Set(THEMES), europe: false, pinned: null };
-  var SRCMAP = {};
-  SRC.forEach(function (s) { SRCMAP[s.id] = s; });
+  var THEMES = XR.THEMES, NAMES = XR.NAMES, MONTHS = XR.MONTHS, MONTHS_LONG = XR.MONTHS_LONG;
+  var $ = XR.$, el = XR.el, txt = XR.txt, parseDate = XR.parseDate, dayText = XR.dayText;
+  var SRCMAP = XR.srcMap(DATA.sources);
 
-  // Päivämäärä "2026-03-17" (päivä tiedossa) tai "2026-03" (vain kuukausi tiedossa).
-  function parseDate(s) {
-    var m = /^(\d{4})-(\d{2})(?:-(\d{2}))?$/.exec(s || '');
-    if (!m) return null;
-    var y = +m[1], mo = +m[2] - 1, d = m[3] ? +m[3] : 15;
-    return { y: y, m: mo, d: d, ms: Date.UTC(y, mo, d), day: !!m[3] };
-  }
-  function dayText(p) { return p.d + '.' + (p.m + 1) + '.'; }
+  // Aiherajaus osoitteesta, esim. index.html?aihe=saantely#tapahtumat (useampi pilkulla erotettuna).
+  var fromUrl = (new URLSearchParams(location.search).get('aihe') || '').split(',').filter(function (t) { return THEMES.indexOf(t) >= 0; });
+  var state = { active: new Set(fromUrl.length ? fromUrl : THEMES), europe: new URLSearchParams(location.search).get('eurooppa') === '1', pinned: null };
 
   // Johdetaan näytettävät kentät datasta, jotta riville riittää id, date, theme, europe, title, detail ja src.
   var EVENTS = DATA.events.map(function (r, i) {
@@ -389,46 +635,11 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
   var UPDATED = parseDate(DATA.updated);
   var YEAR = UPDATED ? UPDATED.y : 2026;
   var LAST_M = EVENTS.reduce(function (mx, r) { return Math.max(mx, r.m); }, UPDATED ? UPDATED.m : 0);
-  function safeUrl(u) { return /^https:\/\//.test(u || '') ? u : null; }
-  // Lähde-tägi rivin tai kuvan tekstin loppuun; useammalle lähteelle numerot.
-  function srcTags(list) {
-    var f = document.createDocumentFragment();
-    list.forEach(function (s, i) {
-      var u = safeUrl(s.url);
-      var t = document.createElement(u ? 'a' : 'span');
-      t.className = 'xr-src';
-      t.textContent = 'Lähde' + (list.length > 1 ? ' ' + (i + 1) : '');
-      t.title = s.name;
-      if (u) { t.href = u; t.target = '_blank'; t.rel = 'noopener'; t.setAttribute('aria-label', 'Lähde: ' + s.name); }
-      f.append(' ', t);
-    });
-    return f;
-  }
-  function link(text, url) {
-    var u = safeUrl(url);
-    if (!u) return document.createTextNode(text);
-    var a = document.createElement('a');
-    a.textContent = text; a.href = u; a.target = '_blank'; a.rel = 'noopener';
-    return a;
-  }
-  var fi = new Intl.NumberFormat('fi-FI');
-  var fi1 = new Intl.NumberFormat('fi-FI', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  var $ = function (id) { return document.getElementById(id); };
   var isEu = function (r) { return r.europe === true || r.europe === 'true'; };
   var visible = function (r) { return state.active.has(r.theme) && (!state.europe || isEu(r)); };
-  var fig = function (k) { var r = FIG.find(function (x) { return x.key === k; }); return r ? Number(r.value) : NaN; };
-  var signed = function (v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + fi.format(Math.abs(v)) + ' %'; };
-
-  function el(tag, attrs, parent) {
-    var e = document.createElementNS(NS, tag);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    if (parent) parent.appendChild(e);
-    return e;
-  }
-  function txt(tag, attrs, parent, text) { var e = el(tag, attrs, parent); e.textContent = text; return e; }
-  function svgIn(box, W, H) { box.replaceChildren(); return el('svg', { width: '100%', viewBox: '0 0 ' + W + ' ' + H, role: 'img' }, box); }
 
   function fillStatic() {
+    XR.fillCommon(DATA, SRCMAP);
     $('xr-total').textContent = String(EVENTS.length);
     $('xr-total-eu').textContent = String(EVENTS.filter(isEu).length);
     THEMES.forEach(function (t) {
@@ -437,16 +648,11 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
       if (b) b.textContent = String(n);
     });
     document.querySelectorAll('.xr-theme').forEach(function (b) { b.style.setProperty('--sw', 'var(--c-' + b.dataset.theme + ')'); });
-    document.querySelectorAll('[data-src]').forEach(function (n) {
-      var list = n.dataset.src.split(' ').map(function (s) { return SRCMAP[s]; }).filter(Boolean);
-      n.append(srcTags(list));
-    });
 
     $('xr-h-timeline').textContent = LAST_M > 0
       ? 'Aikajana tammikuusta ' + MONTHS_LONG[LAST_M].toLowerCase() + 'hun'
       : 'Aikajana: tammikuu';
     if (UPDATED) {
-      $('xr-updated').textContent = dayText(UPDATED) + UPDATED.y;
       var uq = Math.floor(UPDATED.m / 3) + 1;
       var qEnd = Date.UTC(UPDATED.y, uq * 3, 0);
       if (UPDATED.ms < qEnd) {
@@ -454,66 +660,6 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
         $('xr-qnote').textContent = ' Q' + uq + ' on käynnissä' + (hasQ ? ', joten sen tapahtumat ovat vielä kesken.' : ', eikä sille ole vielä tapahtumia.');
       }
     }
-
-  }
-
-  function drawMeta() {
-    var box = $('xr-chart-meta');
-    var items = [
-      { l: 'Tappio 2024', v: fig('rl_loss_2024'), loss: true },
-      { l: 'Tappio 2025', v: fig('rl_loss_2025'), loss: true },
-      { l: 'Liikevaihto 2025', v: fig('rl_sales_2025'), loss: false }
-    ].filter(function (d) { return isFinite(d.v); });
-    if (!items.length) return;
-    var W = Math.max(220, box.clientWidth || 320), H = 190, mt = 24, mb = 26, ml = 4, mr = 4;
-    var svg = svgIn(box, W, H);
-    var max = Math.max.apply(null, items.map(function (d) { return d.v; })) * 1.05;
-    var y = function (v) { return H - mb - (v / max) * (H - mb - mt); };
-    var band = (W - ml - mr) / items.length, bw = band * 0.7;
-    el('line', { x1: ml, x2: W - mr, y1: y(0), y2: y(0), style: 'stroke:var(--line)' }, svg);
-    items.forEach(function (d, i) {
-      var x = ml + band * i + (band - bw) / 2;
-      el('rect', { x: x, y: y(d.v), width: bw, height: y(0) - y(d.v), rx: 4, style: 'fill:' + (d.loss ? 'var(--accent)' : 'var(--mutedbar)') }, svg);
-      txt('text', { x: x + bw / 2, y: y(d.v) - 6, 'text-anchor': 'middle', style: 'fill:var(--fg);font-size:13px;font-variant-numeric:tabular-nums' }, svg, fi1.format(d.v));
-      txt('text', { x: x + bw / 2, y: H - 8, 'text-anchor': 'middle', style: 'fill:var(--muted);font-size:11.5px' }, svg, d.l);
-    });
-  }
-
-  // Palkin pyöristys vain datan päässä; nollaviivan puoli pysyy suorana.
-  function barPath(x0, x1, y, h, r) {
-    var d = x1 >= x0 ? 1 : -1, w = Math.abs(x1 - x0);
-    r = Math.min(r, w, h / 2);
-    var xe = x1 - d * r;
-    return 'M' + x0 + ' ' + y + 'H' + xe + 'q' + d * r + ' 0 ' + d * r + ' ' + r + 'V' + (y + h - r) +
-      'q0 ' + r + ' ' + (-d * r) + ' ' + r + 'H' + x0 + 'Z';
-  }
-
-  function drawMarket() {
-    var box = $('xr-chart-market');
-    var items = [{ l: 'VR-headsetit', v: fig('vr_q2') }, { l: 'AR-laitteet', v: fig('ar_q2') }].filter(function (d) { return isFinite(d.v); });
-    if (!items.length) return;
-    // Nimet omassa sarakkeessaan vasemmalla, joten nollaviiva ei osu teksteihin.
-    var W = Math.max(220, box.clientWidth || 320), labW = 108, valW = 52, rowH = 64, barH = 26, top = 8, axisH = 22, mr = 8;
-    var H = top + rowH * items.length + axisH;
-    var vals = items.map(function (d) { return d.v; });
-    var lo = Math.min.apply(null, [0].concat(vals)), hi = Math.max.apply(null, [0].concat(vals));
-    var pl = labW + (lo < 0 ? valW : 0);
-    var x = function (v) { return pl + (v - lo) / ((hi - lo) || 1) * (W - pl - mr); };
-    var svg = svgIn(box, W, H);
-    var yEnd = top + rowH * items.length;
-    items.forEach(function (d, i) {
-      var yc = top + i * rowH + rowH / 2, x0 = x(0), x1 = x(d.v);
-      txt('text', { x: 0, y: yc + 4.5, style: 'fill:var(--fg);font-size:13px' }, svg, d.l);
-      el('path', { d: barPath(x0, x1, yc - barH / 2, barH, 4), style: 'fill:' + (d.v < 0 ? 'var(--mutedbar)' : 'var(--accent)') }, svg);
-      var inside = d.v > 0 && Math.abs(x1 - x0) > 70;
-      txt('text', {
-        x: d.v < 0 ? x1 - 6 : inside ? x1 - 8 : x1 + 6, y: yc + 5,
-        'text-anchor': d.v < 0 || inside ? 'end' : 'start',
-        style: 'fill:' + (inside ? 'var(--panel)' : 'var(--fg)') + ';font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums'
-      }, svg, signed(d.v));
-    });
-    el('line', { x1: x(0), x2: x(0), y1: top, y2: yEnd, style: 'stroke:var(--fg);stroke-width:1' }, svg);
-    txt('text', { x: x(0), y: yEnd + 15, 'text-anchor': 'middle', style: 'fill:var(--muted);font-size:11.5px' }, svg, '0 %');
   }
 
   // Lähekkäiset pisteet pinotaan tasoille 0, +1, −1, +2, −2 …; kaista kasvaa tarvittaessa.
@@ -573,7 +719,7 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
     var x = function (ms) { return ml + (ms - t0) / (t1 - t0) * (W - ml - mr); };
     var pts = EVENTS.map(function (r) { return { r: r, px: x(r.ms), lane: THEMES.indexOf(r.theme) }; });
     var L = stackLanes(pts, THEMES.length, top, 13, 44), H = L.H;
-    var svg = svgIn(box, W, H);
+    var svg = XR.svgIn(box, W, H);
     MONTHS.slice(0, LAST_M + 1).forEach(function (name, i) {
       var px = x(Date.UTC(YEAR, i, 1));
       el('line', { x1: px, x2: px, y1: top - 6, y2: H, style: 'stroke:var(--grid)' }, svg);
@@ -591,6 +737,129 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
       }, svg);
       bindDot(c, p.r.id, tip, function () { showTip(host, tip, p, p.r.title, p.r.tl_when + ' · ' + p.r.source); });
     });
+  }
+
+  function drawTable() {
+    var tbody = document.querySelector('#xr-table tbody');
+    tbody.replaceChildren();
+    var rows = EVENTS.filter(visible);
+    var prevQ = null;
+    rows.forEach(function (r) {
+      var tr = document.createElement('tr');
+      tr.id = 'xr-row-' + r.id;
+      tr.className = 't-' + r.theme + (isEu(r) ? ' eu' : '') + (prevQ !== null && r.q !== prevQ ? ' q-first' : '') + (state.pinned === r.id ? ' hl' : '');
+      prevQ = r.q;
+      [r.when, r.theme_label, r.title].forEach(function (t) {
+        var td = document.createElement('td'); td.append(t); tr.appendChild(td);
+      });
+      var det = document.createElement('td');
+      det.append(r.detail, XR.srcTags(r.sources));
+      tr.appendChild(det);
+      tbody.appendChild(tr);
+    });
+    $('xr-empty').hidden = rows.length > 0;
+  }
+
+  function syncControls() {
+    document.querySelectorAll('.xr-theme').forEach(function (b) {
+      var off = !state.active.has(b.dataset.theme);
+      b.classList.toggle('off', off);
+      b.setAttribute('aria-pressed', String(!off && state.active.size < THEMES.length));
+    });
+    $('xr-eu').setAttribute('aria-pressed', String(state.europe));
+    var act = THEMES.filter(function (t) { return state.active.has(t); });
+    var parts = [act.length === THEMES.length ? 'kaikki aiheet' : act.map(function (t) { return NAMES[t]; }).join(', ')];
+    if (state.europe) parts.push('vain Eurooppa-yhteys');
+    var line = $('xr-filterline');
+    line.textContent = 'Näytetään: ' + parts.join(' · ') + '.';
+    line.classList.toggle('on', act.length < THEMES.length || state.europe);
+  }
+
+  function drawFiltered() { syncControls(); drawStrip(); drawTable(); }
+
+  document.querySelectorAll('.xr-theme').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.dataset.theme;
+      if (state.active.size === THEMES.length) state.active = new Set([t]);
+      else if (state.active.has(t)) { state.active.delete(t); if (!state.active.size) state.active = new Set(THEMES); }
+      else state.active.add(t);
+      drawFiltered();
+    });
+  });
+  $('xr-eu').addEventListener('click', function () { state.europe = !state.europe; drawFiltered(); });
+  $('xr-reset').addEventListener('click', function () { state.active = new Set(THEMES); state.europe = false; drawFiltered(); });
+
+  fillStatic();
+  drawFiltered();
+  XR.onResize(drawStrip);
+});
+
+// XR-kehitys lukuina: Reality Labsin luvut, laitetoimitusten vuosimuutos ja lasien hinnat.
+XR.load(function (DATA) {
+  'use strict';
+  var $ = XR.$, el = XR.el, txt = XR.txt, fi = XR.fi, fi1 = XR.fi1;
+  var FIG = DATA.figures || [], PRICES = DATA.prices || [];
+  var SRCMAP = XR.srcMap(DATA.sources);
+  var fig = function (k) { var r = FIG.find(function (x) { return x.key === k; }); return r ? Number(r.value) : NaN; };
+  var signed = function (v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + fi.format(Math.abs(v)) + ' %'; };
+
+  function drawMeta() {
+    var box = $('xr-chart-meta');
+    var items = [
+      { l: 'Tappio 2024', v: fig('rl_loss_2024'), loss: true },
+      { l: 'Tappio 2025', v: fig('rl_loss_2025'), loss: true },
+      { l: 'Liikevaihto 2025', v: fig('rl_sales_2025'), loss: false }
+    ].filter(function (d) { return isFinite(d.v); });
+    if (!items.length) return;
+    var W = Math.max(220, box.clientWidth || 320), H = 190, mt = 24, mb = 26, ml = 4, mr = 4;
+    var svg = XR.svgIn(box, W, H);
+    var max = Math.max.apply(null, items.map(function (d) { return d.v; })) * 1.05;
+    var y = function (v) { return H - mb - (v / max) * (H - mb - mt); };
+    var band = (W - ml - mr) / items.length, bw = band * 0.7;
+    el('line', { x1: ml, x2: W - mr, y1: y(0), y2: y(0), style: 'stroke:var(--line)' }, svg);
+    items.forEach(function (d, i) {
+      var x = ml + band * i + (band - bw) / 2;
+      el('rect', { x: x, y: y(d.v), width: bw, height: y(0) - y(d.v), rx: 4, style: 'fill:' + (d.loss ? 'var(--accent)' : 'var(--mutedbar)') }, svg);
+      txt('text', { x: x + bw / 2, y: y(d.v) - 6, 'text-anchor': 'middle', style: 'fill:var(--fg);font-size:13px;font-variant-numeric:tabular-nums' }, svg, fi1.format(d.v));
+      txt('text', { x: x + bw / 2, y: H - 8, 'text-anchor': 'middle', style: 'fill:var(--muted);font-size:11.5px' }, svg, d.l);
+    });
+  }
+
+  // Palkin pyöristys vain datan päässä; nollaviivan puoli pysyy suorana.
+  function barPath(x0, x1, y, h, r) {
+    var d = x1 >= x0 ? 1 : -1, w = Math.abs(x1 - x0);
+    r = Math.min(r, w, h / 2);
+    var xe = x1 - d * r;
+    return 'M' + x0 + ' ' + y + 'H' + xe + 'q' + d * r + ' 0 ' + d * r + ' ' + r + 'V' + (y + h - r) +
+      'q0 ' + r + ' ' + (-d * r) + ' ' + r + 'H' + x0 + 'Z';
+  }
+
+  function drawMarket() {
+    var box = $('xr-chart-market');
+    var items = [{ l: 'VR-headsetit', v: fig('vr_q2') }, { l: 'AR-laitteet', v: fig('ar_q2') }].filter(function (d) { return isFinite(d.v); });
+    if (!items.length) return;
+    // Nimet omassa sarakkeessaan vasemmalla, joten nollaviiva ei osu teksteihin.
+    var W = Math.max(220, box.clientWidth || 320), labW = 108, valW = 52, rowH = 64, barH = 26, top = 8, axisH = 22, mr = 8;
+    var H = top + rowH * items.length + axisH;
+    var vals = items.map(function (d) { return d.v; });
+    var lo = Math.min.apply(null, [0].concat(vals)), hi = Math.max.apply(null, [0].concat(vals));
+    var pl = labW + (lo < 0 ? valW : 0);
+    var x = function (v) { return pl + (v - lo) / ((hi - lo) || 1) * (W - pl - mr); };
+    var svg = XR.svgIn(box, W, H);
+    var yEnd = top + rowH * items.length;
+    items.forEach(function (d, i) {
+      var yc = top + i * rowH + rowH / 2, x0 = x(0), x1 = x(d.v);
+      txt('text', { x: 0, y: yc + 4.5, style: 'fill:var(--fg);font-size:13px' }, svg, d.l);
+      el('path', { d: barPath(x0, x1, yc - barH / 2, barH, 4), style: 'fill:' + (d.v < 0 ? 'var(--mutedbar)' : 'var(--accent)') }, svg);
+      var inside = d.v > 0 && Math.abs(x1 - x0) > 70;
+      txt('text', {
+        x: d.v < 0 ? x1 - 6 : inside ? x1 - 8 : x1 + 6, y: yc + 5,
+        'text-anchor': d.v < 0 || inside ? 'end' : 'start',
+        style: 'fill:' + (inside ? 'var(--panel)' : 'var(--fg)') + ';font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums'
+      }, svg, signed(d.v));
+    });
+    el('line', { x1: x(0), x2: x(0), y1: top, y2: yEnd, style: 'stroke:var(--fg);stroke-width:1' }, svg);
+    txt('text', { x: x(0), y: yEnd + 15, 'text-anchor': 'middle', style: 'fill:var(--muted);font-size:11.5px' }, svg, '0 %');
   }
 
   function priceText(p) { return (p.from ? 'alk. ' : p.approx ? 'noin ' : '') + fi.format(p.eur) + ' €'; }
@@ -624,7 +893,7 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
         var s = SRCMAP[p.src];
         var row = document.createElement('div'); row.className = 'xr-prow';
         var nm = document.createElement('span'); nm.className = 'xr-pname';
-        nm.append(s ? link(p.model, s.url) : p.model);
+        nm.append(s ? XR.link(p.model, s.url) : p.model);
         if (p.note && !p.eu) { var n = document.createElement('small'); n.textContent = p.note; nm.append(n); }
         var val = document.createElement('span'); val.className = 'xr-pval'; val.textContent = priceText(p);
         var track = document.createElement('span'); track.className = 'xr-ptrack'; track.setAttribute('aria-hidden', 'true');
@@ -637,71 +906,62 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
     });
   }
 
-  function drawTable() {
-    var tbody = document.querySelector('#xr-table tbody');
-    tbody.replaceChildren();
-    var rows = EVENTS.filter(visible);
-    var prevQ = null;
-    rows.forEach(function (r) {
-      var tr = document.createElement('tr');
-      tr.id = 'xr-row-' + r.id;
-      tr.className = 't-' + r.theme + (isEu(r) ? ' eu' : '') + (prevQ !== null && r.q !== prevQ ? ' q-first' : '') + (state.pinned === r.id ? ' hl' : '');
-      prevQ = r.q;
-      [r.when, r.theme_label, r.title].forEach(function (t) {
-        var td = document.createElement('td'); td.append(t); tr.appendChild(td);
-      });
-      var det = document.createElement('td');
-      det.append(r.detail, srcTags(r.sources));
-      tr.appendChild(det);
-      tbody.appendChild(tr);
-    });
-    $('xr-empty').hidden = rows.length > 0;
-  }
-
-  function syncControls() {
-    document.querySelectorAll('.xr-theme').forEach(function (b) {
-      var off = !state.active.has(b.dataset.theme);
-      b.classList.toggle('off', off);
-      b.setAttribute('aria-pressed', String(!off && state.active.size < THEMES.length));
-    });
-    $('xr-eu').setAttribute('aria-pressed', String(state.europe));
-    var act = THEMES.filter(function (t) { return state.active.has(t); });
-    var parts = [act.length === THEMES.length ? 'kaikki aiheet' : act.map(function (t) { return NAMES[t]; }).join(', ')];
-    if (state.europe) parts.push('vain Eurooppa-yhteys');
-    var line = $('xr-filterline');
-    line.textContent = 'Näytetään: ' + parts.join(' · ') + '.';
-    line.classList.toggle('on', act.length < THEMES.length || state.europe);
-  }
-
-  function drawFiltered() { syncControls(); drawStrip(); drawTable(); }
-  function drawAll() { drawMeta(); drawMarket(); drawPrices(); drawFiltered(); }
-
-  document.querySelectorAll('.xr-theme').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var t = b.dataset.theme;
-      if (state.active.size === THEMES.length) state.active = new Set([t]);
-      else if (state.active.has(t)) { state.active.delete(t); if (!state.active.size) state.active = new Set(THEMES); }
-      else state.active.add(t);
-      drawFiltered();
-    });
-  });
-  $('xr-eu').addEventListener('click', function () { state.europe = !state.europe; drawFiltered(); });
-  $('xr-reset').addEventListener('click', function () { state.active = new Set(THEMES); state.europe = false; drawFiltered(); });
-
-  fillStatic();
+  function drawAll() { drawMeta(); drawMarket(); drawPrices(); }
   drawAll();
+  XR.onResize(drawAll);
+});
 
-  var lastW = $('xr-root').clientWidth, timer = null;
-  function onResize() {
-    var w = $('xr-root').clientWidth;
-    if (w === lastW) return;
-    lastW = w;
-    clearTimeout(timer);
-    timer = setTimeout(drawAll, 80);
+// Standardit ja sääntely: korttilistat ja EU-määräpäivät.
+XR.load(function (DATA) {
+  'use strict';
+  var $ = XR.$, parseDate = XR.parseDate, dayText = XR.dayText;
+  var SRCMAP = XR.srcMap(DATA.sources);
+  var sourcesOf = function (r) { return [].concat(r.src).filter(Boolean).map(function (s) { return SRCMAP[s]; }).filter(Boolean); };
+  function node(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+
+  function drawItems(host, list) {
+    host.replaceChildren();
+    (list || []).forEach(function (r) {
+      var card = node('article', 'xr-item');
+      card.id = r.id;
+      card.append(node('span', 'xr-item-org', r.org), node('h4', null, r.name), node('span', 'xr-item-status', r.status));
+      var p = node('p', null, r.detail);
+      p.append(XR.srcTags(sourcesOf(r)));
+      card.append(p);
+      host.append(card);
+    });
   }
-  if (window.ResizeObserver) new ResizeObserver(onResize).observe($('xr-root'));
-  else window.addEventListener('resize', onResize);
-})();
+
+  // Päivämäärät järjestyksessä; menneet "voimassa", tulevat "tulossa" sen päivän mukaan, jona sivu avataan.
+  function drawDates() {
+    var host = $('xr-dates'), now = Date.now();
+    host.replaceChildren();
+    (DATA.dates || []).map(function (r) { return { r: r, p: parseDate(r.date) }; })
+      .filter(function (d) { return d.p; })
+      .sort(function (a, b) { return a.p.ms - b.p.ms; })
+      .forEach(function (d) {
+        var future = d.p.ms > now;
+        var li = node('li', future ? 'tulossa' : 'voimassa');
+        var t = node('time', null, dayText(d.p) + d.p.y);
+        t.dateTime = d.r.date;
+        var text = node('span', null, d.r.title);
+        text.append(XR.srcTags(sourcesOf(d.r)));
+        li.append(t, node('span', 'xr-state', future ? 'Tulossa' : 'Voimassa'), text);
+        host.append(li);
+      });
+  }
+
+  function drawReading() {
+    var host = $('xr-reading');
+    host.replaceChildren();
+    (DATA.reading || []).forEach(function (r) { var li = node('li'); li.append(XR.link(r.name, r.url)); host.append(li); });
+  }
+
+  drawItems($('xr-standards'), DATA.standards);
+  drawItems($('xr-eu-items'), DATA.eu);
+  drawDates();
+  drawReading();
+});
 </script>
 </body>
 </html>
