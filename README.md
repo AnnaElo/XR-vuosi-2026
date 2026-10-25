@@ -9,29 +9,19 @@ Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoi
 - Aineisto on koottu julkisista XR-uutiskirjeistä ja uutislähteistä, mm. Immersive Wire, Auganix, Road to VR, VR.org, UC Today ja TechSpot.
 - Ajankohdat ovat julkaisuajankohtia, eivät välttämättä tapahtuman tarkkoja päiviä.
 - Hinnat ovat suuntaa-antavia. Osa eurohinnoista on muunnettu muista valuutoista tai pyöristetty, ja ne muuttuvat kampanjoiden mukana.
-- Aineisto päivitetään käsin `data`-kansion JSON-tiedostoihin. Vain päivityspäivä asettuu automaattisesti.
+- Sivu ei päivity itsestään. Aineisto on tallennettu suoraan tiedostoon.
 
 
 ## 🔧 Tekninen toteutus
 - Rakennettu hyödyntäen tekoälytyökalua (Claude Sonnet 5.5) 
+- Yksi itsenäinen index.html: tyylit, data, JavaScript ja kuva ovat samassa tiedostossa.
 - Ei ulkoisia kirjastoja, palveluita eikä evästeitä.
-- Toimii mobiilissa sekä vaalealla ja tummalla teemalla. Teema seuraa järjestelmän asetusta, ja sen voi vaihtaa yläpalkin säätimestä (valinta muistetaan selaimessa).
-- Sivut lukevat aineistonsa JSON-tiedostoista, joten paikallisesti sivut avataan palvelimen kautta, esim. `python3 -m http.server` ja selaimella `http://localhost:8000`. Suoraan levyltä (file://) avattuna aineisto ei lataudu. GitHub Pagesissa tätä ei tarvita.
-
-| Tiedosto | Sisältö |
-|---|---|
-| `index.html` | Etusivu: keskeiset tapahtumat aihekortteina, aikajanana ja taulukkona. Aiherajauksen voi antaa osoitteessa, esim. `index.html?aihe=saantely`. |
-| `luvut.html` | XR-kehitys lukuina: Reality Labsin luvut, laitetoimitusten vuosimuutos ja lasien hinnat. |
-| `standardit.html` | Standardit ja sääntely: avoimet standardit, EU:n linjaukset ja säädökset sekä määräpäivät. |
-| `data/xr-data.json` | Tapahtumat, luvut, hinnat ja lähteet (etusivu ja luvut). |
-| `data/standardit.json` | Standardit, EU-säädökset, määräpäivät ja niiden lähteet. |
-| `assets/` | Yhteiset tyylit (`tyylit.css`), yhteinen koodi (`yhteinen.js`), kunkin sivun oma koodi ja kuva. |
+- Toimii mobiilissa sekä vaalealla ja tummalla teemalla. Teema seuraa järjestelmän asetusta, ja sen voi vaihtaa yläpalkin säätimestä (automaattinen / vaalea / tumma). Valinta muistetaan selaimessa.
+- Sivulla on kolme osiota, joihin yläpalkin linkit vievät: keskeiset tapahtumat, XR-kehitys lukuina sekä standardit ja sääntely.
+- Aineisto on JSON-muodossa tiedoston lopussa (<script id="xr-data">). Rivin voi lisätä tai korjata suoraan siihen.
 
 
 ## ✏️ Aineiston päivittäminen
-Muutokset tehdään vain `data`-kansion JSON-tiedostoihin, HTML-tiedostoihin ei tarvitse koskea.
-
-### Tapahtumat (`data/xr-data.json`)
 Jokainen tapahtuma on yksi rivi `events`-listassa:
 
 ```json
@@ -50,13 +40,11 @@ Jokainen tapahtuma on yksi rivi `events`-listassa:
 
 Sivu laskee itse neljänneksen (Q1–Q4), aikajanan päivämäärän, aiheen nimen ja tapahtumien järjestyksen. Rivejä ei siis tarvitse pitää aikajärjestyksessä. Aikajana ja otsikko jatkuvat automaattisesti uusiin kuukausiin.
 
-- `updated`: päivityspäivä (`"2026-10-16"`), näkyy sivun alalaidassa. Tätä ei tarvitse muuttaa käsin: GitHub Actions -työnkulku (`.github/workflows/paivitysaika.yml`) asettaa sen automaattisesti sen päivän mukaan, jolloin kyseistä JSON-tiedostoa viimeksi muutettiin, ja tallentaa muutoksen omana committinaan.
+- `updated`: päivityspäivä (`"2026-10-16"`), näkyy sivun alalaidassa. Tätä ei tarvitse muuttaa käsin: GitHub Actions -työnkulku (`.github/workflows/paivitysaika.yml`) asettaa sen automaattisesti sen päivän mukaan, jolloin index.html:ää viimeksi muutettiin, ja tallentaa muutoksen omana committinaan.
 - `prices`: hintalistan mallit (`group` `ar` tai `vr`, `eur`, valinnaiset `from` = "alk.", `approx` = "noin", `note` ja `eu: true` eurooppalaiselle valmistajalle, sekä `src`). Eurooppalaiset mallit näkyvät omana ryhmänään.
 - `figures`: kaavioiden luvut.
+- `standards` ja `eu`: Standardit ja sääntely -osion kortit (`id`, `name`, `org`, `status`, `detail`, `src`). Näiden lähteillä on tunnisteet `x01`, `x02` … samassa `sources`-listassa.
+- `dates`: EU-säädösten määräpäivät (`date`, `title`, `src`). Sivu järjestää ne ja merkitsee ne avauspäivän mukaan joko "Voimassa" tai "Tulossa".
+- `reading`: taustalukemisto (`name`, `url`).
 
 Jos rivillä on virheellinen päivämäärä, aihe tai lähde, sivu jättää rivin pois ja kertoo siitä selaimen konsolissa.
-
-### Standardit ja sääntely (`data/standardit.json`)
-- `standards` ja `eu`: kortit (`id`, `name`, `org`, `status`, `detail`, `src`). `src` viittaa saman tiedoston `sources`-listaan (tunnisteet `x01`, `x02` …).
-- `dates`: määräpäivät (`date`, `title`, `src`). Sivu järjestää ne ja merkitsee ne avauspäivän mukaan joko "Voimassa" tai "Tulossa".
-- `reading`: taustalukemisto (`name`, `url`).
