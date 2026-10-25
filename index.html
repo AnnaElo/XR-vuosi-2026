@@ -5,22 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>XR-vuosi 2026</title>
 <meta name="description" content="Vuoden 2026 XR-kehitys: keskeiset tapahtumat aikajanana, kehitys lukuina sekä XR:n avoimet standardit ja EU:n sääntely.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;600;700;800&display=swap">
 <style>
 :root {
-  --bg: #f6f7f9; --panel: #ffffff; --fg: #151a22; --muted: #5a6372; --line: #dde1e7; --grid: #e8ebf0;
-  --accent: #0072B2; --mutedbar: #b9c0ca;
+  /* Napapiiri-ilme: värit on poimittu hero-kuvasta (kaamos, koboltti, jää). */
+  --bg: #f2f6fb; --panel: #ffffff; --fg: #05103b; --muted: #4c587a; --line: #d3dcea; --grid: #e3e9f2;
+  --accent: #103f96; --ice: #dce9f6; --mutedbar: #b6c1d4;
   --c-laitteet: #0072B2; --c-alustat: #D55E00; --c-sisalto: #009E73; --c-saantely: #CC79A7; --c-ala: #E69F00;
-  --radius: 10px; --shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-  --serif: ui-serif, Georgia, "Times New Roman", serif;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius: 8px; --shadow: 0 6px 20px rgba(5, 16, 59, 0.12);
+  --display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --sans: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   color-scheme: light;
 }
 /* Tumma teema: teemasäädin asettaa <html data-scheme="dark">. Oletus on vaalea. */
 :root[data-scheme="dark"] {
-  --bg: #0e1218; --panel: #161b23; --fg: #e9ecf1; --muted: #9ba5b4; --line: #283040; --grid: #222a36;
-  --accent: #56B4E9; --mutedbar: #46505f;
+  --bg: #06112d; --panel: #0c1a3d; --fg: #e9effa; --muted: #9aa8c9; --line: #22325c; --grid: #16264f;
+  --accent: #8fb0f2; --ice: #13275a; --mutedbar: #3a4a74;
   --c-laitteet: #56B4E9; --c-alustat: #F08A3C; --c-sisalto: #2BC59A; --c-saantely: #E59AC4; --c-ala: #F0B93A;
-  --shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -31,12 +36,14 @@ h1, h2, h3, p { margin: 0; }
 .xr { max-width: 1100px; margin-inline: auto; display: flex; flex-direction: column; gap: 2.5rem; }
 .xr-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 36%); gap: 1.25rem 2.5rem; align-items: center; }
 .xr-head-text { display: flex; flex-direction: column; gap: 0.9rem; }
-.xr-hero { margin: 0; }
-.xr-hero img { display: block; width: 100%; height: auto; max-height: 22rem; object-fit: contain; object-position: right center; }
-@media (max-width: 780px) { .xr-head { grid-template-columns: minmax(0, 1fr); } .xr-hero { max-width: 19rem; justify-self: center; } }
-h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.1rem, 5.5vw, 3.3rem); line-height: 1.05; letter-spacing: -0.01em; text-wrap: balance; }
+/* Hero: kuva jäänsinisen "keskiyön auringon" sisällä */
+.xr-hero { margin: 0; width: 100%; max-width: 22rem; justify-self: end; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--ice); display: flex; align-items: flex-end; }
+.xr-hero img { display: block; flex: none; width: 125%; max-width: none; height: auto; margin-left: -25%; }
+@media (max-width: 780px) { .xr-head { grid-template-columns: minmax(0, 1fr); } .xr-hero { max-width: 17rem; justify-self: center; } }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.3rem, 6vw, 3.6rem); line-height: 0.98; letter-spacing: -0.035em; text-wrap: balance; }
+h1 span { color: var(--accent); }
 .xr-lede { max-width: 64ch; font-size: 1.0625rem; line-height: 1.6; }
-h2 { font-size: 1.15rem; font-weight: 600; text-wrap: balance; }
+h2 { font-family: var(--display); font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
 h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-note { color: var(--muted); font-size: 0.8125rem; line-height: 1.5; }
 .xr-sec { display: flex; flex-direction: column; gap: 0.9rem; }
@@ -52,9 +59,10 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-theme { font: inherit; color: inherit; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 0.6rem; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; transition: opacity 0.2s; }
 .xr-theme.off { opacity: 0.45; }
 .xr-theme-label { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; }
-.xr-swatch { width: 0.65rem; height: 0.65rem; border-radius: 50%; flex: none; background: var(--sw); }
+.xr-swatch { width: 0.75rem; height: 0.75rem; border-radius: 50%; flex: none; background: var(--sw); border: 2px solid var(--sw); }
+.xr-theme.off .xr-swatch { background: transparent; }
 .xr-theme-count { display: flex; align-items: baseline; gap: 0.4rem; font-variant-numeric: tabular-nums; }
-.xr-theme-count b { font-family: var(--serif); font-weight: 400; font-size: 2rem; line-height: 1; }
+.xr-theme-count b { font-family: var(--display); font-weight: 800; font-size: 2rem; line-height: 1; letter-spacing: -0.03em; }
 .xr-theme p { font-size: 0.8125rem; line-height: 1.5; color: var(--muted); }
 
 .xr-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
@@ -67,7 +75,7 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-pgroup { display: flex; flex-direction: column; min-width: 0; }
 .xr-pgroup-head { display: flex; flex-direction: column; gap: 0.1rem; padding-bottom: 0.4rem; margin-bottom: 0.2rem; border-bottom: 1px solid var(--line); }
 .xr-pgroup-head b { font-size: 0.875rem; font-weight: 600; }
-.xr-pgroup-range { font-family: var(--serif); font-size: 1.35rem; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.xr-pgroup-range { font-family: var(--display); font-weight: 700; letter-spacing: -0.02em; font-size: 1.35rem; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .xr-pgroup-range small { font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); }
 .xr-prow { display: grid; grid-template-columns: minmax(0, 1fr) 5.5rem; grid-template-areas: "name val" "bar bar"; gap: 0.15rem 0.6rem; padding: 0.4rem 0; font-size: 0.8125rem; line-height: 1.35; }
 .xr-pname { grid-area: name; min-width: 0; }
@@ -94,13 +102,13 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-table { width: 100%; border-collapse: collapse; }
 .xr-table th { text-align: left; font-size: 0.75rem; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; padding: 0 0.9rem 0.5rem 0; border-bottom: 1px solid var(--line); }
 .xr-table td { vertical-align: top; padding: 0.7rem 0.9rem 0.7rem 0; border-bottom: 1px solid var(--line); line-height: 1.45; overflow-wrap: anywhere; hyphens: auto; }
-.xr-table td:nth-child(1) { white-space: nowrap; width: 8.5rem; font-variant-numeric: tabular-nums; }
+.xr-table td:nth-child(1) { white-space: nowrap; width: 8.5rem; font-family: var(--mono); font-size: 0.8125rem; }
 .xr-table td:nth-child(1)::before { content: ""; display: inline-block; width: 0.55rem; height: 0.55rem; border-radius: 50%; margin-right: 0.5rem; background: var(--dot, var(--muted)); }
 .xr-table td:nth-child(2) { width: 11rem; color: var(--muted); font-size: 0.8125rem; }
 .xr-table td:nth-child(3) { font-weight: 600; min-width: 14rem; }
 .xr-table td:nth-child(4) { color: var(--muted); min-width: 14rem; }
-.xr-table tr.eu td:nth-child(3)::after { content: "Eurooppa"; display: inline-block; margin-left: 0.5rem; padding: 0 0.4rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.7rem; font-weight: 400; color: var(--muted); vertical-align: 0.1em; }
-.xr-src { display: inline-block; padding: 0 0.45rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.7rem; line-height: 1.5; color: var(--muted); text-decoration: none; white-space: nowrap; vertical-align: 0.1em; }
+.xr-table tr.eu td:nth-child(3)::after { content: "Eurooppa"; display: inline-block; margin-left: 0.5rem; padding: 0 0.4rem; border: 1px solid var(--line); border-radius: 999px; font-family: var(--mono); font-size: 0.75rem; font-weight: 400; color: var(--muted); vertical-align: 0.1em; }
+.xr-src { display: inline-block; padding: 0 0.45rem; border: 1px solid var(--line); border-radius: 999px; font-family: var(--mono); font-size: 0.75rem; line-height: 1.5; color: var(--muted); text-decoration: none; white-space: nowrap; vertical-align: 0.1em; }
 a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
 .xr-table tr.q-first td { border-top: 2px solid var(--line); }
 .xr-table tr.t-laitteet { --dot: var(--c-laitteet); }
@@ -128,7 +136,7 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
 .xr-parthead ~ .xr-sec > h3 { font-size: 1.15rem; }
 .xr-part { display: flex; flex-direction: column; gap: 2.5rem; scroll-margin-top: 1rem; }
 .xr-parthead { display: flex; flex-direction: column; gap: 0.6rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
-.xr-parthead h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.1; }
+.xr-parthead h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 4.2vw, 2.4rem); line-height: 1.02; letter-spacing: -0.03em; }
 
 /* Standardit ja sääntely */
 .xr-item h4 { margin: 0; font-size: 0.95rem; font-weight: 600; }
@@ -140,7 +148,7 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
 .xr-item .xr-item-xr { color: var(--muted); font-size: 0.8125rem; }
 .xr-dates { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
 .xr-dates li { display: grid; grid-template-columns: 7.5rem 6.5rem minmax(0, 1fr); gap: 0.2rem 0.9rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; line-height: 1.45; }
-.xr-dates time { font-variant-numeric: tabular-nums; }
+.xr-dates time { font-family: var(--mono); font-size: 0.8125rem; }
 .xr-dates .xr-state { justify-self: start; padding: 0 0.45rem; border: 1px solid var(--line); border-radius: 999px; font-size: 0.75rem; color: var(--muted); }
 .xr-dates li.tulossa .xr-state { color: var(--fg); border-color: var(--accent); }
 @media (max-width: 560px) { .xr-dates li { grid-template-columns: auto auto; } .xr-dates li > span:last-child { grid-column: 1 / -1; } }
@@ -276,7 +284,7 @@ var XR = (function () {
   </nav>
   <header class="xr-head">
     <div class="xr-head-text">
-    <h1>XR-vuosi 2026</h1>
+    <h1>XR-vuosi <span>2026</span></h1>
     <p class="xr-lede">Tämän vuoden XR-uutisissa kilpailu siirtyi headseteista kevyisiin laseihin. Meta karsi Reality Labsia ja siirsi Horizon Worldsin mobiiliin, Snap toi AR-lasinsa myyntiin, ja älylasien yksityisyys nousi sääntelyn pääteemaksi Euroopassa. Käyttö kasvaa siellä, missä hyöty on mitattavissa: terveydenhuollossa, puolustuksessa ja teollisuudessa.</p>
     <noscript><p class="xr-note">Tämä sivu tarvitsee JavaScriptin aikajanan, kaavioiden ja taulukoiden näyttämiseen.</p></noscript>
     </div>
@@ -712,7 +720,7 @@ XR.load(function (DATA) {
     MONTHS.slice(0, LAST_M + 1).forEach(function (name, i) {
       var px = x(Date.UTC(YEAR, i, 1));
       el('line', { x1: px, x2: px, y1: top - 6, y2: H, style: 'stroke:var(--grid)' }, svg);
-      txt('text', { x: px + 4, y: 12, style: 'fill:var(--muted);font-size:11px' }, svg, name);
+      txt('text', { x: px + 4, y: 12, style: 'fill:var(--muted);font-size:12px' }, svg, name);
     });
     THEMES.forEach(function (t, i) {
       var py = L.laneTop[i] + L.laneH[i];
@@ -810,7 +818,7 @@ XR.load(function (DATA) {
       var x = ml + band * i + (band - bw) / 2;
       el('rect', { x: x, y: y(d.v), width: bw, height: y(0) - y(d.v), rx: 4, style: 'fill:' + (d.loss ? 'var(--accent)' : 'var(--mutedbar)') }, svg);
       txt('text', { x: x + bw / 2, y: y(d.v) - 6, 'text-anchor': 'middle', style: 'fill:var(--fg);font-size:13px;font-variant-numeric:tabular-nums' }, svg, fi1.format(d.v));
-      txt('text', { x: x + bw / 2, y: H - 8, 'text-anchor': 'middle', style: 'fill:var(--muted);font-size:11.5px' }, svg, d.l);
+      txt('text', { x: x + bw / 2, y: H - 8, 'text-anchor': 'middle', style: 'fill:var(--muted);font-size:12px' }, svg, d.l);
     });
   }
 
@@ -848,7 +856,7 @@ XR.load(function (DATA) {
       }, svg, signed(d.v));
     });
     el('line', { x1: x(0), x2: x(0), y1: top, y2: yEnd, style: 'stroke:var(--fg);stroke-width:1' }, svg);
-    txt('text', { x: x(0), y: yEnd + 15, 'text-anchor': 'middle', style: 'fill:var(--muted);font-size:11.5px' }, svg, '0 %');
+    txt('text', { x: x(0), y: yEnd + 15, 'text-anchor': 'middle', style: 'fill:var(--muted);font-size:12px' }, svg, '0 %');
   }
 
   function priceText(p) { return (p.from ? 'alk. ' : p.approx ? 'noin ' : '') + fi.format(p.eur) + ' €'; }
