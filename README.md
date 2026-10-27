@@ -1,5 +1,7 @@
 # 📢 XR-vuosi 2026
 
+[![Sisältö: CC BY 4.0](https://img.shields.io/badge/sis%C3%A4lt%C3%B6-CC%20BY%204.0-lightgrey.svg)](LICENSE-CONTENT) [![Koodi: MIT](https://img.shields.io/badge/koodi-MIT-blue.svg)](LICENSE)
+
 Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoihin, sisältöihin, sääntelyyn sekä terveydenhuollon, puolustuksen ja teollisuuden käyttöön. Poiminnoissa huomioidaan erityisesti Euroopan alue.
 
 🔗Linkki: [XR-vuosi 2026](https://annaelo.github.io/XR-vuosi-2026/)
@@ -80,3 +82,12 @@ Sivu laskee itse neljänneksen (Q1–Q4), aikajanan päivämäärän, aiheen nim
 - Standardit ja sääntely -osion lähteillä on tunnisteet `x01`, `x02` … samassa `sources`-listassa. Lähteinä käytetään ensisijaisesti järjestöjen omia sivustoja (esim. Khronos, W3C, OGC, EUR-Lex, Euroopan komissio). Lähteen `url` on valinnainen, jolloin lähde näkyy ilman linkkiä.
 
 Jos rivillä on virheellinen päivämäärä, aihe tai lähde, sivu jättää rivin pois ja kertoo siitä selaimen konsolissa.
+
+&nbsp;
+
+## ⚖️ Lisenssi
+
+- **Sisältö** (tekstit, kuvaajat ja koottu aineisto): [CC BY 4.0](LICENSE-CONTENT). Aineistoa saa käyttää ja muokata, kunhan tekijä (Anna Eloranta) mainitaan.
+- **Koodi** (HTML-rakenne, tyylit, skriptit ja työnkulut): [MIT](LICENSE).
+
+Lisenssit koskevat vain tekijän omaa työtä. Sivulla mainittujen ja linkitettyjen lähteiden aineistot ovat niiden omien tekijöiden ja lisenssien alaisia.
