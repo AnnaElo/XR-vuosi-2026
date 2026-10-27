@@ -72,8 +72,12 @@ Sivu laskee itse neljänneksen (Q1–Q4), aikajanan päivämäärän, aiheen nim
 - `updated`: päivityspäivä (`"2026-10-16"`), näkyy sivun alalaidassa. Tätä ei tarvitse muuttaa käsin: GitHub Actions -työnkulku (`.github/workflows/paivitysaika.yml`) asettaa sen automaattisesti sen päivän mukaan, jolloin index.html:ää viimeksi muutettiin, ja tallentaa muutoksen omana committinaan.
 - `prices`: hintalistan mallit (`group` `ar` tai `vr`, `eur`, valinnaiset `from` = "alk.", `approx` = "noin", `note` ja `eu: true` eurooppalaiselle valmistajalle, sekä `src`). Eurooppalaiset mallit näkyvät omana ryhmänään.
 - `figures`: kaavioiden luvut.
-- `standards` ja `eu`: Standardit ja sääntely -osion kortit (`id`, `name`, `org`, `status`, `detail`, `src`). Näiden lähteillä on tunnisteet `x01`, `x02` … samassa `sources`-listassa.
+- `standards`: standardikortit (`id`, `cat`, `name`, `org`, `status`, `detail`, `src`). `cat` on aihe: `xr` (XR-rajapinnat ja suunnittelu), `3d`, `geo` (paikkatieto), `id` (identiteetti) tai `org` (järjestöt).
+- `eu`: EU-linjaukset ja -säädökset (`id`, `name`, `org`, `status`, `detail`, `src` sekä valinnaiset `applies` = "Koskee, kun" ja `fi` = "Suomessa").
+- `trl`: Milloin huomioidaan -kaavion rivit (`name`, `kind` `std` tai `law`, `select`, `adopt` ja `verify` TRL-väleinä, esim. `[3, 4]`, sekä valinnainen `note`). `trl_levels` sisältää TRL-tasojen 1–9 nimet.
+- `watch`: Kehitteillä-lista (`name`, `status`, `src`).
 - `dates`: EU-säädösten määräpäivät (`date`, `title`, `src`). Sivu järjestää ne ja merkitsee ne avauspäivän mukaan joko "Voimassa" tai "Tulossa".
-- `reading`: taustalukemisto (`name`, `url`).
+- `reading`: taustalukemisto (`name`, valinnainen `url`).
+- Standardit ja sääntely -osion lähteillä on tunnisteet `x01`, `x02` … samassa `sources`-listassa. Lähteen `url` on valinnainen, jolloin lähde näkyy ilman linkkiä.
 
 Jos rivillä on virheellinen päivämäärä, aihe tai lähde, sivu jättää rivin pois ja kertoo siitä selaimen konsolissa.

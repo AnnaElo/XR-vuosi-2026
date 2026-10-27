@@ -146,6 +146,30 @@ a.xr-src:hover { color: var(--fg); border-color: var(--muted); }
 .xr-item-status { font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
 .xr-item p { font-size: 0.875rem; line-height: 1.5; }
 .xr-item .xr-item-xr { color: var(--muted); font-size: 0.8125rem; }
+.xr-item dl { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.25rem 0.6rem; padding-top: 0.55rem; border-top: 1px solid var(--line); font-size: 0.8125rem; line-height: 1.45; }
+.xr-item dt { color: var(--muted); }
+.xr-item dd { margin: 0; }
+.xr-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Milloin huomioidaan: TRL 1–9, kullakin rivillä valinta, käyttöönotto ja todentaminen omilla kaistoillaan */
+.xr-trl { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.6rem 0.9rem 0.9rem; }
+.xr-trl-row, .xr-trl-head { display: grid; grid-template-columns: clamp(5.5rem, 28%, 11rem) repeat(9, minmax(0, 1fr)); column-gap: 3px; }
+.xr-trl-row { grid-template-rows: repeat(3, 6px); row-gap: 2px; padding: 0.4rem 0; border-bottom: 1px solid var(--grid); }
+.xr-trl-head { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-align: center; padding-bottom: 0.3rem; border-bottom: 1px solid var(--line); }
+.xr-trl-head b { color: var(--fg); font-weight: 500; }
+.xr-trl-group { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; padding: 0.7rem 0 0.1rem; }
+.xr-trl-name { grid-column: 1; grid-row: 1 / 4; align-self: center; font-size: 0.8125rem; line-height: 1.2; padding-right: 0.5rem; min-width: 0; }
+.xr-trl-bar { border-radius: 3px; }
+.xr-trl-bar.select { grid-row: 1; background: var(--c-laitteet); }
+.xr-trl-bar.adopt { grid-row: 2; background: var(--c-sisalto); }
+.xr-trl-bar.verify { grid-row: 3; background: var(--c-ala); }
+.xr-key { display: inline-block; width: 1rem; height: 6px; border-radius: 3px; }
+.xr-trl-levels { font-size: 0.8125rem; color: var(--muted); }
+.xr-trl-levels summary { cursor: pointer; }
+.xr-trl-levels ol { margin: 0.5rem 0 0; padding-left: 1.6rem; display: flex; flex-direction: column; gap: 0.15rem; }
+.xr-watch { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+.xr-watch li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.2rem 0.9rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; line-height: 1.45; }
+.xr-watch .xr-state { justify-self: end; align-self: start; padding: 0 0.45rem; border: 1px solid var(--line); border-radius: 999px; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+@media (max-width: 560px) { .xr-watch li { grid-template-columns: minmax(0, 1fr); } .xr-watch .xr-state { justify-self: start; } }
 .xr-dates { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
 .xr-dates li { display: grid; grid-template-columns: 7.5rem 6.5rem minmax(0, 1fr); gap: 0.2rem 0.9rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; line-height: 1.45; }
 .xr-dates time { font-family: var(--mono); font-size: 0.8125rem; }
@@ -399,24 +423,46 @@ var XR = (function () {
   <div class="xr-part" id="standardit">
     <header class="xr-parthead">
       <h2>Standardit ja sääntely</h2>
-      <p class="xr-lede">Avoimet standardit ratkaisevat, siirtyvätkö sovellukset, 3D-sisältö ja käyttäjät laitteelta ja palvelusta toiselle. EU:ssa XR:ää ei säännellä omalla lailla, vaan sitä koskevat tietosuoja-, tekoäly-, alusta-, data- ja kyberturvasäädökset.</p>
+      <p class="xr-lede">Avoimet standardit ratkaisevat, siirtyvätkö sovellukset, 3D-sisältö ja käyttäjät laitteelta ja palvelusta toiselle. EU:ssa XR:ää ei säännellä omalla lailla, vaan sitä koskevat mm. tietosuoja-, tekoäly-, alusta-, identiteetti- ja kyberturvasäädökset.</p>
     </header>
   <section class="xr-sec" aria-labelledby="xr-h-standards">
     <h3 id="xr-h-standards">Avoimet standardit</h3>
-    <p class="xr-note">Rajapinnat, 3D-tiedostomuodot ja niitä kehittävät järjestöt.</p>
+    <p class="xr-note">XR-kehittäjälle keskeiset avoimet standardit aiheittain sekä niitä kehittävät järjestöt.</p>
+    <div class="xr-controls" id="xr-std-cats" role="group" aria-label="Standardien aihe"></div>
     <div class="xr-items" id="xr-standards"></div>
   </section>
 
   <section class="xr-sec" aria-labelledby="xr-h-eu">
     <h3 id="xr-h-eu">EU:n linjaukset ja säädökset</h3>
-    <p class="xr-note">Virtuaalimaailmoja koskevat linjaukset ja säädökset, jotka vaikuttavat XR-laitteisiin ja -palveluihin. Ajankohtaiset sääntelytapahtumat näkyvät tapahtumissa: <a href="?aihe=saantely#tapahtumat">Sääntely ja yksityisyys</a>.</p>
+    <p class="xr-note">Virtuaalimaailmoja koskevat linjaukset ja säädökset, jotka vaikuttavat XR-laitteisiin ja -palveluihin. "Koskee, kun" kertoo, milloin säädös koskee XR-ratkaisua. Ajankohtaiset sääntelytapahtumat näkyvät tapahtumissa: <a href="?aihe=saantely#tapahtumat">Sääntely ja yksityisyys</a>.</p>
     <div class="xr-items" id="xr-eu-items"></div>
+  </section>
+
+  <section class="xr-sec" aria-labelledby="xr-h-trl">
+    <h3 id="xr-h-trl">Milloin huomioidaan</h3>
+    <p class="xr-note">Kehitysvaihe (TRL 1–9), jossa standardi tai säädös valitaan, otetaan käyttöön ja todennetaan. Lähes kaikki valinnat tehdään jo konseptivaiheessa (TRL 2), koska myöhempi muutos on kalliimpi. Standardien osalta kyse on suosituksesta. Säädöksen vaatimukset on huomioitava kehitysvaiheesta riippumatta, jos sen ehto täyttyy.<span data-src="x30 x39"></span></p>
+    <div class="xr-legend" aria-hidden="true">
+      <span><i class="xr-key" style="background:var(--c-laitteet)"></i>Valinta</span>
+      <span><i class="xr-key" style="background:var(--c-sisalto)"></i>Käyttöönotto</span>
+      <span><i class="xr-key" style="background:var(--c-ala)"></i>Todentaminen</span>
+    </div>
+    <div class="xr-trl" id="xr-trl"></div>
+    <details class="xr-trl-levels">
+      <summary>TRL-tasot</summary>
+      <ol id="xr-trl-levels"></ol>
+    </details>
   </section>
 
   <section class="xr-sec" aria-labelledby="xr-h-dates">
     <h3 id="xr-h-dates">Määräpäivät</h3>
     <p class="xr-note">Milloin velvoitteet alkavat koskea toimijoita. Tila päivittyy sen päivän mukaan, jona sivu avataan.</p>
     <ul class="xr-dates" id="xr-dates"></ul>
+  </section>
+
+  <section class="xr-sec" aria-labelledby="xr-h-watch">
+    <h3 id="xr-h-watch">Kehitteillä</h3>
+    <p class="xr-note">Valmisteilla olevia standardeja, joita kannattaa seurata.</p>
+    <ul class="xr-watch" id="xr-watch"></ul>
   </section>
 
   <section class="xr-sec xr-notes" aria-labelledby="xr-h-reading">
@@ -428,7 +474,7 @@ var XR = (function () {
       <h3>Huomioita</h3>
       <ul>
         <li>Kuvaukset ovat tiivistelmiä eivätkä oikeudellista neuvontaa. Tarkista velvoitteet aina säädöstekstistä.</li>
-        <li>Tekoälysäädöksen määräpäivät ovat digitaalisen omnibusin (asetus (EU) 2026/1744) mukaisia.</li>
+        <li>Tekoälyasetuksen määräpäivät ovat digitaalisen omnibusin (asetus (EU) 2026/1744) mukaisia.</li>
       </ul>
     </div>
   </section>
@@ -508,34 +554,91 @@ var XR = (function () {
   {"group": "vr", "eu": true, "model": "Varjo XR-4 Focal Edition", "eur": 9990, "note": "Suomi, julkaisuhinta 11/2023", "src": "s33"}
 ],
 "standards": [
-  {"id": "openxr", "name": "OpenXR", "org": "Khronos Group", "status": "Versio 1.1, 15.4.2024", "detail": "Avoin rajapintastandardi, jonka avulla sama XR-sovellus toimii eri valmistajien laseilla ilman laitekohtaista koodia. Versio 1.1 siirsi laajasti käytettyjä laajennuksia ydinmäärittelyyn, mikä vähentää pirstaloitumista.", "src": "x01"},
-  {"id": "gltf", "name": "glTF 2.0", "org": "Khronos Group · ISO/IEC 12113:2022", "status": "ISO/IEC-standardi 4.8.2022", "detail": "Kevyt tiedostomuoto 3D-mallien ja -näkymien siirtämiseen ja näyttämiseen sovellusten välillä. Muoto hyväksyttiin vuonna 2022 kansainväliseksi ISO/IEC-standardiksi.", "src": "x02"},
-  {"id": "openusd", "name": "OpenUSD", "org": "Alliance for OpenUSD (Linux Foundation)", "status": "Core Specification 1.0, 17.12.2025", "detail": "Avoin kuvausmuoto laajoille 3D-maailmoille ja -näkymille, käytössä mm. elokuvatuotannossa ja teollisuuden digitaalisissa kaksosissa. Ensimmäinen ydinmäärittely on AOUSD:n mukaan ensimmäinen askel kohti ISO-standardointia.", "src": "x03"},
-  {"id": "webxr", "name": "WebXR Device API", "org": "W3C", "status": "Candidate Recommendation Draft, 9.6.2026", "detail": "Selainrajapinta, jolla VR- ja AR-sisältöä voi käyttää suoraan verkkosivulta ilman erillistä sovellusta. Määrittely on vielä W3C:n suositusehdotuksen luonnosvaiheessa.", "src": "x04"},
-  {"id": "msf", "name": "Metaverse Standards Forum", "org": "Yritysten ja standardointijärjestöjen foorumi", "status": "Perustettu 21.6.2022", "detail": "Foorumi ei laadi standardeja itse, vaan koordinoi olemassa olevien standardien yhteentoimivuutta. Alkuvuonna 2026 sen 3D Web Interoperability -työryhmä julkaisi Web of Worlds -whitepaperin, jossa 3D-maailmat linkitettäisiin toisiinsa kuten verkkosivut.", "src": ["x05", "x06"]},
-  {"id": "sc24", "name": "ISO/IEC JTC 1/SC 24", "org": "ISO ja IEC", "status": "Metaverse-työpaja 26.6.2023", "detail": "Kansainvälinen alikomitea, joka vastaa tietokonegrafiikan ja ympäristödatan esittämisen standardeista, mukaan lukien VR-, AR- ja metaverse-aiheiset ISO/IEC-standardit.", "src": "x07"}
+  {"id": "openxr", "cat": "xr", "name": "OpenXR", "org": "Khronos Group", "status": "Versio 1.1, 15.4.2024", "detail": "Yhteinen rajapinta natiiveille XR-sovelluksille: sama sovellus toimii eri valmistajien laitteilla. Tuettu mm. Unityssä, Unreal Enginessä ja Godotissa.", "src": ["x01", "x29"]},
+  {"id": "webxr", "cat": "xr", "name": "WebXR Device API", "org": "W3C", "status": "Candidate Recommendation Draft, 9.6.2026", "detail": "VR- ja AR-kokemukset selaimessa ilman sovellusasennusta. Toimii vain suojatulla HTTPS-yhteydellä.", "src": ["x04", "x29"]},
+  {"id": "design", "cat": "xr", "name": "Web Platform Design Principles", "org": "W3C, Technical Architecture Group", "status": "Ohjeistus (W3C Group Note), ei standardi", "detail": "Web-ratkaisujen suunnitteluperiaatteet, mm. käyttäjälähtöisyys, laiteriippumattomuus ja tietojen minimointi.", "src": ["x19", "x29"]},
+  {"id": "gltf", "cat": "3d", "name": "glTF 2.0", "org": "Khronos Group", "status": "ISO/IEC 12113:2022", "detail": "Kevyt formaatti 3D-mallien siirtoon ja reaaliaikaiseen käyttöön. Oletusvalinta yksittäisille 3D-objekteille.", "src": ["x02", "x29"]},
+  {"id": "openusd", "cat": "3d", "name": "OpenUSD", "org": "Alliance for OpenUSD", "status": "Core Specification 1.0, 17.12.2025", "detail": "Laajojen 3D-näkymien kuvaaminen, koostaminen ja yhteismuokkaus. Täydentää glTF:ää.", "src": ["x03", "x29"]},
+  {"id": "ogcfeat", "cat": "geo", "name": "OGC API – Features", "org": "Open Geospatial Consortium", "status": "Avoin rajapintastandardi", "detail": "Paikkatietokohteiden jakaminen web-rajapinnan kautta yhtenäisellä tavalla.", "src": ["x20", "x29"]},
+  {"id": "ogctiles", "cat": "geo", "name": "OGC API – Tiles", "org": "Open Geospatial Consortium", "status": "Part 1: Core, versio 1.0", "detail": "Paikkatiedon jakelu laattoina web-rajapinnan kautta. WMTS-standardin seuraaja.", "src": ["x21", "x29"]},
+  {"id": "3dtiles", "cat": "geo", "name": "3D Tiles", "org": "Cesium · OGC:n yhteisöstandardi", "status": "Versio 1.1", "detail": "Suurten 3D-aineistojen, kuten kaupunkimallien ja pistepilvien, suoratoisto. Perustuu glTF:ään.", "src": ["x22", "x29"]},
+  {"id": "citygml", "cat": "geo", "name": "CityGML 3.0", "org": "Open Geospatial Consortium", "status": "Avoin OGC-standardi", "detail": "Kaupunkien semanttiset 3D-mallit ja niiden siirto järjestelmien välillä.", "src": ["x23", "x29"]},
+  {"id": "geopose", "cat": "geo", "name": "GeoPose", "org": "Open Geospatial Consortium", "status": "Versio 1.0", "detail": "Kohteen sijainti ja asento maahan ankkuroidussa viitekehyksessä, myös virtuaalisille kohteille.", "src": ["x24", "x29"]},
+  {"id": "oidc", "cat": "id", "name": "OpenID Connect", "org": "OpenID Foundation", "status": "Core 1.0, perustuu OAuth 2.0:aan", "detail": "Kirjautuminen eri palveluihin yhdellä tunnistautumisella. Sovelluksen ei tarvitse käsitellä salasanoja.", "src": ["x25", "x29"]},
+  {"id": "did", "cat": "id", "name": "Decentralized Identifiers (DID)", "org": "W3C", "status": "v1.0 suositus 19.7.2022, v1.1 ehdokassuositus 5.3.2026", "detail": "Käyttäjän oma hajautettu tunniste ilman keskitettyä rekisteriä. Ei edellytä lohkoketjua.", "src": ["x26", "x27", "x29"]},
+  {"id": "vc", "cat": "id", "name": "Verifiable Credentials", "org": "W3C", "status": "Data Model v2.0, suositus 15.5.2025", "detail": "Väärentämiseltä suojatut, koneellisesti todennettavat todisteet, esim. jäsenyydestä, pätevyydestä tai omistajuudesta.", "src": ["x28", "x29"]},
+  {"id": "msf", "cat": "org", "name": "Metaverse Standards Forum", "org": "Yritysten ja standardointijärjestöjen foorumi", "status": "Perustettu 21.6.2022", "detail": "Ei laadi standardeja itse vaan edistää olemassa olevien yhteentoimivuutta. Julkaisi 2026 Web of Worlds -whitepaperin.", "src": ["x05", "x06"]},
+  {"id": "sc24", "cat": "org", "name": "ISO/IEC JTC 1/SC 24", "org": "ISO ja IEC", "status": "Metaverse-työpaja 26.6.2023", "detail": "Alikomitea, joka valmistelee mm. VR-, AR- ja metaverse-aiheisia ISO/IEC-standardeja.", "src": ["x07"]}
 ],
 "eu": [
-  {"id": "web40", "name": "Web 4.0 ja virtuaalimaailmat -aloite", "org": "Euroopan komissio · COM(2023) 442", "status": "Julkaistu 11.7.2023", "detail": "EU:n strategia virtuaalimaailmoille. Painopisteet ovat osaaminen, eurooppalainen teollisuusekosysteemi, virtuaalimaailmat julkisissa palveluissa sekä avoimet standardit, jotta suuret toimijat eivät hallitse kehitystä yksin. Taustalla on 150 satunnaisesti valitun kansalaisen paneelin 23 suositusta.", "src": ["x08", "x09"]},
-  {"id": "ep2024", "name": "Parlamentin päätöslauselma virtuaalimaailmoista", "org": "Euroopan parlamentti · JURI-valiokunta", "status": "Hyväksytty 17.1.2024", "detail": "Nykyinen immateriaalioikeus koskee myös virtuaalimaailmoja, mutta oikeuksien valvonta ja sovellettava laki rajat ylittävissä tilanteissa kaipaavat selvennystä. Parlamentti pyysi komissiolta ohjeita toimijoiden vastuista.", "src": "x10"},
-  {"id": "gdpr", "name": "Tietosuoja-asetus (GDPR)", "org": "Asetus (EU) 2016/679", "status": "Sovellettu 25.5.2018 alkaen", "detail": "Älylasien kamerat ja mikrofonit sekä silmän- ja kasvojenseuranta keräävät henkilötietoja, osin myös biometrisiä tietoja. Eurooppalaiset tietosuojaviranomaiset ovat ottaneet kantaa älylaseihin vuonna 2026.", "src": "x11"},
-  {"id": "aiact", "name": "Tekoälysäädös (AI Act)", "org": "Asetus (EU) 2024/1689, muutettu asetuksella (EU) 2026/1744", "status": "Vaiheittain 2025–2028", "detail": "Tunteiden tunnistaminen on kielletty työpaikoilla ja oppilaitoksissa, mikä rajaa myös XR-laitteiden kasvo- ja ääniseurannan käyttöä. Läpinäkyvyysvelvoitteet, kuten tekoälyllä tuotetun sisällön merkintä, koskevat myös XR-sisältöä. Digitaalinen omnibus siirsi suuririskisten järjestelmien määräaikoja.", "src": ["x12", "x13"]},
-  {"id": "dsa", "name": "Digipalvelusäädös (DSA)", "org": "Asetus (EU) 2022/2065", "status": "Kokonaan sovellettava 17.2.2024 alkaen", "detail": "Virtuaalimaailmat ja sosiaaliset XR-alustat ovat verkkoalustoja, joiden on puututtava laittomaan sisältöön ja suojattava alaikäisiä. Parlamentti on pyytänyt selventämään, miten säädöstä sovelletaan virtuaalimaailmoihin.", "src": ["x15", "x10"]},
-  {"id": "dataact", "name": "Datasäädös (Data Act)", "org": "Asetus (EU) 2023/2854", "status": "Sovellettava 12.9.2025 alkaen", "detail": "Verkkoon kytketyn laitteen käyttäjällä on oikeus saada laitteen käytössä syntyvä data ja jakaa se haluamalleen palveluntarjoajalle. Tämä koskee myös XR-laseja.", "src": "x16"},
-  {"id": "cra", "name": "Kyberresilienssisäädös (CRA)", "org": "Asetus (EU) 2024/2847", "status": "Raportointi 11.9.2026, kokonaan 11.12.2027", "detail": "Kyberturvavaatimukset digitaalisille tuotteille koko niiden elinkaaren ajan, myös XR-laitteille ja niiden ohjelmistoille. Valmistajien on ilmoitettava aktiivisesti hyödynnetyistä haavoittuvuuksista syyskuusta 2026 alkaen.", "src": ["x17", "x18"]}
+  {"id": "web40", "name": "Web 4.0 ja virtuaalimaailmat -aloite", "org": "Euroopan komissio · COM(2023) 442", "status": "Julkaistu 11.7.2023", "detail": "EU:n strategia virtuaalimaailmoille: osaaminen, eurooppalainen ekosysteemi, julkiset palvelut ja avoimet standardit.", "src": ["x08", "x09"]},
+  {"id": "ep2024", "name": "Parlamentin päätöslauselma virtuaalimaailmoista", "org": "Euroopan parlamentti · JURI-valiokunta", "status": "Hyväksytty 17.1.2024", "detail": "Immateriaalioikeus koskee myös virtuaalimaailmoja. Parlamentti pyysi komissiolta ohjeita toimijoiden vastuista.", "src": ["x10"]},
+  {"id": "gdpr", "name": "Tietosuoja-asetus (GDPR)", "org": "Asetus (EU) 2016/679", "status": "Sovellettu 25.5.2018 alkaen", "applies": "Käsitellään henkilötietoja, myös testikäyttäjien liike-, katse- tai biometrista dataa.", "fi": "Tietosuojavaltuutetun toimisto", "detail": "Tietosuoja sisällytetään suunnitteluun ja oletusasetuksiin. Tunnistamiseen käytettävä biometrinen data on erityistä henkilötietoa.", "src": ["x11", "x29"]},
+  {"id": "aiact", "name": "Tekoälyasetus (AI Act)", "org": "Asetus (EU) 2024/1689, muutettu asetuksella (EU) 2026/1744", "status": "Porrastetusti 2025–2028", "applies": "Käytetään tekoälyä, esim. tekoälyavatareita, generatiivista sisältöä tai tunnetilojen tunnistusta.", "fi": "Traficom (keskitetty yhteyspiste)", "detail": "Tunteiden tunnistus on kielletty työpaikoilla ja oppilaitoksissa. Riskiluokka kannattaa tunnistaa jo konseptivaiheessa.", "src": ["x12", "x13", "x29"]},
+  {"id": "dsa", "name": "Digipalveluasetus (DSA)", "org": "Asetus (EU) 2022/2065", "status": "Sovellettu kokonaan 17.2.2024 alkaen", "applies": "Palvelu tallentaa tai jakaa käyttäjien sisältöä, esim. metaversumialusta.", "fi": "Traficom (digitaalisten palvelujen koordinaattori)", "detail": "Velvoitteet porrastuvat palvelun koon mukaan. Keskeisiä ovat laittoman sisällön ilmoitusmenettely ja valvonnan avoimuus.", "src": ["x15", "x29"]},
+  {"id": "dataact", "name": "Data-asetus (Data Act)", "org": "Asetus (EU) 2023/2854", "status": "Sovellettu pääosin 12.9.2025 alkaen", "applies": "Ratkaisuun kuuluu verkkoon liitettäviä, dataa kerääviä laitteita tai tarjotaan datankäsittelypalveluja.", "fi": "Traficom (datakoordinaattori, hallituksen esitys 25.9.2025)", "detail": "Laitteen käyttäjällä on oikeus laitteen keräämään dataan. Rajanveto XR-laitteiden osalta kannattaa varmistaa tapauskohtaisesti.", "src": ["x16", "x29"]},
+  {"id": "eidas", "name": "eIDAS 2.0", "org": "Asetus (EU) 2024/1183", "status": "Voimaan 20.5.2024", "applies": "Palvelu tarjoaa sähköistä tunnistamista tai luottamuspalveluja tai hyväksyy EU:n digitaalisen identiteetin lompakon.", "fi": "Digi- ja väestötietovirasto tarjoaa lompakon (HE 17/2026 vp)", "detail": "Eurooppalainen digitaalisen identiteetin lompakko, jonka käyttö on käyttäjälle vapaaehtoista.", "src": ["x31", "x29"]},
+  {"id": "nis2", "name": "NIS2-direktiivi", "org": "Direktiivi (EU) 2022/2555", "status": "Suomessa kyberturvallisuuslaki 8.4.2025 alkaen", "applies": "Organisaatio kuuluu direktiivin toimialoihin ja kokorajoihin, esim. verkkoyhteisöalusta.", "fi": "Traficom koordinoi, valvonta toimialoittain", "detail": "Kyberriskien hallinta ja merkittävien poikkeamien ilmoittaminen. Hyvä käytäntö, vaikka laki ei koskisi.", "src": ["x32", "x29"]},
+  {"id": "cra", "name": "Kyberresilienssisäädös (CRA)", "org": "Asetus (EU) 2024/2847", "status": "Raportointi 11.9.2026, kokonaan 11.12.2027", "applies": "EU:ssa myydään digitaalisia tuotteita, esim. XR-laitteita tai -ohjelmistoja.", "detail": "Kyberturvavaatimukset tuotteen koko elinkaaren ajan. Aktiivisesti hyödynnetyistä haavoittuvuuksista on ilmoitettava.", "src": ["x17", "x18"]},
+  {"id": "eaa", "name": "Esteettömyysdirektiivi (EAA)", "org": "Direktiivi (EU) 2019/882", "status": "Sovellettu 28.6.2025 alkaen", "applies": "Tuote tai palvelu kuuluu soveltamisalaan, esim. verkkokaupan AR-sovitus. Mikroyritykset on vapautettu palveluvaatimuksista.", "fi": "Traficom", "detail": "Muissa XR-ratkaisuissa saavutettavuus on suositeltava hyvä käytäntö.", "src": ["x33", "x29"]},
+  {"id": "mica", "name": "Kryptovara-asetus (MiCA)", "org": "Asetus (EU) 2023/1114", "status": "Sovellettu kokonaan 30.12.2024 alkaen", "applies": "Alustalla lasketaan liikkeeseen, tarjotaan tai välitetään kryptovaroja, esim. omia tokeneita.", "fi": "Finanssivalvonta", "detail": "NFT:t jäävät pääsääntöisesti soveltamisalan ulkopuolelle. Rajanveto kannattaa varmistaa tapauskohtaisesti.", "src": ["x34", "x29"]}
+],
+"trl": [
+  {"name": "Design Principles", "kind": "std", "select": [1, 2], "adopt": [3, 4], "verify": [7, 7]},
+  {"name": "OpenXR", "kind": "std", "select": [2, 2], "adopt": [3, 4], "verify": [6, 7]},
+  {"name": "WebXR", "kind": "std", "select": [2, 2], "adopt": [3, 4], "verify": [6, 7]},
+  {"name": "WebRTC", "kind": "std", "select": [2, 2], "adopt": [4, 4], "verify": [6, 7]},
+  {"name": "glTF", "kind": "std", "select": [2, 2], "adopt": [3, 3], "verify": [5, 7]},
+  {"name": "OpenUSD", "kind": "std", "select": [2, 2], "adopt": [4, 4], "verify": [6, 7]},
+  {"name": "OGC API", "kind": "std", "select": [2, 2], "adopt": [3, 4], "verify": [5, 7]},
+  {"name": "3D Tiles", "kind": "std", "select": [2, 2], "adopt": [4, 4], "verify": [5, 7]},
+  {"name": "CityGML", "kind": "std", "select": [2, 2], "adopt": [4, 5], "verify": [6, 7]},
+  {"name": "OpenID Connect", "kind": "std", "select": [2, 2], "adopt": [4, 4], "verify": [7, 8]},
+  {"name": "DID", "kind": "std", "select": [2, 3], "adopt": [4, 5], "verify": [7, 8]},
+  {"name": "GDPR", "kind": "law", "select": [1, 2], "adopt": [3, 9], "verify": [1, 9], "note": "käyttöönotto TRL 3 alkaen, todentaminen koko elinkaaren ajan"},
+  {"name": "NIS2", "kind": "law", "select": [2, 2], "adopt": [5, 6], "verify": [8, 8]},
+  {"name": "AI Act", "kind": "law", "select": [2, 2], "adopt": [4, 6], "verify": [7, 8], "note": "valinnassa riskiluokan tunnistus"},
+  {"name": "Esteettömyys\u00addirektiivi", "kind": "law", "select": [2, 2], "adopt": [5, 6], "verify": [7, 8]},
+  {"name": "DSA", "kind": "law", "select": [2, 2], "adopt": [6, 6], "verify": [7, 8]},
+  {"name": "MiCA", "kind": "law", "select": [2, 2], "adopt": [5, 6], "verify": [8, 8]}
+],
+"trl_levels": [
+  "Perusperiaatteet havaittu",
+  "Teknologiakonsepti muotoiltu",
+  "Kokeellinen konseptin todentaminen",
+  "Teknologia validoitu laboratorio-olosuhteissa",
+  "Teknologia validoitu asiaankuuluvassa ympäristössä",
+  "Teknologia demonstroitu asiaankuuluvassa ympäristössä",
+  "Järjestelmäprototyypin demonstraatio toimintaympäristössä",
+  "Järjestelmä valmis ja hyväksytty",
+  "Järjestelmä todennettu todellisessa toimintaympäristössä"
+],
+"watch": [
+  {"name": "ISO/IEC 24931-1 Metaverse – Part 1: Concepts, characteristics and technology", "status": "Lopullinen luonnos (FDIS)", "src": ["x35", "x30"]},
+  {"name": "IEEE P2048 Metaverse: terminology, definitions and taxonomy", "status": "Standardiprojekti", "src": ["x36", "x30"]},
+  {"name": "IEEE P7016 Metaversumijärjestelmien eettinen suunnittelu ja ylläpito", "status": "Standardiprojekti", "src": ["x37", "x30"]},
+  {"name": "W3C DID v1.1", "status": "Ehdokassuositus 5.3.2026", "src": ["x27", "x29"]},
+  {"name": "IETF OAuth 2.1", "status": "Luonnos, versio 16 (2.9.2026)", "src": ["x38", "x29"]}
 ],
 "dates": [
   {"date": "2024-02-17", "title": "DSA kokonaan sovellettavaksi", "src": "x15"},
-  {"date": "2025-02-02", "title": "Tekoälysäädöksen kiellot voimaan, mm. tunteiden tunnistus työpaikoilla ja oppilaitoksissa", "src": "x12"},
-  {"date": "2025-09-12", "title": "Datasäädös sovellettavaksi", "src": "x16"},
-  {"date": "2026-08-02", "title": "Tekoälysäädöksen läpinäkyvyysvelvoitteet (artikla 50)", "src": "x14"},
+  {"date": "2025-02-02", "title": "Tekoälyasetuksen kiellot voimaan, mm. tunteiden tunnistus työpaikoilla ja oppilaitoksissa", "src": "x12"},
+  {"date": "2025-09-12", "title": "Data-asetus sovellettavaksi", "src": "x16"},
+  {"date": "2026-08-02", "title": "Tekoälyasetuksen läpinäkyvyysvelvoitteet (artikla 50)", "src": "x14"},
   {"date": "2026-09-11", "title": "Kyberresilienssisäädöksen haavoittuvuuksien raportointivelvoite", "src": "x18"},
-  {"date": "2026-12-02", "title": "Tekoälysäädös: tekoälysisällön merkinnän siirtymäaika päättyy jo markkinoilla oleville järjestelmille", "src": "x14"},
-  {"date": "2027-12-02", "title": "Tekoälysäädös: liitteen III suuririskiset järjestelmät (mm. työelämä ja koulutus)", "src": "x13"},
+  {"date": "2026-12-02", "title": "Tekoälyasetus: tekoälysisällön merkinnän siirtymäaika päättyy jo markkinoilla oleville järjestelmille", "src": "x14"},
+  {"date": "2027-12-02", "title": "Tekoälyasetus: liitteen III suuririskiset järjestelmät (mm. työelämä ja koulutus)", "src": "x13"},
   {"date": "2027-12-11", "title": "Kyberresilienssisäädös kokonaan sovellettavaksi", "src": "x17"},
-  {"date": "2028-08-02", "title": "Tekoälysäädös: tuotteisiin sulautetut suuririskiset järjestelmät (liite I)", "src": "x13"}
+  {"date": "2028-08-02", "title": "Tekoälyasetus: tuotteisiin sulautetut suuririskiset järjestelmät (liite I)", "src": "x13"},
+  {"date": "2024-05-20", "title": "eIDAS 2.0 voimaan", "src": "x31"},
+  {"date": "2025-04-08", "title": "NIS2: Suomen kyberturvallisuuslaki voimaan", "src": ["x32", "x29"]},
+  {"date": "2025-06-28", "title": "Esteettömyysdirektiivin vaatimukset sovellettaviksi", "src": "x33"}
 ],
 "reading": [
+  {"name": "Eloranta, A. (2026). Kansallinen metaversumiverkosto (FINverse): metaverse-teknologiat ja keskeiset standardit kehittäjälle. Versio 1.0"},
+  {"name": "Eloranta, A. (2026). Ouluversumi: TRL, avoin standardointi ja EU:n säädökset metaversumissa. Versio 1.0"},
+  {"name": "W3C (2021). XR Accessibility User Requirements", "url": "https://www.w3.org/TR/xaur/"},
+  {"name": "Mattila, A.-L. ym. (2025). Tarkistuslista oppimateriaalin ja digitaalisen sisällön saavutettavuudesta. Digivisio 2030", "url": "https://digivisio2030.fi/saavutettavuuden-tarkistuslista/"},
   {"name": "Niestadt, M. (2023). Virtual worlds (metaverses). EPRS At a Glance, PE 751.408", "url": "https://www.europarl.europa.eu/thinktank/en/document/EPRS_ATA(2023)751408"},
   {"name": "Maciejewski, M. (2023). Metaverse. JURI-valiokunnan tilaama tutkimus, PE 751.222", "url": "https://www.europarl.europa.eu/thinktank/en/document/IPOL_STU(2023)751222"},
   {"name": "Hemphill, T.A. (2023). The 'Metaverse' and the challenge of responsible standards development. Journal of Responsible Innovation", "url": "https://doi.org/10.1080/23299460.2023.2243121"}
@@ -594,7 +697,28 @@ var XR = (function () {
   {"id": "x15", "name": "EUR-Lex, asetus (EU) 2022/2065", "url": "https://eur-lex.europa.eu/eli/reg/2022/2065/oj"},
   {"id": "x16", "name": "EUR-Lex, asetus (EU) 2023/2854", "url": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj"},
   {"id": "x17", "name": "EUR-Lex, asetus (EU) 2024/2847", "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"},
-  {"id": "x18", "name": "McCann FitzGerald, CRA:n raportointivelvoitteet", "url": "https://www.mccannfitzgerald.com/knowledge/data-privacy-and-cyber-risk/cyber-resilience-act-reporting-obligations-apply-from-11-september-2026"}
+  {"id": "x18", "name": "McCann FitzGerald, CRA:n raportointivelvoitteet", "url": "https://www.mccannfitzgerald.com/knowledge/data-privacy-and-cyber-risk/cyber-resilience-act-reporting-obligations-apply-from-11-september-2026"},
+  {"id": "x19", "name": "W3C, Web Platform Design Principles", "url": "https://www.w3.org/TR/design-principles/"},
+  {"id": "x20", "name": "OGC, OGC API – Features", "url": "https://ogc.org/standard/ogcapi-features"},
+  {"id": "x21", "name": "OGC, OGC API – Tiles", "url": "https://www.ogc.org/standard/ogcapi-tiles/"},
+  {"id": "x22", "name": "Cesium, 3D Tiles -spesifikaatio", "url": "https://github.com/CesiumGS/3d-tiles"},
+  {"id": "x23", "name": "OGC, CityGML", "url": "https://www.ogc.org/standard/citygml/"},
+  {"id": "x24", "name": "OGC, GeoPose", "url": "https://www.ogc.org/standard/geopose/"},
+  {"id": "x25", "name": "OpenID Foundation, How OpenID Connect Works", "url": "https://openid.net/developers/how-connect-works/"},
+  {"id": "x26", "name": "W3C, DID v1.0", "url": "https://www.w3.org/TR/did-1.0/"},
+  {"id": "x27", "name": "W3C, DID v1.1 -ehdokassuositus", "url": "https://www.w3.org/TR/2026/CR-did-1.1-20260305/"},
+  {"id": "x28", "name": "W3C, Verifiable Credentials Data Model v2.0", "url": "https://www.w3.org/TR/vc-data-model-2.0/"},
+  {"id": "x29", "name": "Eloranta 2026, FINverse: metaverse-teknologiat ja standardit"},
+  {"id": "x30", "name": "Eloranta 2026, Ouluversumi: TRL ja standardit"},
+  {"id": "x31", "name": "EUR-Lex, asetus (EU) 2024/1183", "url": "https://eur-lex.europa.eu/eli/reg/2024/1183/oj"},
+  {"id": "x32", "name": "EUR-Lex, direktiivi (EU) 2022/2555", "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"},
+  {"id": "x33", "name": "EUR-Lex, direktiivi (EU) 2019/882", "url": "https://eur-lex.europa.eu/eli/dir/2019/882/oj"},
+  {"id": "x34", "name": "EUR-Lex, asetus (EU) 2023/1114", "url": "https://eur-lex.europa.eu/eli/reg/2023/1114/oj"},
+  {"id": "x35", "name": "ISO, ISO/IEC FDIS 24931-1", "url": "https://www.iso.org/standard/88529.html"},
+  {"id": "x36", "name": "IEEE SA, P2048", "url": "https://standards.ieee.org/ieee/2048/11169/"},
+  {"id": "x37", "name": "IEEE SA, P7016-työryhmä", "url": "https://sagroups.ieee.org/7016"},
+  {"id": "x38", "name": "IETF, OAuth 2.1 -luonnos", "url": "https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/"},
+  {"id": "x39", "name": "Euroopan komissio, Horizon Europe 2026–2027, General Annexes", "url": "https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/horizon/wp-call/2026-2027/wp-15-general-annexes_horizon-2026-2027_en.pdf"}
 ]
 }</script>
 <script>
@@ -916,6 +1040,10 @@ XR.load(function (DATA) {
   var sourcesOf = function (r) { return [].concat(r.src).filter(Boolean).map(function (s) { return SRCMAP[s]; }).filter(Boolean); };
   function node(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
 
+  var CATS = { xr: 'XR-rajapinnat ja suunnittelu', '3d': '3D-sisältö', geo: 'Paikkatieto', id: 'Identiteetti', org: 'Järjestöt' };
+  var stdCat = null;
+
+  // Kortti: järjestö, nimi, tila, kuvaus ja lähteet. EU-korteissa lisäksi "Koskee, kun" ja "Suomessa".
   function drawItems(host, list) {
     host.replaceChildren();
     (list || []).forEach(function (r) {
@@ -925,7 +1053,69 @@ XR.load(function (DATA) {
       var p = node('p', null, r.detail);
       p.append(XR.srcTags(sourcesOf(r)));
       card.append(p);
+      if (r.applies || r.fi) {
+        var dl = node('dl');
+        if (r.applies) dl.append(node('dt', null, 'Koskee, kun'), node('dd', null, r.applies));
+        if (r.fi) dl.append(node('dt', null, 'Suomessa'), node('dd', null, r.fi));
+        card.append(dl);
+      }
       host.append(card);
+    });
+  }
+
+  // Aihepainikkeet: yksi aihe kerrallaan tai kaikki.
+  function drawStandards() {
+    var host = $('xr-std-cats');
+    host.replaceChildren();
+    [null].concat(Object.keys(CATS)).forEach(function (c) {
+      var b = node('button', 'xr-btn', c ? CATS[c] : 'Kaikki');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(stdCat === c));
+      b.addEventListener('click', function () { stdCat = c; drawStandards(); });
+      host.append(b);
+    });
+    drawItems($('xr-standards'), (DATA.standards || []).filter(function (r) { return !stdCat || r.cat === stdCat; }));
+  }
+
+  function span(a) { return a[0] === a[1] ? 'TRL ' + a[0] : 'TRL ' + a[0] + '–' + a[1]; }
+  function drawTrl() {
+    var host = $('xr-trl');
+    host.replaceChildren();
+    var head = node('div', 'xr-trl-head');
+    head.setAttribute('aria-hidden', 'true');
+    head.append(node('span'));
+    for (var i = 1; i <= 9; i++) head.append(i === 2 ? node('b', null, '2') : node('span', null, String(i)));
+    host.append(head);
+    var groups = { std: 'Standardit', law: 'Säädökset' }, prev = null;
+    (DATA.trl || []).forEach(function (r) {
+      if (r.kind !== prev) { host.append(node('div', 'xr-trl-group', groups[r.kind] || '')); prev = r.kind; }
+      var row = node('div', 'xr-trl-row');
+      var name = node('span', 'xr-trl-name', r.name);
+      var desc = 'valinta ' + span(r.select) + ', käyttöönotto ' + span(r.adopt) + ', todentaminen ' + span(r.verify) + (r.note ? ' (' + r.note + ')' : '');
+      name.append(node('span', 'xr-sr', ': ' + desc));
+      row.title = r.name + ': ' + desc;
+      row.append(name);
+      [['select', r.select], ['adopt', r.adopt], ['verify', r.verify]].forEach(function (b) {
+        var bar = node('span', 'xr-trl-bar ' + b[0]);
+        bar.style.gridColumn = (b[1][0] + 1) + ' / ' + (b[1][1] + 2);
+        bar.setAttribute('aria-hidden', 'true');
+        row.append(bar);
+      });
+      host.append(row);
+    });
+    var ol = $('xr-trl-levels');
+    ol.replaceChildren();
+    (DATA.trl_levels || []).forEach(function (t) { ol.append(node('li', null, t)); });
+  }
+
+  function drawWatch() {
+    var host = $('xr-watch');
+    host.replaceChildren();
+    (DATA.watch || []).forEach(function (r) {
+      var li = node('li'), name = node('span', null, r.name);
+      name.append(XR.srcTags(sourcesOf(r)));
+      li.append(name, node('span', 'xr-state', r.status));
+      host.append(li);
     });
   }
 
@@ -954,9 +1144,11 @@ XR.load(function (DATA) {
     (DATA.reading || []).forEach(function (r) { var li = node('li'); li.append(XR.link(r.name, r.url)); host.append(li); });
   }
 
-  drawItems($('xr-standards'), DATA.standards);
+  drawStandards();
   drawItems($('xr-eu-items'), DATA.eu);
+  drawTrl();
   drawDates();
+  drawWatch();
   drawReading();
 });
 </script>
