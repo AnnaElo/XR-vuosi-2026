@@ -9,19 +9,21 @@
 </picture>
 </p>
 
-This project was carried out as part of FINverse, a national development project for metaverse and virtual environments that researches and pilots new digital solutions for the needs of cities.
+This project was carried out as part of [FINverse](https://www.businessoulu.com/tietoa-meista/ohjelmat-ja-hankkeet/kansallinen-metaversumi-verkosto-finverse/), a national development project for metaverse and virtual environments that researches and pilots new digital solutions for the needs of cities. The project is co-funded by the EU and funded by the Council of Tampere Region.
 
-[![Content: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey.svg)](LICENSE-CONTENT) [![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
+&nbsp;
 
-A concise, browser-based overview of XR developments in 2026: devices, platforms, content, regulation, and use in healthcare, defence and industry. The selection pays particular attention to Europe.
+The site is a concise, browser-based overview of XR developments in 2026: devices, platforms, content, regulation and use in different application areas (healthcare, defence and industry). The selection pays particular attention to Europe, whose developments are reflected in Finland.
 
 🔗Link: [XR Year 2026](https://annaelo.github.io/XR-vuosi-2026/?lang=en)
+
+[![Content: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey.svg)](LICENSE-CONTENT) [![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 
 &nbsp;
 
 ## 📚 Material and scope
 
-The material has been compiled from public sources. The exact source is given on the page next to each item.
+The material has been compiled from public sources. The exact source is given on the page next to each item. The material is currently updated manually, but the possibilities for automation will be explored in the near future.
 
 | Section | Material and sources |
 |---|---|
