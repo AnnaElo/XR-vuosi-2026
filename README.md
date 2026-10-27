@@ -9,19 +9,21 @@
 </picture>
 </p>
 
-Tämä projekti on toteutettu osana FINverse-hanketta, joka on kansallinen metaversumi- ja virtuaaliympäristöjen kehittämishanke, jossa tutkitaan ja pilotoidaan uusia digitaalisia ratkaisuja kaupunkien tarpeisiin.
+Tämä projekti on toteutettu osana [FINverse-hanketta](https://www.businessoulu.com/tietoa-meista/ohjelmat-ja-hankkeet/kansallinen-metaversumi-verkosto-finverse/), joka on kansallinen metaversumi- ja virtuaaliympäristöjen kehittämishanke, jossa tutkitaan ja pilotoidaan uusia digitaalisia ratkaisuja kaupunkien tarpeisiin. Hanke on EU:n osarahoittama ja sitä rahoittaa Pirkanmaan liitto.
 
-[![Sisältö: CC BY 4.0](https://img.shields.io/badge/sis%C3%A4lt%C3%B6-CC%20BY%204.0-lightgrey.svg)](LICENSE-CONTENT) [![Koodi: MIT](https://img.shields.io/badge/koodi-MIT-blue.svg)](LICENSE)
+&nbsp;
 
-Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoihin, sisältöihin, sääntelyyn sekä terveydenhuollon, puolustuksen ja teollisuuden käyttöön. Poiminnoissa huomioidaan erityisesti Euroopan alue.
+Sivusto on tiivis sekä selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoihin, sisältöihin, sääntelyyn sekä eri sovellusalojen (terveydenhuollon, puolustuksen ja teollisuuden) käyttöön. Poiminnoissa huomioidaan erityisesti Euroopan alue, joiden vaikutus heijastuu Suomeen. 
 
 🔗Linkki: [XR-vuosi 2026](https://annaelo.github.io/XR-vuosi-2026/)
+
+[![Sisältö: CC BY 4.0](https://img.shields.io/badge/sis%C3%A4lt%C3%B6-CC%20BY%204.0-lightgrey.svg)](LICENSE-CONTENT) [![Koodi: MIT](https://img.shields.io/badge/koodi-MIT-blue.svg)](LICENSE)
 
 &nbsp;
 
 ## 📚 Aineisto ja rajaukset
 
-Aineisto on koottu julkisista lähteistä. Tarkat lähteet ovat sivulla jokaisen tiedon kohdalla.
+Aineisto on koottu julkisista lähteistä. Tarkat lähteet ovat sivulla jokaisen tiedon kohdalla. Aineisto päivitetään tällä hetkellä manuaalisesti, mutta lähitulevaisuudessa pyritään tarkastelemaan automatisaation mahdollisuuksia. 
 
 | Osio | Aineisto ja lähteet |
 |---|---|
