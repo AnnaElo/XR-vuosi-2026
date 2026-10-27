@@ -1,5 +1,7 @@
 # 📢 XR-vuosi 2026
 
+**Suomeksi · [In English](README.en.md)**
+
 [![Sisältö: CC BY 4.0](https://img.shields.io/badge/sis%C3%A4lt%C3%B6-CC%20BY%204.0-lightgrey.svg)](LICENSE-CONTENT) [![Koodi: MIT](https://img.shields.io/badge/koodi-MIT-blue.svg)](LICENSE)
 
 Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoihin, sisältöihin, sääntelyyn sekä terveydenhuollon, puolustuksen ja teollisuuden käyttöön. Poiminnoissa huomioidaan erityisesti Euroopan alue.
@@ -32,6 +34,7 @@ Aineisto on koottu julkisista lähteistä. Tarkat lähteet ovat sivulla jokaisen
 - Yksi itsenäinen index.html: tyylit, data, JavaScript ja kuva ovat samassa tiedostossa.
 - Ei ulkoisia kirjastoja eikä evästeitä. Ainoa ulkoinen palvelu on Google Fonts, josta fontit ladataan.
 - Toimii mobiilissa sekä vaalealla ja tummalla teemalla. Oletuksena on vaalea teema, ja tumman voi valita yläpalkin säätimestä. Valinta muistetaan selaimessa.
+- Sivu on suomeksi ja englanniksi. Kielen voi vaihtaa yläpalkin painikkeesta (In English / Suomeksi), ja valinta muistetaan selaimessa. Englanninkielisen version voi jakaa suoralla linkillä: `https://annaelo.github.io/XR-vuosi-2026/?lang=en`.
 - Sivulla on kolme osiota, joihin yläpalkin linkit vievät: XR-uutiset, XR-kehitys lukuina sekä standardit ja sääntely.
 - Aineisto on JSON-muodossa tiedoston lopussa (<script id="xr-data">). Rivin voi lisätä tai korjata suoraan siihen.
 
@@ -47,7 +50,7 @@ Sivun ilme rakennettiin Clauden avulla, jossa keskeisinä teemoina olivat avoimu
 - **XR-hahmokuva** on jäänsinisen pyöreän "keskiyön auringon" sisällä.
 - **Muodot:** 8 px pyöristys korteissa, pillerinmuotoiset painikkeet ja ohuet viivat, ei koristeellisia varjoja.
 - **Saavutettavuus:** pienin fonttikoko on 12 px, myös kaavioissa. Tekstin ja taustan kontrasti täyttää WCAG AA -tason (vähintään 4,5:1) molemmissa teemoissa, ja näppäimistöfokus näkyy selvästi.
-- ** Huomioitavaa:**  Värit ja fontit on määritelty CSS-muuttujina index.html:n alussa (`:root` ja `[data-scheme="dark"]`), joten niitä voi muuttaa yhdestä kohdasta.
+- **Huomioitavaa:** Värit ja fontit on määritelty CSS-muuttujina index.html:n alussa (`:root` ja `[data-scheme="dark"]`), joten niitä voi muuttaa yhdestä kohdasta.
 
 &nbsp;
 
@@ -84,6 +87,8 @@ Muut aineistolistat:
 | `dates` | EU-säädösten määräpäivät. | `date`, `title`, `src`. Sivu järjestää ne ja merkitsee ne avauspäivän mukaan joko "Voimassa" tai "Tulossa". |
 | `reading` | Taustalukemisto. | `name` ja valinnainen `url`. |
 | `sources` | Kaikki lähteet. | `id`, `name` ja valinnainen `url` (ilman sitä lähde näkyy ilman linkkiä). XR-uutisten lähteillä on tunnisteet `s01`, `s02` … ja Standardit ja sääntely -osion lähteillä `x01`, `x02` …. Standardien ja sääntelyn lähteinä käytetään ensisijaisesti järjestöjen omia sivustoja (esim. Khronos, W3C, OGC, EUR-Lex, Euroopan komissio). |
+
+**Englanninkieliset tekstit:** aineiston tekstikentälle voi lisätä englanninkielisen version samaan riviin lisäämällä kentän nimen perään `_en`, esim. `"title_en"`, `"detail_en"`, `"name_en"`, `"status_en"`, `"org_en"`, `"applies_en"`, `"fi_en"` tai hintojen `"note_en"`. Jos `_en`-kenttä puuttuu, englanninkielinen sivu näyttää suomenkielisen tekstin. Sivun kiinteät tekstit ovat index.html:ssä pareittain (`data-l="fi"` ja `data-l="en"`).
 
 Jos rivillä on virheellinen päivämäärä, aihe tai lähde, sivu jättää rivin pois ja kertoo siitä selaimen konsolissa.
 
