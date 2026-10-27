@@ -71,15 +71,19 @@ Jokainen tapahtuma on yksi rivi `events`-listassa:
 
 Sivu laskee itse neljänneksen (Q1–Q4), aikajanan päivämäärän, aiheen nimen ja tapahtumien järjestyksen. Rivejä ei siis tarvitse pitää aikajärjestyksessä. Aikajana ja otsikko jatkuvat automaattisesti uusiin kuukausiin.
 
-- `updated`: päivityspäivä (`"2026-10-16"`), näkyy sivun alalaidassa. Tätä ei tarvitse muuttaa käsin: GitHub Actions -työnkulku (`.github/workflows/paivitysaika.yml`) asettaa sen automaattisesti sen päivän mukaan, jolloin index.html:ää viimeksi muutettiin, ja tallentaa muutoksen omana committinaan.
-- `prices`: hintalistan mallit (`group` `ar` tai `vr`, `eur`, valinnaiset `from` = "alk.", `approx` = "noin", `note` ja `eu: true` eurooppalaiselle valmistajalle, sekä `src`). Eurooppalaiset mallit näkyvät omana ryhmänään.
-- `figures`: kaavioiden luvut.
-- `standards`: standardikortit (`id`, `org_key`, `cat`, `name`, `org`, `status`, `detail`, `src`). `org_key` määrää kortin järjestövärin: `khronos`, `w3c`, `ogc`, `aousd`, `oidf`, `msf` tai `iso`. Värit ovat CSS-muuttujina (`--o-khronos` jne.). `cat` on aihe: `xr` (XR-rajapinnat ja suunnittelu), `3d`, `geo` (paikkatieto), `id` (identiteetti) tai `org` (järjestöt).
-- `eu`: EU-linjaukset ja -säädökset (`id`, `name`, `org`, `status`, `detail`, `src` sekä valinnaiset `applies` = "Koskee, kun" ja `fi` = "Suomessa").
-- `watch`: Kehitteillä-lista (`name`, `status`, `src`).
-- `dates`: EU-säädösten määräpäivät (`date`, `title`, `src`). Sivu järjestää ne ja merkitsee ne avauspäivän mukaan joko "Voimassa" tai "Tulossa".
-- `reading`: taustalukemisto (`name`, valinnainen `url`).
-- Standardit ja sääntely -osion lähteillä on tunnisteet `x01`, `x02` … samassa `sources`-listassa. Lähteinä käytetään ensisijaisesti järjestöjen omia sivustoja (esim. Khronos, W3C, OGC, EUR-Lex, Euroopan komissio). Lähteen `url` on valinnainen, jolloin lähde näkyy ilman linkkiä.
+Muut aineistolistat:
+
+| Lista | Sisältö | Kentät ja huomiot |
+|---|---|---|
+| `updated` | Päivityspäivä (`"2026-10-16"`), näkyy sivun alalaidassa. | Ei tarvitse muuttaa käsin. GitHub Actions -työnkulku (`.github/workflows/paivitysaika.yml`) asettaa sen sen päivän mukaan, jolloin index.html:ää viimeksi muutettiin, ja tallentaa muutoksen omana committinaan. |
+| `prices` | Hintalistan mallit. | `group` (`ar` tai `vr`), `eur`, `src` sekä valinnaiset `from` = "alk.", `approx` = "noin", `note` ja `eu: true` eurooppalaiselle valmistajalle. Eurooppalaiset mallit näkyvät omana ryhmänään. |
+| `figures` | Kaavioiden luvut. | |
+| `standards` | Standardikortit. | `id`, `org_key`, `cat`, `name`, `org`, `status`, `detail`, `src`.<br>`org_key` määrää kortin järjestövärin: `khronos`, `w3c`, `ogc`, `aousd`, `oidf`, `msf` tai `iso`. Värit ovat CSS-muuttujina (`--o-khronos` jne.).<br>`cat` on aihe: `xr` (XR-rajapinnat ja suunnittelu), `3d`, `geo` (paikkatieto), `id` (identiteetti) tai `org` (järjestöt). |
+| `eu` | EU-linjaukset ja -säädökset. | `id`, `name`, `org`, `status`, `detail`, `src` sekä valinnaiset `applies` = "Koskee, kun" ja `fi` = "Suomessa". |
+| `watch` | Kehitteillä-lista. | `name`, `status`, `src`. |
+| `dates` | EU-säädösten määräpäivät. | `date`, `title`, `src`. Sivu järjestää ne ja merkitsee ne avauspäivän mukaan joko "Voimassa" tai "Tulossa". |
+| `reading` | Taustalukemisto. | `name` ja valinnainen `url`. |
+| `sources` | Kaikki lähteet. | `id`, `name` ja valinnainen `url` (ilman sitä lähde näkyy ilman linkkiä). XR-uutisten lähteillä on tunnisteet `s01`, `s02` … ja Standardit ja sääntely -osion lähteillä `x01`, `x02` …. Standardien ja sääntelyn lähteinä käytetään ensisijaisesti järjestöjen omia sivustoja (esim. Khronos, W3C, OGC, EUR-Lex, Euroopan komissio). |
 
 Jos rivillä on virheellinen päivämäärä, aihe tai lähde, sivu jättää rivin pois ja kertoo siitä selaimen konsolissa.
 
