@@ -1,5 +1,7 @@
 # 📢 XR-vuosi 2026
 
+**Suomeksi · [In English](README.en.md)**
+
 [![Sisältö: CC BY 4.0](https://img.shields.io/badge/sis%C3%A4lt%C3%B6-CC%20BY%204.0-lightgrey.svg)](LICENSE-CONTENT) [![Koodi: MIT](https://img.shields.io/badge/koodi-MIT-blue.svg)](LICENSE)
 
 Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoihin, sisältöihin, sääntelyyn sekä terveydenhuollon, puolustuksen ja teollisuuden käyttöön. Poiminnoissa huomioidaan erityisesti Euroopan alue.
