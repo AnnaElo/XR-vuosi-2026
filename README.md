@@ -32,6 +32,7 @@ Aineisto on koottu julkisista lähteistä. Tarkat lähteet ovat sivulla jokaisen
 - Yksi itsenäinen index.html: tyylit, data, JavaScript ja kuva ovat samassa tiedostossa.
 - Ei ulkoisia kirjastoja eikä evästeitä. Ainoa ulkoinen palvelu on Google Fonts, josta fontit ladataan.
 - Toimii mobiilissa sekä vaalealla ja tummalla teemalla. Oletuksena on vaalea teema, ja tumman voi valita yläpalkin säätimestä. Valinta muistetaan selaimessa.
+- Sivu on suomeksi ja englanniksi. Kielen voi vaihtaa yläpalkin painikkeesta (In English / Suomeksi), ja valinta muistetaan selaimessa. Englanninkielisen version voi jakaa suoralla linkillä: `https://annaelo.github.io/XR-vuosi-2026/?lang=en`.
 - Sivulla on kolme osiota, joihin yläpalkin linkit vievät: XR-uutiset, XR-kehitys lukuina sekä standardit ja sääntely.
 - Aineisto on JSON-muodossa tiedoston lopussa (<script id="xr-data">). Rivin voi lisätä tai korjata suoraan siihen.
 
@@ -84,6 +85,8 @@ Muut aineistolistat:
 | `dates` | EU-säädösten määräpäivät. | `date`, `title`, `src`. Sivu järjestää ne ja merkitsee ne avauspäivän mukaan joko "Voimassa" tai "Tulossa". |
 | `reading` | Taustalukemisto. | `name` ja valinnainen `url`. |
 | `sources` | Kaikki lähteet. | `id`, `name` ja valinnainen `url` (ilman sitä lähde näkyy ilman linkkiä). XR-uutisten lähteillä on tunnisteet `s01`, `s02` … ja Standardit ja sääntely -osion lähteillä `x01`, `x02` …. Standardien ja sääntelyn lähteinä käytetään ensisijaisesti järjestöjen omia sivustoja (esim. Khronos, W3C, OGC, EUR-Lex, Euroopan komissio). |
+
+**Englanninkieliset tekstit:** aineiston tekstikentälle voi lisätä englanninkielisen version samaan riviin lisäämällä kentän nimen perään `_en`, esim. `"title_en"`, `"detail_en"`, `"name_en"`, `"status_en"`, `"org_en"`, `"applies_en"`, `"fi_en"` tai hintojen `"note_en"`. Jos `_en`-kenttä puuttuu, englanninkielinen sivu näyttää suomenkielisen tekstin. Sivun kiinteät tekstit ovat index.html:ssä pareittain (`data-l="fi"` ja `data-l="en"`).
 
 Jos rivillä on virheellinen päivämäärä, aihe tai lähde, sivu jättää rivin pois ja kertoo siitä selaimen konsolissa.
 
