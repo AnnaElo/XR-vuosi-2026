@@ -2,6 +2,15 @@
 
 **Suomeksi · [In English](README.en.md)**
 
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="kuvat/finverse-logot-valkoinen.png">
+  <img src="kuvat/finverse-logot.png" alt="Euroopan unionin osarahoittama. Hankkeen toteuttajat: Innokaupungit (Oulu ja Espoo), Oulun yliopisto, Oulun ammattikorkeakoulu ja Pirkanmaan liitto." width="480">
+</picture>
+</p>
+
+Tämä projekti on toteutettu osana FINverse-hanketta, joka on kansallinen metaversumi- ja virtuaaliympäristöjen kehittämishanke, jossa tutkitaan ja pilotoidaan uusia digitaalisia ratkaisuja kaupunkien tarpeisiin.
+
 [![Sisältö: CC BY 4.0](https://img.shields.io/badge/sis%C3%A4lt%C3%B6-CC%20BY%204.0-lightgrey.svg)](LICENSE-CONTENT) [![Koodi: MIT](https://img.shields.io/badge/koodi-MIT-blue.svg)](LICENSE)
 
 Tiivis, selainpohjainen katsaus vuoden 2026 XR-kehitykseen: laitteisiin, alustoihin, sisältöihin, sääntelyyn sekä terveydenhuollon, puolustuksen ja teollisuuden käyttöön. Poiminnoissa huomioidaan erityisesti Euroopan alue.
