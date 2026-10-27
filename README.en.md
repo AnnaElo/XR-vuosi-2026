@@ -4,7 +4,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="kuvat/finverse-logot-valkoinen.png">
-  <img src="kuvat/finverse-logot.png" alt="Co-funded by the European Union. Project partners: Innokaupungit (Oulu and Espoo), University of Oulu, Oulu University of Applied Sciences and the Council of Tampere Region." width="720">
+  <img src="kuvat/finverse-logot.png" alt="Co-funded by the European Union. Project partners: Innokaupungit (Oulu and Espoo), University of Oulu, Oulu University of Applied Sciences and the Council of Tampere Region." width="480">
 </picture>
 
 This project was carried out as part of FINverse, a national development project for metaverse and virtual environments that researches and pilots new digital solutions for the needs of cities.

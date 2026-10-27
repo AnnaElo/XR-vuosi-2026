@@ -4,7 +4,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="kuvat/finverse-logot-valkoinen.png">
-  <img src="kuvat/finverse-logot.png" alt="Euroopan unionin osarahoittama. Hankkeen toteuttajat: Innokaupungit (Oulu ja Espoo), Oulun yliopisto, Oulun ammattikorkeakoulu ja Pirkanmaan liitto." width="720">
+  <img src="kuvat/finverse-logot.png" alt="Euroopan unionin osarahoittama. Hankkeen toteuttajat: Innokaupungit (Oulu ja Espoo), Oulun yliopisto, Oulun ammattikorkeakoulu ja Pirkanmaan liitto." width="480">
 </picture>
 
 Tämä projekti on toteutettu osana FINverse-hanketta, joka on kansallinen metaversumi- ja virtuaaliympäristöjen kehittämishanke, jossa tutkitaan ja pilotoidaan uusia digitaalisia ratkaisuja kaupunkien tarpeisiin.
