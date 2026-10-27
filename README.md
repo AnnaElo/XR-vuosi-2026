@@ -12,7 +12,7 @@ Aineisto on koottu julkisista lähteistä. Tarkat lähteet ovat sivulla jokaisen
 
 | Osio | Aineisto ja lähteet |
 |---|---|
-| **Tapahtumat** | **XR-uutiskirjeet:** Immersive Wire, Auganix, VR.org, UC Today<br>**Muut lähteet:** Road to VR, TechSpot, heise online, Meta Connect 2026, ESA XR |
+| **XR-uutiset** | **XR-uutiskirjeet:** Immersive Wire, Auganix, VR.org, UC Today<br>**Muut lähteet:** Road to VR, TechSpot, heise online, Meta Connect 2026, ESA XR |
 | **XR-kehitys lukuina** | **Meta Reality Labs:** Immersive Wire<br>**Laitetoimitukset:** VR.org (Counterpoint Research, Q2 2026)<br>**Lasien hinnat:** Road to VR, TechSpot, Netzwelt, Born City, Hifi.de, Instalki, IEEE Spectrum, Mixed |
 | **Standardit ja sääntely** | **Kehittävät järjestöt:**<br>• Khronos Group (OpenXR, glTF 2.0)<br>• Alliance for OpenUSD, Linux Foundation (OpenUSD)<br>• W3C (WebXR Device API)<br>• Metaverse Standards Forum<br>• ISO/IEC JTC 1/SC 24<br>**EU:n linjaukset ja säädökset:**<br>• Web 4.0 ja virtuaalimaailmat -aloite, COM(2023) 442<br>• Euroopan parlamentin päätöslauselma virtuaalimaailmoista (2024)<br>• Tietosuoja-asetus (GDPR), asetus (EU) 2016/679<br>• Tekoälysäädös (AI Act), asetus (EU) 2024/1689<br>• Digipalvelusäädös (DSA), asetus (EU) 2022/2065<br>• Datasäädös (Data Act), asetus (EU) 2023/2854<br>• Kyberresilienssisäädös (CRA), asetus (EU) 2024/2847 |
 
@@ -30,7 +30,7 @@ Aineisto on koottu julkisista lähteistä. Tarkat lähteet ovat sivulla jokaisen
 - Yksi itsenäinen index.html: tyylit, data, JavaScript ja kuva ovat samassa tiedostossa.
 - Ei ulkoisia kirjastoja eikä evästeitä. Ainoa ulkoinen palvelu on Google Fonts, josta fontit ladataan.
 - Toimii mobiilissa sekä vaalealla ja tummalla teemalla. Oletuksena on vaalea teema, ja tumman voi valita yläpalkin säätimestä. Valinta muistetaan selaimessa.
-- Sivulla on kolme osiota, joihin yläpalkin linkit vievät: keskeiset tapahtumat, XR-kehitys lukuina sekä standardit ja sääntely.
+- Sivulla on kolme osiota, joihin yläpalkin linkit vievät: XR-uutiset, XR-kehitys lukuina sekä standardit ja sääntely.
 - Aineisto on JSON-muodossa tiedoston lopussa (<script id="xr-data">). Rivin voi lisätä tai korjata suoraan siihen.
 
 &nbsp;
