@@ -2,6 +2,13 @@
 
 **[Suomeksi](README.md) · In English**
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="kuvat/finverse-logot-valkoinen.png">
+  <img src="kuvat/finverse-logot.png" alt="Co-funded by the European Union. Project partners: Innokaupungit (Oulu and Espoo), University of Oulu, Oulu University of Applied Sciences and the Council of Tampere Region." width="720">
+</picture>
+
+This project was carried out as part of FINverse, a national development project for metaverse and virtual environments that researches and pilots new digital solutions for the needs of cities.
+
 [![Content: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey.svg)](LICENSE-CONTENT) [![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 
 A concise, browser-based overview of XR developments in 2026: devices, platforms, content, regulation, and use in healthcare, defence and industry. The selection pays particular attention to Europe.
