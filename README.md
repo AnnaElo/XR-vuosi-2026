@@ -35,17 +35,17 @@ Aineisto on koottu julkisista lähteistä. Tarkat lähteet ovat sivulla jokaisen
 
 &nbsp;
 
-## 🎨 Visuaalinen ilme (Napapiiri)
+## 🎨 Visuaalinen ilme
 
-Ilme valittiin kolmesta vaihtoehdosta (Napapiiri, Revontuli ja Polaarikartta). Teemoina olivat avoimuus, metaversumi, virtuaalimaailma ja Suomen arktisuus. Napapiiri on ilmava ja helppolukuinen, ja se sopii datavetoiselle sivulle.
+Sivun ilme rakennettiin Clauden avulla, jossa keskeisinä teemoina olivat avoimuus, metaversumi, virtuaalimaailma ja Suomen arktisuus. Teemaksi valikoitui "Napapiiri", joka on ilmava ja helppolukuinen, ja se sopii datavetoiselle sivulle.
 
-- **Värit** on poimittu sivun hero-kuvasta. Vaalean teeman pohja on hangen sävy (`#f2f6fb`), teksti kaamoksen sininen (`#05103b`) ja korostus koboltti (`#103f96`). Tumma teema käyttää pohjana kaamoksen sinistä (`#06112d`) ja korostuksena vaaleaa kobolttia (`#8fb0f2`).
+- **Värit** on poimittu sivun XR-hahmokuvan väripaletista. Vaalean teeman pohja on hangen sävy (`#f2f6fb`), teksti kaamoksen sininen (`#05103b`) ja korostus koboltti (`#103f96`). Tumma teema käyttää pohjana kaamoksen sinistä (`#06112d`) ja korostuksena vaaleaa kobolttia (`#8fb0f2`).
 - **Aihevärit** ovat värisokeille sopivaa Okabe–Ito-palettia, ja ne ovat samat molemmissa teemoissa (tummassa hieman vaaleampina). Aiheen pallo on täytetty, kun aihe on valittuna, ja rengas, kun se on rajattu pois.
 - **Fontit:** Schibsted Grotesk otsikoissa ja leipätekstissä, IBM Plex Mono päivämäärissä ja lähdetägeissä. Jos fontit eivät lataudu, sivu käyttää järjestelmäfontteja.
-- **Hero-kuva** on jäänsinisen pyöreän "keskiyön auringon" sisällä.
+- **XR-hahmokuva** on jäänsinisen pyöreän "keskiyön auringon" sisällä.
 - **Muodot:** 8 px pyöristys korteissa, pillerinmuotoiset painikkeet ja ohuet viivat, ei koristeellisia varjoja.
 - **Saavutettavuus:** pienin fonttikoko on 12 px, myös kaavioissa. Tekstin ja taustan kontrasti täyttää WCAG AA -tason (vähintään 4,5:1) molemmissa teemoissa, ja näppäimistöfokus näkyy selvästi.
-- Värit ja fontit on määritelty CSS-muuttujina index.html:n alussa (`:root` ja `[data-scheme="dark"]`), joten niitä voi muuttaa yhdestä kohdasta.
+- ** Huomioitavaa:**  Värit ja fontit on määritelty CSS-muuttujina index.html:n alussa (`:root` ja `[data-scheme="dark"]`), joten niitä voi muuttaa yhdestä kohdasta.
 
 &nbsp;
 
