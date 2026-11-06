@@ -55,6 +55,13 @@ h3 { font-size: 0.95rem; font-weight: 600; }
 .xr-btn:hover { border-color: var(--muted); }
 .xr-btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 .xr-filterline.on { color: var(--fg); font-weight: 600; }
+/* Kaikki XR-uutiset -taulukon suodatinpalkki: neljännekset ja aiheet */
+.xr-tfilter { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.9rem; }
+.xr-tfilter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.xr-tfilter-label { color: var(--muted); font-size: 0.8125rem; min-width: 5.5rem; }
+.xr-tfilter .xr-btn { display: inline-flex; align-items: center; gap: 0.4rem; }
+.xr-tfilter .xr-swatch { width: 0.6rem; height: 0.6rem; }
+.xr-btn:disabled { opacity: 0.45; cursor: default; }
 :is(.xr-btn, .xr-theme, .xr-dot, a, summary, button):focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
 
 .xr-themes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 0.9rem; }
@@ -428,6 +435,11 @@ var XR = (function () {
 
   <section class="xr-sec" aria-labelledby="xr-h-events">
     <h2 id="xr-h-events"><span data-l="fi">Kaikki XR-uutiset</span><span data-l="en">All XR news</span></h2>
+    <div class="xr-tfilter">
+      <div class="xr-tfilter-row" role="group" aria-labelledby="xr-qf-label"><span class="xr-tfilter-label" id="xr-qf-label"><span data-l="fi">Neljännes</span><span data-l="en">Quarter</span></span><span class="xr-controls" id="xr-qf"></span></div>
+      <div class="xr-tfilter-row" role="group" aria-labelledby="xr-tf-label"><span class="xr-tfilter-label" id="xr-tf-label"><span data-l="fi">Aihe</span><span data-l="en">Topic</span></span><span class="xr-controls" id="xr-tf"></span></div>
+      <p class="xr-note" id="xr-tcount" aria-live="polite"></p>
+    </div>
     <div class="xr-tablewrap">
       <table class="xr-table" id="xr-table">
         <thead><tr><th><span data-l="fi">Ajankohta</span><span data-l="en">When</span></th><th><span data-l="fi">Aihe</span><span data-l="en">Topic</span></th><th><span data-l="fi">Uutinen</span><span data-l="en">News</span></th><th><span data-l="fi">Lisätieto</span><span data-l="en">Details</span></th></tr></thead>
@@ -773,7 +785,8 @@ XR.load(function (DATA) {
 
   // Aiherajaus osoitteesta, esim. index.html?aihe=saantely#uutiset (useampi pilkulla erotettuna).
   var fromUrl = (new URLSearchParams(location.search).get('aihe') || '').split(',').filter(function (t) { return THEMES.indexOf(t) >= 0; });
-  var state = { active: new Set(fromUrl.length ? fromUrl : THEMES), europe: new URLSearchParams(location.search).get('eurooppa') === '1', pinned: null };
+  var QS = [1, 2, 3, 4];
+  var state = { active: new Set(fromUrl.length ? fromUrl : THEMES), europe: new URLSearchParams(location.search).get('eurooppa') === '1', qs: new Set(QS), pinned: null };
 
   // Johdetaan näytettävät kentät datasta, jotta riville riittää id, date, theme, europe, title, detail ja src.
   var EVENTS = DATA.events.map(function (r, i) {
@@ -799,7 +812,7 @@ XR.load(function (DATA) {
   var YEAR = UPDATED ? UPDATED.y : 2026;
   var LAST_M = EVENTS.reduce(function (mx, r) { return Math.max(mx, r.m); }, UPDATED ? UPDATED.m : 0);
   var isEu = function (r) { return r.europe === true || r.europe === 'true'; };
-  var visible = function (r) { return state.active.has(r.theme) && (!state.europe || isEu(r)); };
+  var visible = function (r) { return state.active.has(r.theme) && state.qs.has(r.q) && (!state.europe || isEu(r)); };
 
   function fillStatic() {
     XR.fillCommon(DATA, SRCMAP);
@@ -932,25 +945,59 @@ XR.load(function (DATA) {
     $('xr-eu').setAttribute('aria-pressed', String(state.europe));
     var act = THEMES.filter(function (t) { return state.active.has(t); });
     var parts = [act.length === THEMES.length ? t('kaikki aiheet', 'all topics') : act.map(function (k) { return NAMES[k]; }).join(', ')];
+    if (state.qs.size < QS.length) parts.push(QS.filter(function (q) { return state.qs.has(q); }).map(function (q) { return 'Q' + q; }).join(', '));
     if (state.europe) parts.push(t('vain Eurooppa-yhteys', 'Europe only'));
     var line = $('xr-filterline');
     line.textContent = t('Näytetään: ', 'Showing: ') + parts.join(' · ') + '.';
-    line.classList.toggle('on', act.length < THEMES.length || state.europe);
+    line.classList.toggle('on', act.length < THEMES.length || state.qs.size < QS.length || state.europe);
+    drawTableFilter();
+  }
+
+  // Taulukon suodatinpalkki: "Kaikki" tai yksi/useampi neljännes ja aihe. Aiheet ovat samat kuin aihekorteissa.
+  function pick(set, all, k) {
+    if (set.size === all.length) return new Set([k]);
+    if (set.has(k)) { set.delete(k); return set.size ? set : new Set(all); }
+    set.add(k); return set;
+  }
+  function chip(label, pressed, onClick, sw) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'xr-btn';
+    b.setAttribute('aria-pressed', String(pressed));
+    if (sw) { var i = document.createElement('span'); i.className = 'xr-swatch'; i.style.setProperty('--sw', 'var(--c-' + sw + ')'); b.append(i); }
+    b.append(label);
+    b.addEventListener('click', onClick);
+    return b;
+  }
+  function drawTableFilter() {
+    var allQ = state.qs.size === QS.length, allT = state.active.size === THEMES.length;
+    var qf = $('xr-qf'), tf = $('xr-tf');
+    qf.replaceChildren(chip(t('Kaikki', 'All'), allQ, function () { state.qs = new Set(QS); drawFiltered(); }));
+    QS.forEach(function (q) {
+      var n = EVENTS.filter(function (r) { return r.q === q; }).length;
+      var b = chip('Q' + q, !allQ && state.qs.has(q), function () { state.qs = pick(state.qs, QS, q); drawFiltered(); });
+      if (!n) b.disabled = true;
+      qf.append(b);
+    });
+    tf.replaceChildren(chip(t('Kaikki', 'All'), allT, function () { state.active = new Set(THEMES); drawFiltered(); }));
+    THEMES.forEach(function (k) {
+      tf.append(chip(NAMES[k], !allT && state.active.has(k), function () { state.active = pick(state.active, THEMES, k); drawFiltered(); }, k));
+    });
+    var shown = EVENTS.filter(visible).length;
+    $('xr-tcount').textContent = shown === EVENTS.length
+      ? t('Kaikki ' + EVENTS.length + ' uutista.', 'All ' + EVENTS.length + ' news items.')
+      : t('Näytetään ' + shown + '/' + EVENTS.length + ' uutista.', 'Showing ' + shown + ' of ' + EVENTS.length + ' news items.');
   }
 
   function drawFiltered() { syncControls(); drawStrip(); drawTable(); }
 
   document.querySelectorAll('.xr-theme').forEach(function (b) {
     b.addEventListener('click', function () {
-      var t = b.dataset.theme;
-      if (state.active.size === THEMES.length) state.active = new Set([t]);
-      else if (state.active.has(t)) { state.active.delete(t); if (!state.active.size) state.active = new Set(THEMES); }
-      else state.active.add(t);
+      state.active = pick(state.active, THEMES, b.dataset.theme);
       drawFiltered();
     });
   });
   $('xr-eu').addEventListener('click', function () { state.europe = !state.europe; drawFiltered(); });
-  $('xr-reset').addEventListener('click', function () { state.active = new Set(THEMES); state.europe = false; drawFiltered(); });
+  $('xr-reset').addEventListener('click', function () { state.active = new Set(THEMES); state.qs = new Set(QS); state.europe = false; drawFiltered(); });
 
   fillStatic();
   drawFiltered();
